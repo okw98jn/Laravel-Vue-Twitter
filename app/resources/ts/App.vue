@@ -4,5 +4,4 @@ import { RouterView } from 'vue-router'
 
 <template>
     <RouterView />
-    <h1 class="text-red-500">aaaaa</h1>
 </template>
