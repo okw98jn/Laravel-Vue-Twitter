@@ -11,9 +11,14 @@ export default defineConfig({
         vue({
             script: {
                 defineModel: true
-            }
+            },
         })
     ],
+    resolve: {
+        alias: {
+            '@': '/resources/ts',
+        },
+    },
     server: {
         host: true,
         hmr: {

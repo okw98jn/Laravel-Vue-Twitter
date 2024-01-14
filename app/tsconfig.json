@@ -4,6 +4,10 @@
         "strict": true,
         "isolatedModules": true,
         "esModuleInterop": true,
-        "moduleResolution": "node"
-    }
+        "moduleResolution": "node",
+        "paths": {
+            "@/*": ["./resources/ts/*"]
+        }
+    },
+    "include": ["./resources/ts/**/*"]
 }
