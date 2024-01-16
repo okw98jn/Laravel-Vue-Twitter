@@ -12,9 +12,7 @@ class LoginController extends Controller
 {
     public function __invoke(LoginRequest $request)
     {
-        $credentials = $request->validated();
-
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
             return new UserResource(Auth::user());
