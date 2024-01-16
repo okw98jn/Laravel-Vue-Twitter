@@ -1,4 +1,4 @@
-export type UserState = {
+export type UserStore = {
     data: {
         id: number | null;
         name: string;
