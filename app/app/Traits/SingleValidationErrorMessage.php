@@ -8,11 +8,11 @@ use Illuminate\Http\Response;
 
 trait SingleValidationErrorMessage
 {
-
     /**
      * バリデーションが失敗した場合に呼び出されるメソッド。
      *
-     * @param Validator $validator バリデーション結果を保持するValidatorインスタンス
+     * @param  Validator  $validator バリデーション結果を保持するValidatorインスタンス
+     *
      * @throws HttpResponseException バリデーションエラーメッセージとHTTPステータス422を含む例外
      *
      * このメソッドは、バリデーションが失敗した場合に自動的に呼び出されます。
