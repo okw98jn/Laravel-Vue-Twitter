@@ -21,8 +21,8 @@ export const useUserStore = defineStore('user', () => {
             user.value.isLogin = 'true';
             sessionStorage.setItem('AUTH', 'true');
             return data;
-        } catch (error) {
-            console.error(error);
+        } catch (error: any) {
+            throw error.response.data;
         }
     }
 

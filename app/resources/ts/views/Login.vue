@@ -5,6 +5,7 @@ import SubmitButton from '@/components/auth/SubmitButton.vue';
 import InputItem from '@/components/auth/InputItem.vue';
 import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
 const router = useRouter();
 const store = useUserStore();
@@ -14,6 +15,12 @@ const user: UserLogin = {
 	password: '',
 };
 
+const errorMessages = ref({
+	email: '',
+	password: '',
+	loginFailure: '',
+});
+
 const login = (e: Event): void => {
 	e.preventDefault();
 	store.login(user)
@@ -22,19 +29,23 @@ const login = (e: Event): void => {
 				name: 'Index'
 			});
 		})
+		.catch((err) => {
+			errorMessages.value = err
+		});
 }
 </script>
 
 <template>
 	<Header title="Sign in" sub-title="新規登録" route-name="Register" />
-	<form class="mt-8 space-y-6" @submit="login">
-		<div class="rounded-md shadow-sm ">
+	<form class="mt-8 space-y-4" @submit="login">
+		<div>
 			<InputItem name="email" label="メールアドレス" type="email" autocomplete="email" placeholder="メールアドレス"
-				v-model="user.email" />
+				:errorMessage="errorMessages.email" v-model="user.email" />
 			<InputItem name="password" label="パスワード" type="password" autocomplete="current-password" placeholder="パスワード"
-				v-model="user.password" />
+				:errorMessage="errorMessages.password" v-model="user.password" />
 		</div>
 		<div>
+			<p v-if="errorMessages.loginFailure" class="text-sm text-red-600 font-medium mb-3">{{ errorMessages.loginFailure }}</p>
 			<SubmitButton text="ログイン" />
 		</div>
 	</form>
