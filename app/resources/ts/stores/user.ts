@@ -1,11 +1,11 @@
 import axiosClient from "@/axios";
-import { UserLogin, UserState } from "@/types/User"
+import { UserLogin, UserRegister, UserStore } from "@/types/User"
 import { defineStore } from "pinia"
 import { ref } from "vue"
 
 export const useUserStore = defineStore('user', () => {
 
-    const user = ref<UserState>({
+    const user = ref<UserStore>({
         data: {
             id: null,
             name: '',
@@ -17,6 +17,18 @@ export const useUserStore = defineStore('user', () => {
     const login = async (userData: UserLogin) => {
         try {
             const { data } = await axiosClient.post('/login', userData);
+            user.value.data = data.data;
+            user.value.isLogin = 'true';
+            sessionStorage.setItem('AUTH', 'true');
+            return data;
+        } catch (error: any) {
+            throw error.response.data;
+        }
+    }
+
+    const register = async (userData: UserRegister) => {
+        try {
+            const { data } = await axiosClient.post('/register', userData);
             user.value.data = data.data;
             user.value.isLogin = 'true';
             sessionStorage.setItem('AUTH', 'true');
@@ -51,5 +63,5 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
-    return { user, login, logout, fetchUser }
+    return { user, login, register, logout, fetchUser }
 })
