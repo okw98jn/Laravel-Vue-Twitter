@@ -21,7 +21,7 @@ class LoginController extends Controller
         }
 
         return response([
-            'error' => 'メールアドレスまたはパスワードが間違っています',
+            'loginFailure' => 'メールアドレスまたはパスワードが間違っています',
         ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
