@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use App\Traits\SingleValidationErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'email'    => ['required', 'string', 'email'],
             'password' => ['required'],
         ];
     }
@@ -38,7 +38,7 @@ class LoginRequest extends FormRequest
     public function attributes()
     {
         return [
-            'email' => 'メールアドレス',
+            'email'    => 'メールアドレス',
             'password' => 'パスワード',
         ];
     }
