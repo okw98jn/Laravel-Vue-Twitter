@@ -6,6 +6,7 @@ import InputItem from '@/components/auth/InputItem.vue';
 import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import FooterLink from '@/components/auth/FooterLink.vue';
 
 const router = useRouter();
 const store = useUserStore();
@@ -36,7 +37,7 @@ const login = (e: Event): void => {
 </script>
 
 <template>
-	<Header title="Sign in" sub-title="新規登録" route-name="Register" />
+	<Header title="Sign in" />
 	<form class="mt-8 space-y-4" @submit="login">
 		<div>
 			<InputItem name="email" label="メールアドレス" type="email" autocomplete="email" placeholder="メールアドレス"
@@ -45,8 +46,11 @@ const login = (e: Event): void => {
 				:errorMessage="errorMessages.password" v-model="user.password" />
 		</div>
 		<div>
-			<p v-if="errorMessages.loginFailure" class="text-sm text-red-600 font-medium mb-3">{{ errorMessages.loginFailure }}</p>
+			<p v-if="errorMessages.loginFailure" class="text-sm text-red-600 font-medium mb-3">{{
+				errorMessages.loginFailure }}
+			</p>
 			<SubmitButton text="ログイン" />
 		</div>
 	</form>
+	<FooterLink title="アカウントが未登録ですか？" subTitle="新規登録" routeName="Register" />
 </template>
