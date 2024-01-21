@@ -10,6 +10,7 @@ import FooterLink from '@/components/auth/FooterLink.vue';
 
 const router = useRouter();
 const store = useUserStore();
+const isLoading = ref(false);
 
 const user: UserLogin = {
 	email: '',
@@ -24,6 +25,7 @@ const errorMessages = ref({
 
 const login = (e: Event): void => {
 	e.preventDefault();
+	isLoading.value = true;
 	store.login(user)
 		.then(() => {
 			router.push({
@@ -32,6 +34,9 @@ const login = (e: Event): void => {
 		})
 		.catch((err) => {
 			errorMessages.value = err
+		})
+		.finally(() => {
+			isLoading.value = false;
 		});
 }
 </script>
@@ -49,7 +54,7 @@ const login = (e: Event): void => {
 			<p v-if="errorMessages.loginFailure" class="text-sm text-red-600 font-medium mb-3">{{
 				errorMessages.loginFailure }}
 			</p>
-			<SubmitButton text="ログイン" />
+			<SubmitButton text="ログイン" :is-loading="isLoading" />
 		</div>
 	</form>
 	<FooterLink title="アカウントが未登録ですか？" subTitle="新規登録" routeName="Register" />

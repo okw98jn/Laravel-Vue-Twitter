@@ -10,6 +10,7 @@ import FooterLink from '@/components/auth/FooterLink.vue';
 
 const store = useUserStore();
 const router = useRouter();
+const isLoading = ref(false);
 
 const user: UserRegister = {
 	name: '',
@@ -26,6 +27,7 @@ const errorMessages = ref({
 
 const register = (e: Event): void => {
 	e.preventDefault();
+	isLoading.value = true;
 	store.register(user)
 		.then(() => {
 			router.push({
@@ -34,6 +36,9 @@ const register = (e: Event): void => {
 		})
 		.catch((err) => {
 			errorMessages.value = err
+		})
+		.finally(() => {
+			isLoading.value = false;
 		});
 }
 </script>
@@ -53,7 +58,7 @@ const register = (e: Event): void => {
 				autocomplete="current-password_confirmation" placeholder="パスワード確認" v-model="user.password_confirmation" />
 		</div>
 		<div>
-			<SubmitButton text="新規登録" />
+			<SubmitButton text="新規登録" :is-loading="isLoading" />
 		</div>
 	</form>
 	<FooterLink title="アカウントをお持ちですか？ " subTitle="ログイン" routeName="Login" />
