@@ -5,10 +5,6 @@ import { useRouter } from 'vue-router';
 const store = useUserStore();
 const router = useRouter();
 
-if (store.user.data.id === null) {
-	store.fetchUser();
-}
-
 const logout = (): void => {
     store.logout()
         .then(() => {
