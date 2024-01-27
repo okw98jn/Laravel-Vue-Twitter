@@ -31,7 +31,7 @@ const register = (e: Event): void => {
 	store.register(user)
 		.then(() => {
 			router.push({
-				name: 'Index'
+				name: 'Home'
 			});
 		})
 		.catch((err) => {

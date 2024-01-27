@@ -29,7 +29,7 @@ const login = (e: Event): void => {
 	store.login(user)
 		.then(() => {
 			router.push({
-				name: 'Index'
+				name: 'Home'
 			});
 		})
 		.catch((err) => {

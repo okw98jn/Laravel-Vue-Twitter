@@ -1,17 +1,22 @@
-import AuthLayout from '@/components/auth/AuthLayout.vue';
 import { useUserStore } from '@/stores/user';
-import Index from '@/views/Index.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import AuthLayout from '@/components/auth/AuthLayout.vue';
+import DefaultLayout from '@/components/home/DefaultLayout.vue';
+import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Register from '@/views/Register.vue';
-import { createRouter, createWebHistory } from 'vue-router'
+import Profile from '@/views/Profile.vue';
 
 const routes = [
 	{
 		path: '/',
-		// redirect: '/dashboard',
-		component: Index,
-		name: 'Index',
+		redirect: '/home',
+		component: DefaultLayout,
 		meta: { requiresAuth: true },
+		children: [
+			{ path: '/home', name: 'Home', component: Home },
+			{ path: '/profile', name: 'Profile', component: Profile },
+		]
 	},
 	{
 		path: '/auth',
