@@ -42,7 +42,7 @@ router.beforeEach((to, from, next) => {
 	if (to.meta.requiresAuth && store.user.isLogin === null) {
 		next({ name: 'Login' })
 	} else if (store.user.isLogin && (to.meta.isGuest)) {
-		next({ name: 'Index' })
+		next({ name: 'Home' })
 	} else {
 		next()
 	}
