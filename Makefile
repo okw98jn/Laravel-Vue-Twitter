@@ -49,7 +49,7 @@ clear:
 
 # migrate
 migrate:
-	docker compose exec app php artisan migrate
+	docker compose exec app php artisan migrate --seed
 
 # db:seed
 seed:
@@ -57,7 +57,7 @@ seed:
 
 # migrate:fresh
 fresh:
-	docker compose exec app php artisan migrate:fresh
+	docker compose exec app php artisan migrate:fresh --seed
 
 # Pint
 Pint:
