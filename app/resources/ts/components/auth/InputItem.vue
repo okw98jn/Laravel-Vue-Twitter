@@ -15,7 +15,7 @@ const model = defineModel<string>()
     <div class="mb-2">
         <label :for="name" class="sr-only">{{ label }}</label>
         <input :id="name" :name="name" :type="type" :autocomplete="autocomplete" v-model="model" :class="{
-            'appearance-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:border-indigo-500 focus:z-10 sm:text-sm': true,
+            'appearance-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 focus:z-10 focus:ring-1 sm:text-sm': true,
             'focus:border-red-500': errorMessage,
             'border-gray-300': !errorMessage,
             'border-red-500': errorMessage
