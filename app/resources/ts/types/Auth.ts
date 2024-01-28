@@ -1,4 +1,4 @@
-export type UserStore = {
+export type AuthStore = {
     data: {
         id: number | null;
         name: string;
@@ -7,20 +7,20 @@ export type UserStore = {
     isLogin: string | null;
 };
 
-export type User = {
+export type Auth = {
     name: string;
     email: string;
     imageUrl: string;
 };
 
-export type UserRegister = {
+export type AuthRegister = {
     name: string;
     email: string;
     password: string;
     password_confirmation: string;
 };
 
-export type UserLogin = {
+export type AuthLogin = {
     email: string;
     password: string;
 };

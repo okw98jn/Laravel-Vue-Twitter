@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { useUserStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
-import type { UserRegister } from '@/types/User';
+import type { AuthRegister } from '@/types/Auth';
 import Header from '@/components/auth/Header.vue';
 import SubmitButton from '@/components/auth/SubmitButton.vue';
 import InputItem from '@/components/auth/InputItem.vue';
 import { ref } from 'vue';
 import FooterLink from '@/components/auth/FooterLink.vue';
 
-const store = useUserStore();
+const store = useAuthStore();
 const router = useRouter();
 const isLoading = ref(false);
 
-const user: UserRegister = {
+const user: AuthRegister = {
 	name: '',
 	email: '',
 	password: '',

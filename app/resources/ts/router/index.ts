@@ -1,4 +1,4 @@
-import { useUserStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import { createRouter, createWebHistory } from 'vue-router'
 import AuthLayout from '@/components/auth/AuthLayout.vue';
 import DefaultLayout from '@/components/home/DefaultLayout.vue';
@@ -37,7 +37,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	const store = useUserStore();
+	const store = useAuthStore();
 
 	if (to.meta.requiresAuth && store.user.isLogin === null) {
 		next({ name: 'Login' })

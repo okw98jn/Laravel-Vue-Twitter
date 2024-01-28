@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useUserStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import SidebarLeft from './SidebarLeft.vue';
 
-const store = useUserStore();
+const store = useAuthStore();
 if (store.user.data.id === null) {
     store.fetchUser();
 }
