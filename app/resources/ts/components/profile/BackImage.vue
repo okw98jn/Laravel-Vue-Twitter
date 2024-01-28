@@ -5,6 +5,6 @@ import image from '@/assets/test.png';
 
 <template>
     <div>
-        <img :src="image" :alt="image" class="w-full object-cover h-60">
+        <img :src="image" alt="image" class="w-full object-cover h-60">
     </div>
 </template>
