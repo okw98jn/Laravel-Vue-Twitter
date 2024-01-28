@@ -20,7 +20,7 @@ const emit = defineEmits<{
                 <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" @click="emit('click')"></div>
                 <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
                 <div
-                    class="inner inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full p-4">
+                    class="inner inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-1/3 p-4">
                     <div class="flex items-center mb-4">
                         <XMarkIcon
                             class="w-8 h-8 p-1 mr-6 cursor-pointer transition duration-300 ease-in-out hover:bg-gray-200 rounded-full"
