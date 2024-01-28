@@ -4,8 +4,8 @@ import { UserIcon } from "@heroicons/vue/24/outline";
 import Button from '@/components/ui/Button.vue';
 
 const navigation = [
-    { name: 'Home', to: { name: 'Home' }, icon: HomeIcon },
-    { name: 'Profile', to: { name: 'Profile' }, icon: UserIcon },
+    { name: 'タイムライン', to: { name: 'Home' }, icon: HomeIcon },
+    { name: 'プロフィール', to: { name: 'Profile' }, icon: UserIcon },
 ]
 
 </script>
@@ -33,7 +33,7 @@ const navigation = [
                     </RouterLink>
                 </div>
             </div>
-            <Button text="Post" className="text-white bg-indigo-500 hover:bg-indigo-600" />
+            <Button text="ツイート" className="text-white bg-indigo-500 hover:bg-indigo-600" />
         </div>
     </div>
 </template>
