@@ -14,7 +14,7 @@ const emit = defineEmits<{
 <template>
     <button
         @click="emit('click')"
-        class="w-full mb-4 text-center cursor-pointer px-4 py-3 transition duration-300 ease-in-out bg-blue-500 hover:bg-blue-600 rounded-full"
+        class="w-full mb-4 text-center cursor-pointer px-4 py-3 transition duration-300 ease-in-out rounded-full"
         :class="className" >
         {{ text }}
     </button>

@@ -33,7 +33,7 @@ const navigation = [
                     </RouterLink>
                 </div>
             </div>
-            <Button text="Post" className="text-white" />
+            <Button text="Post" className="text-white bg-indigo-500 hover:bg-indigo-600" />
         </div>
     </div>
 </template>
