@@ -24,7 +24,7 @@ const handleModalClose = (): void => {
             <Button text="Edit profile" @click="handleClick"
                 className="inline-flex rounded-full items-center justify-center text-sm font-medium border bg-white h-10 px-4 py-2 mt-6 hover:bg-gray-200 " />
         </div>
-        <Modal :isOpen="isOpen" @click="handleModalClose">
+        <Modal :isOpen="isOpen" title="プロフィール編集" @click="handleModalClose">
             <div class="bg-gray-300">
                 <p>テスト</p>
             </div>
