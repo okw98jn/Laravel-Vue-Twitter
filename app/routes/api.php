@@ -3,7 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Resources\Auth\UserResource;
+use App\Http\Controllers\UserController;
+use App\Http\Resources\Auth\AuthResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,11 @@ Route::post('/register', RegisterController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function () {
-        return new UserResource(Auth::user());
+        return new AuthResource(Auth::user());
     });
     Route::post('logout', LogoutController::class);
+
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'show']);
+    });
 });
