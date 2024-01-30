@@ -3,13 +3,20 @@ import Top from '@/components/profile/Top.vue';
 import UserDetail from '@/components/profile/UserDetail.vue';
 import UserEdit from '@/components/profile/UserEdit.vue';
 import BackImage from '@/components/profile/BackImage.vue';
+import { useUserStore } from '@/stores/user';
+import { onMounted } from 'vue';
+
+const store = useUserStore();
+onMounted(async () => {
+    await store.fetchProfile();
+});
 
 </script>
 
 <template>
     <Top />
-    <BackImage/>
-    <UserEdit/>
+    <BackImage />
+    <UserEdit />
     <UserDetail />
     <div class="flex justify-around mt-4 border-b">
         <button

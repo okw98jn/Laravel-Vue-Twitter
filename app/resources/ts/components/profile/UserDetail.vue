@@ -1,21 +1,31 @@
 <script setup lang="ts">
+import { useUserStore } from "@/stores/user";
+import { UserStore } from "@/types/User";
 import { MapPinIcon } from "@heroicons/vue/24/outline";
 import { CalendarIcon } from "@heroicons/vue/24/outline";
+import { ComputedRef, computed } from "vue";
+
+const store = useUserStore();
+const user: ComputedRef<UserStore> = computed(() => store.user);
+const isLoading: ComputedRef<boolean> = computed(() => store.isLoading);
 
 </script>
 
 <template>
-    <div class="text-left px-4">
-        <div class="text-lg font-semibold">アカウント名</div>
-        <div class="text-gray-500 mb-4">@4eXs334kF21094</div>
-        <div class="mb-2">Webエンジニア</div>
+    <div v-if="isLoading" class="flex justify-center items-center h-36">
+        <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" />
+    </div>
+    <div v-else class="text-left px-4">
+        <div class="text-lg font-semibold">{{ user.data.name }}</div>
+        <div class="text-gray-500 mb-4">{{ user.data.user_id }}</div>
+        <div class="mb-2">{{ user.data.introduction }}</div>
         <div class="text-gray-500 text-sm my-3 flex items-center">
             <p class="mr-4 flex items-center">
                 <span>
                     <MapPinIcon class="w-5 h-5 mr-1" />
                 </span>
                 <span>
-                    japan
+                    {{ user.data.location }}
                 </span>
             </p>
             <p class="flex items-center">
@@ -23,7 +33,7 @@ import { CalendarIcon } from "@heroicons/vue/24/outline";
                     <CalendarIcon class="w-5 h-5 mr-1" />
                 </span>
                 <span>
-                    Joined April 2023
+                    {{ user.data.birthday }}
                 </span>
             </p>
         </div>

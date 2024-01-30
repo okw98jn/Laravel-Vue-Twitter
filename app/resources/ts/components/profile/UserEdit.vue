@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import image from '@/assets/test.png';
 import Button from '@/components/ui/Button.vue';
-import { ref } from 'vue';
+import { ComputedRef, computed, ref } from 'vue';
 import Modal from '@/components/ui/Modal.vue';
 import InputCount from './InputCount.vue';
 import TextAreaCount from './TextAreaCount.vue';
+import { useUserStore } from '@/stores/user';
+import { UserStore } from '@/types/User';
 
 const isOpen = ref(false);
 
-const handleClick = (): void => {
+const handleModalOpen = (): void => {
     isOpen.value = true;
 }
 
@@ -16,11 +18,14 @@ const handleModalClose = (): void => {
     isOpen.value = false;
 }
 
-const user = ref({
-    name: '',
-    introduction: '',
-    location: '',
-});
+const store = useUserStore();
+const storeUser: ComputedRef<UserStore> = computed(() => store.user);
+
+const user = computed(() => ({
+    name: storeUser.value.data.name ?? '',
+    introduction: storeUser.value.data.introduction ?? '',
+    location: storeUser.value.data.location ?? '',
+}));
 
 </script>
 
@@ -28,7 +33,7 @@ const user = ref({
     <div class="flex items-center justify-between py-4 -mt-20 px-4">
         <img :src="image" alt="image" class="w-32 h-32 object-cover rounded-full border-4 border-white">
         <div class="mt-12">
-            <Button text="編集" @click="handleClick"
+            <Button text="編集" @click="handleModalOpen"
                 class-name="inline-flex items-center justify-center text-sm font-medium border bg-white h-10 px-4 py-2 mt-6 hover:bg-gray-200 " />
         </div>
         <Modal :isOpen="isOpen" title="プロフィール編集" @click="handleModalClose">
