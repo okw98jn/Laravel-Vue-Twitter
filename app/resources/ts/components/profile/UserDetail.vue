@@ -12,7 +12,7 @@ const isLoading: ComputedRef<boolean> = computed(() => store.isLoading);
 </script>
 
 <template>
-    <div v-if="isLoading" class="flex justify-center items-center h-36">
+    <div v-if="isLoading" class="flex justify-center items-center h-40">
         <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" />
     </div>
     <div v-else class="text-left px-4">
