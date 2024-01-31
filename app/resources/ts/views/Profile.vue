@@ -6,8 +6,8 @@ import BackImage from '@/components/profile/BackImage.vue';
 import { useUserStore } from '@/stores/user';
 import { onMounted } from 'vue';
 
-const store = useUserStore();
 onMounted(async () => {
+    const store = useUserStore();
     await store.fetchProfile();
 });
 

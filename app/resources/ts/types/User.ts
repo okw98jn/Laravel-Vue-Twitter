@@ -6,5 +6,7 @@ export type UserStore = {
         introduction: string | null;
         location: string | null;
         birthday: string;
+        icon_image: string | null;
+        header_image: string | null;
     },
 };

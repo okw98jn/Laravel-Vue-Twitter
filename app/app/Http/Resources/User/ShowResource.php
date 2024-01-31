@@ -21,6 +21,8 @@ class ShowResource extends JsonResource
             'introduction' => $this->introduction,
             'location'     => $this->location,
             'birthday'     => $this->birthday,
+            'icon_image'   => $this->icon_image,
+            'header_image' => $this->header_image,
         ];
     }
 }

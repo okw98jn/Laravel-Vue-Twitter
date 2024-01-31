@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             'location'     => '日本/大阪',
             'birthday'     => '1997-09-08',
             'email'        => 'test@example.com',
+            'icon_image'   => 'https://placehold.jp/150x150.png',
+            'header_image' => 'https://placehold.jp/150x150.png',
             'password'     => Hash::make('1234'),
         ]);
     }

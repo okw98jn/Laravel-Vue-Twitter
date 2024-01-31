@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('introduction', 160)->nullable()->comment('自己紹介');
             $table->string('location', 30)->nullable()->comment('場所');
             $table->date('birthday')->comment('生年月日');
+            $table->string('icon_image')->nullable()->comment('アイコン画像');
+            $table->string('header_image')->nullable()->comment('ヘッダー画像');
             $table->string('password')->comment('パスワード');
             $table->timestamps();
             $table->comment('ユーザー');
