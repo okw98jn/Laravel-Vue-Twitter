@@ -30,5 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('user')->group(function () {
         Route::get('/', [UserController::class, 'show']);
+        Route::post('/', [UserController::class, 'update']);
     });
 });
