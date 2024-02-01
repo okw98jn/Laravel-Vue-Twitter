@@ -8,17 +8,16 @@ import { ComputedRef, computed } from "vue";
 const store = useUserStore();
 const user: ComputedRef<UserStore> = computed(() => store.user);
 const isLoading: ComputedRef<boolean> = computed(() => store.isLoading);
-
 </script>
 
 <template>
     <div v-if="isLoading" class="flex justify-center items-center h-40">
-        <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" />
+        <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" style="z-index: 1;" />
     </div>
     <div v-else class="text-left px-4">
         <div class="text-lg font-semibold">{{ user.data.name }}</div>
         <div class="text-gray-500 mb-4">{{ user.data.user_id }}</div>
-        <div class="mb-2">{{ user.data.introduction }}</div>
+        <div class="mb-2 overflow-auto break-words">{{ user.data.introduction }}</div>
         <div class="text-gray-500 text-sm my-3 flex items-center">
             <p class="mr-4 flex items-center">
                 <span>
