@@ -11,7 +11,8 @@ import { CameraIcon } from "@heroicons/vue/24/outline";
 
 const store = useUserStore();
 const storeUser: ComputedRef<UserStore> = computed(() => store.user);
-const isLoading = ref(false);
+const isLoading: ComputedRef<boolean> = computed(() => store.isLoading);
+const isUpdateLoading = ref(false);
 
 const user = ref<UpdateUser>({
     name: '',
@@ -37,9 +38,16 @@ const errorMessages = ref({
     location: '',
 });
 
+const formData = new FormData();
+
 const updateUser = () => {
-    isLoading.value = true;
-    store.updateProfile(user.value)
+    isUpdateLoading.value = true;
+
+    formData.append('name', user.value.name);
+    formData.append('location', user.value.location ?? '');
+    formData.append('introduction', user.value.introduction ?? '');
+
+    store.updateProfile(formData)
         .then(() => {
             toggleModal();
         })
@@ -47,7 +55,7 @@ const updateUser = () => {
             errorMessages.value = err
         })
         .finally(() => {
-            isLoading.value = false;
+            isUpdateLoading.value = false;
         });
 };
 
@@ -62,6 +70,7 @@ const selectHeaderImage = () => {
 const handleImageSelect = (event: Event, imageProperty: 'header_image' | 'icon_image') => {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
+        formData.append(imageProperty, file);
         const reader = new FileReader();
         reader.onload = (e) => {
             user.value[imageProperty] = (e.target as FileReader).result as string;
@@ -91,11 +100,14 @@ const toggleModal = (): void => {
 
 <template>
     <div class="flex items-center justify-between py-4 -mt-20 px-4">
-        <img v-if="user.icon_image" :src="user.icon_image" alt="image"
-            class="w-32 h-32 object-cover rounded-full border-4 border-white">
-        <h2 v-else class="w-32 h-32 object-cover rounded-full border-4 border-white">
-            <img :src="userImage" alt="user" class="rounded-full">
-        </h2>
+        <div v-if="isLoading" class="h-60"></div>
+        <template v-else>
+            <img v-if="user.icon_image" :src="user.icon_image" alt="image"
+                class="w-32 h-32 object-cover rounded-full border-4 border-white">
+            <h2 v-else class="w-32 h-32 object-cover rounded-full border-4 border-white">
+                <img :src="userImage" alt="user" class="rounded-full">
+            </h2>
+        </template>
         <div class="mt-12">
             <Button text="編集" @click="toggleModal"
                 class-name="inline-flex items-center justify-center text-sm font-medium border bg-white h-10 px-4 py-2 mt-6 hover:bg-gray-200 " />
@@ -136,8 +148,8 @@ const toggleModal = (): void => {
                     :error-message="errorMessages.location" />
                 <div class="flex justify-end w-full">
                     <div class="w-20">
-                        <Button text="保存" @click="updateUser" :is-loading="isLoading"
-                            :className="isLoading ? 'mt-4 inline-flex items-center justify-center h-10 px-4 py-2 text-white bg-gray-300' : 'mt-4 inline-flex items-center justify-center h-10 px-4 py-2 text-white bg-indigo-500 hover:bg-indigo-600'" />
+                        <Button text="保存" @click="updateUser" :is-loading="isUpdateLoading"
+                            :className="isUpdateLoading ? 'mt-4 inline-flex items-center justify-center h-10 px-4 py-2 text-white bg-gray-300' : 'mt-4 inline-flex items-center justify-center h-10 px-4 py-2 text-white bg-indigo-500 hover:bg-indigo-600'" />
                     </div>
                 </div>
             </div>
