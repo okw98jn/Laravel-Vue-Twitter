@@ -10,6 +10,6 @@ const user: ComputedRef<UserStore> = computed(() => store.user);
 <template>
     <div>
         <img v-if="user.data.header_image" :src="user.data.header_image" alt="image" class="w-full object-cover h-60">
-        <h2 v-else class="w-full bg-slate-200 object-cover h-60 rounded-sm"></h2>
+        <h2 v-else class="w-full bg-slate-200 h-60 rounded-sm"></h2>
     </div>
 </template>
