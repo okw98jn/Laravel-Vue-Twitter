@@ -100,7 +100,7 @@ const toggleModal = (): void => {
 
 <template>
     <div class="flex items-center justify-between py-4 -mt-20 px-4">
-        <div v-if="isLoading" class="h-60"></div>
+        <template v-if="isLoading"></template>
         <template v-else>
             <img v-if="user.icon_image" :src="user.icon_image" alt="image"
                 class="w-32 h-32 object-cover rounded-full border-4 border-white">
