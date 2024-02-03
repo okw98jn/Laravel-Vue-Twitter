@@ -7,12 +7,6 @@ export type AuthStore = {
     isLogin: string | null;
 };
 
-export type Auth = {
-    name: string;
-    email: string;
-    imageUrl: string;
-};
-
 export type AuthRegister = {
     name: string;
     email: string;
