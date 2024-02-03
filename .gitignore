@@ -1,1 +1,3 @@
 .env
+docker/minio/data/.minio.sys/*
+docker/minio/data/laravel-vue-twitter/
