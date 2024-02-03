@@ -8,9 +8,21 @@ import TextAreaCount from './TextAreaCount.vue';
 import { useUserStore } from '@/stores/user';
 import { UserStore, UpdateUser } from '@/types/User';
 import { CameraIcon } from "@heroicons/vue/24/outline";
+import { useAuthStore } from '@/stores/auth';
+import { AuthStore } from '@/types/Auth';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const userId = route.params.userId as string;
+
+const authStore = useAuthStore();
+const storeAuthUser: ComputedRef<AuthStore> = computed(() => authStore.user);
+
+const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(userId));
 
 const store = useUserStore();
 const storeUser: ComputedRef<UserStore> = computed(() => store.user);
+
 const isLoading: ComputedRef<boolean> = computed(() => store.isLoading);
 const isUpdateLoading = ref(false);
 
@@ -109,8 +121,10 @@ const toggleModal = (): void => {
             </h2>
         </template>
         <div class="mt-12">
-            <Button text="編集" @click="toggleModal"
-                class-name="inline-flex items-center justify-center text-sm font-medium border bg-white h-10 px-4 py-2 mt-6 hover:bg-gray-200 " />
+            <template v-if="isAuthUser">
+                <Button text="編集" @click="toggleModal"
+                    class-name="inline-flex items-center justify-center text-sm font-medium border bg-white h-10 px-4 py-2 mt-6 hover:bg-gray-200 " />
+            </template>
         </div>
         <Modal :isOpen="isOpen" title="プロフィール編集" @click="toggleModal">
             <div class="mb-16">

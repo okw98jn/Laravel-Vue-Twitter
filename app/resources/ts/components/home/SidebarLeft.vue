@@ -2,11 +2,15 @@
 import { HomeIcon } from "@heroicons/vue/24/outline"
 import { UserIcon } from "@heroicons/vue/24/outline";
 import Button from '@/components/ui/Button.vue';
+import { useAuthStore } from "@/stores/auth";
+import { computed } from "vue";
 
-const navigation = [
+const store = useAuthStore();
+const authUser = computed(() => store.user);
+const navigation = computed(() => [
     { name: 'タイムライン', to: { name: 'Home' }, icon: HomeIcon },
-    { name: 'プロフィール', to: { name: 'Profile' }, icon: UserIcon },
-]
+    { name: 'プロフィール', to: { name: 'Profile', params: { userId: (authUser.value.data.id) ?? 0 } }, icon: UserIcon },
+]);
 
 </script>
 

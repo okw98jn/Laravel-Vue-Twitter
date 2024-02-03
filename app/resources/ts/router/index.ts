@@ -15,7 +15,7 @@ const routes = [
 		meta: { requiresAuth: true },
 		children: [
 			{ path: '/home', name: 'Home', component: Home },
-			{ path: '/profile', name: 'Profile', component: Profile },
+			{ path: '/profile/:userId', name: 'Profile', component: Profile },
 		]
 	},
 	{

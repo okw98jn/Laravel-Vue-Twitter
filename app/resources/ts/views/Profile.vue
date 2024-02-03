@@ -5,10 +5,13 @@ import UserEdit from '@/components/profile/UserEdit.vue';
 import BackImage from '@/components/profile/BackImage.vue';
 import { useUserStore } from '@/stores/user';
 import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 
 onMounted(async () => {
+    const route = useRoute();
+    const userId = route.params.userId as string;
     const store = useUserStore();
-    await store.fetchProfile();
+    await store.fetchProfile(userId);
 });
 
 </script>

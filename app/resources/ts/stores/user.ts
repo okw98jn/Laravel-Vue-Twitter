@@ -1,5 +1,5 @@
 import axiosClient from "@/axios";
-import { UpdateUser, UserStore } from "@/types/User";
+import { UserStore } from "@/types/User";
 import { defineStore } from "pinia"
 import { ref } from "vue"
 
@@ -20,11 +20,11 @@ export const useUserStore = defineStore('user', () => {
 
     const isLoading = ref(false);
 
-    const fetchProfile = async () => {
+    const fetchProfile = async (userId: string) => {
         isLoading.value = true;
 
         try {
-            const { data } = await axiosClient.get('/user');
+            const { data } = await axiosClient.get(`/user/${userId}`);
             user.value.data = data.data;
         } catch (error: any) {
             throw error.response.data;
@@ -37,8 +37,8 @@ export const useUserStore = defineStore('user', () => {
 
     const updateProfile = async (formData: FormData) => {
         await axiosClient.post('/user', formData)
-            .then(() => {
-                fetchProfile();
+            .then((data) => {
+                fetchProfile(data.data.data.id);
             })
             .catch((err) => {
                 throw err.response.data;
