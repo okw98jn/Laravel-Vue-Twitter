@@ -35,8 +35,8 @@ export const useUserStore = defineStore('user', () => {
         return user.value.data;
     }
 
-    const updateProfile = async (formData: FormData) => {
-        await axiosClient.post('/user', formData)
+    const updateProfile = async (userId: string, formData: FormData) => {
+        await axiosClient.post(`/user/${userId}`, formData)
             .then((data) => {
                 fetchProfile(data.data.data.id);
             })

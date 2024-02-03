@@ -14,12 +14,11 @@ class UserController extends Controller
         return new ShowResource($user);
     }
 
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request, User $user)
     {
         // $file_name = $request->icon_image->getClientOriginalName();
         // $request->icon_image->storeAs('public/', $file_name);
         $data = $request->validated();
-        $user = auth()->user();
 
         $user->update($data);
 

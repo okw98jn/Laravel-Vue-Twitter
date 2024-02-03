@@ -59,7 +59,7 @@ const updateUser = () => {
     formData.append('location', user.value.location ?? '');
     formData.append('introduction', user.value.introduction ?? '');
 
-    store.updateProfile(formData)
+    store.updateProfile(userId, formData)
         .then(() => {
             toggleModal();
         })
