@@ -4,12 +4,27 @@ import { UserIcon } from "@heroicons/vue/24/outline";
 import Button from '@/components/ui/Button.vue';
 import { useAuthStore } from "@/stores/auth";
 import { computed } from "vue";
+import { useRoute } from "vue-router";
 
 const store = useAuthStore();
 const authUser = computed(() => store.user);
+const route = useRoute()
 const navigation = computed(() => [
-    { name: 'タイムライン', to: { name: 'Home' }, icon: HomeIcon },
-    { name: 'プロフィール', to: { name: 'Profile', params: { userId: (authUser.value.data.id) ?? 0 } }, icon: UserIcon },
+    {
+        name: 'タイムライン',
+        to: { name: 'Home' },
+        icon: HomeIcon,
+        isActive: route.name === 'Home',
+    },
+    {
+        name: 'プロフィール',
+        to: {
+            name: 'TweetList',
+            params: { userId: (authUser.value.data.id) ?? 0 }
+        },
+        icon: UserIcon,
+        isActive: route.name === 'TweetList' || route.name === 'LikeList',
+    },
 ]);
 
 </script>
@@ -26,7 +41,7 @@ const navigation = computed(() => [
                 </RouterLink>
                 <div v-for="item in navigation" :key="item.name"
                     class="w-full mb-4 cursor-pointer px-4 py-2 transition duration-300 ease-in-out hover:bg-gray-200 rounded-full"
-                    :class="{ 'bg-gray-200': $route.name === item.to.name }">
+                    :class="{ 'bg-gray-200': item.isActive }">
                     <RouterLink :to="item.to">
                         <p class="text-xl flex items-center">
                             <span class="mr-4">
@@ -38,6 +53,5 @@ const navigation = computed(() => [
                 </div>
             </div>
             <Button text="ツイート" className="text-white bg-indigo-500 hover:bg-indigo-600" />
-        </div>
     </div>
-</template>
+</div></template>

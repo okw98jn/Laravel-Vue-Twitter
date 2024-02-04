@@ -6,6 +6,8 @@ import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Register from '@/views/Register.vue';
 import Profile from '@/views/Profile.vue';
+import LikeList from '@/components/profile/LikeList.vue';
+import TweetList from '@/components/profile/TweetList.vue';
 
 const routes = [
 	{
@@ -15,7 +17,12 @@ const routes = [
 		meta: { requiresAuth: true },
 		children: [
 			{ path: '/home', name: 'Home', component: Home },
-			{ path: '/profile/:userId', name: 'Profile', component: Profile },
+			{
+				path: '/profile/:userId', name: 'Profile', component: Profile, children: [
+					{ path: '', name: 'TweetList', component: TweetList },
+					{ path: 'like', name: 'LikeList', component: LikeList },
+				]
+			},
 		]
 	},
 	{
