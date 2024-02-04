@@ -30,6 +30,7 @@ class UpdateRequest extends FormRequest
             'name'         => ['required', 'string', 'max:50'],
             'introduction' => ['nullable', 'string', 'max:160'],
             'location'     => ['nullable', 'string', 'max:30'],
+            'birthday'     => ['required'],
             'icon_image'   => ['nullable', 'image'],
             'header_image' => ['nullable', 'image'],
         ];
@@ -46,6 +47,7 @@ class UpdateRequest extends FormRequest
             'name'         => '名前',
             'introduction' => '自己紹介',
             'location'     => '場所',
+            'birthday'     => '生年月日',
             'icon_image'   => 'アイコン画像',
             'header_image' => 'ヘッダー画像',
         ];

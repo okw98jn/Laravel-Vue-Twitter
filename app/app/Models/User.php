@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'introduction',
         'location',
+        'birthday',
         'icon_image',
         'header_image',
     ];
@@ -48,6 +49,7 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: fn ($value) => Carbon::parse($value)->format('Y年m月d日'),
+            set: fn ($value) => Carbon::createFromFormat('Y年m月d日', $value)->format('Y-m-d'),
         );
     }
 }

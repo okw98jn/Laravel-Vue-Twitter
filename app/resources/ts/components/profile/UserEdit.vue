@@ -11,6 +11,7 @@ import { CameraIcon } from "@heroicons/vue/24/outline";
 import { useAuthStore } from '@/stores/auth';
 import { AuthStore } from '@/types/Auth';
 import { useRoute } from 'vue-router';
+import DateInput from './DateInput.vue';
 
 const route = useRoute();
 const userId = route.params.userId as string;
@@ -30,6 +31,7 @@ const user = ref<UpdateUser>({
     name: '',
     introduction: '',
     location: '',
+    birthday: '',
     icon_image: '',
     header_image: '',
 });
@@ -39,6 +41,7 @@ watchEffect(() => {
         name: storeUser.value.data.name ?? '',
         introduction: storeUser.value.data.introduction ?? '',
         location: storeUser.value.data.location ?? '',
+        birthday: storeUser.value.data.birthday ?? '',
         icon_image: storeUser.value.data.icon_image ?? '',
         header_image: storeUser.value.data.header_image ?? '',
     };
@@ -48,6 +51,7 @@ const errorMessages = ref({
     name: '',
     introduction: '',
     location: '',
+    birthday: '',
 });
 
 const formData = new FormData();
@@ -58,6 +62,7 @@ const updateUser = () => {
     formData.append('name', user.value.name);
     formData.append('location', user.value.location ?? '');
     formData.append('introduction', user.value.introduction ?? '');
+    formData.append('birthday', user.value.birthday ?? '');
 
     store.updateProfile(userId, formData)
         .then(() => {
@@ -98,6 +103,7 @@ const toggleModal = (): void => {
         name: storeUser.value.data.name ?? '',
         introduction: storeUser.value.data.introduction ?? '',
         location: storeUser.value.data.location ?? '',
+        birthday: storeUser.value.data.birthday ?? '',
         icon_image: storeUser.value.data.icon_image ?? '',
         header_image: storeUser.value.data.header_image ?? '',
     };
@@ -105,6 +111,7 @@ const toggleModal = (): void => {
         name: '',
         introduction: '',
         location: '',
+        birthday: '',
     };
 };
 
@@ -160,6 +167,7 @@ const toggleModal = (): void => {
                     :error-message="errorMessages.introduction" v-model="user.introduction" />
                 <InputCount name="location" label="場所" placeholder="場所" maxCount="30" v-model="user.location"
                     :error-message="errorMessages.location" />
+                <DateInput name="" label="生年月日" :error-message="errorMessages.birthday" v-model="user.birthday"/>
                 <div class="flex justify-end w-full">
                     <div class="w-20">
                         <Button text="保存" @click="updateUser" :is-loading="isUpdateLoading"
