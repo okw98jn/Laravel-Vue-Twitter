@@ -59,6 +59,7 @@ export const useAuthStore = defineStore('auth', () => {
             user.value.data = data.data;
             return data;
         } catch (error) {
+            sessionStorage.removeItem('AUTH');
             console.error(error);
         }
     }
