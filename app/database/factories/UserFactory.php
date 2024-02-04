@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'email'        => fake()->unique()->safeEmail(),
             'introduction' => fake()->realText(160),
             'location'     => fake()->city(),
-            'birthday'     => fake()->date('Y-m-d'),
+            'birthday'     => fake()->date('Y年m月d日'),
             'password'     => static::$password ??= Hash::make('password'),
         ];
     }
