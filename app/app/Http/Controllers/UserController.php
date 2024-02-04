@@ -6,6 +6,7 @@ use App\Http\Requests\User\UpdateRequest;
 use App\Http\Resources\User\ShowResource;
 use App\Http\Resources\User\UpdateResource;
 use App\Models\User;
+use App\Services\CommonService;
 
 class UserController extends Controller
 {
@@ -14,11 +15,16 @@ class UserController extends Controller
         return new ShowResource($user);
     }
 
-    public function update(UpdateRequest $request, User $user)
+    public function update(CommonService $commonService, UpdateRequest $request, User $user)
     {
-        // $file_name = $request->icon_image->getClientOriginalName();
-        // $request->icon_image->storeAs('public/', $file_name);
         $data = $request->validated();
+
+        if ($request->hasFile('icon_image')) {
+            $data['icon_image'] = $commonService->savaFile($user->icon_image, $request->file('icon_image'), 'user/icon');
+        }
+        if ($request->hasFile('header_image')) {
+            $data['header_image'] = $commonService->savaFile($user->header_image, $request->file('header_image'), 'user/header');
+        }
 
         $user->update($data);
 

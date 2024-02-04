@@ -21,8 +21,8 @@ class ShowResource extends JsonResource
             'introduction' => $this->introduction,
             'location'     => $this->location,
             'birthday'     => $this->birthday,
-            'icon_image'   => $this->icon_image,
-            'header_image' => $this->header_image,
+            'icon_image'   => $this->icon_image ? env('MINIO_URL').$this->icon_image : null,
+            'header_image' => $this->header_image ? env('MINIO_URL').$this->header_image : null,
         ];
     }
 }
