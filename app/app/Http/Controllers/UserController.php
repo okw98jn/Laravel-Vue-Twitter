@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function show(User $user)
     {
-        return new ShowResource($user);
+        return new ShowResource($user->load('tweets'));
     }
 
     public function update(CommonService $commonService, UpdateRequest $request, User $user)
