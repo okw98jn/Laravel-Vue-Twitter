@@ -2,7 +2,7 @@
 type Props = {
     name: string;
     userId: string;
-    time: string;
+    created: string;
 }
 const { name, userId } = defineProps<Props>();
 </script>
@@ -13,7 +13,7 @@ const { name, userId } = defineProps<Props>();
             <p class="text-sm text-gray-500">
                 <span class="font-semibold text-black mr-1">{{ name }}
                 </span>
-                {{ userId }} · {{ time }}
+                {{ userId }} · {{ created }}
             </p>
         </div>
     </div>

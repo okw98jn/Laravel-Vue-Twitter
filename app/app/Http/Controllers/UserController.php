@@ -8,6 +8,7 @@ use App\Http\Resources\User\UpdateResource;
 use App\Http\Resources\User\UserTweetListResource;
 use App\Models\User;
 use App\Services\CommonService;
+use App\Services\User\UserTweetListService;
 
 class UserController extends Controller
 {
@@ -48,8 +49,10 @@ class UserController extends Controller
         return new UpdateResource($user);
     }
 
-    public function userTweetList(User $user)
+    public function userTweetList(User $user, UserTweetListService $userTweetListService)
     {
-        return new UserTweetListResource($user);
+        $userTweetList = $userTweetListService->getUserTweetList($user);
+
+        return new UserTweetListResource($userTweetList);
     }
 }

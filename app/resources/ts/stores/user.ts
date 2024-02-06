@@ -27,7 +27,9 @@ export const useUserStore = defineStore('user', () => {
         },
         tweets: [{
             id: 0,
+            user_id: 0,
             text: '',
+            created: '',
         }],
     });
 
@@ -66,6 +68,7 @@ export const useUserStore = defineStore('user', () => {
         isTweetListLoading.value = true;
 
         try {
+            // const { data } = await axiosClient.get(`/user/${userId}/tweets?page=2`);
             const { data } = await axiosClient.get(`/user/${userId}/tweets`);
             userTweetList.value = data.data;
         } catch (err: any) {

@@ -5,12 +5,20 @@ import UserDetail from '@/components/tweet/UserDetail.vue';
 import IconButton from "@/components/tweet/IconButton.vue";
 import Content from "@/components/tweet/Content.vue";
 import { Tweet, TweetUser } from "@/types/User";
+import { useAuthStore } from "@/stores/auth";
+import { ComputedRef, computed } from "vue";
+import { AuthStore } from "@/types/Auth";
 
 type Props = {
     user: TweetUser;
     tweet: Tweet;
 }
 const { tweet, user } = defineProps<Props>();
+
+const authStore = useAuthStore();
+const storeAuthUser: ComputedRef<AuthStore> = computed(() => authStore.user);
+
+const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(tweet.user_id));
 </script>
 
 <template>
@@ -20,8 +28,8 @@ const { tweet, user } = defineProps<Props>();
                 <UserIconImage :icon_image="user.icon_image" />
                 <div class="flex-1">
                     <div class="flex justify-between">
-                        <UserDetail :name="user.name" :user-id="user.user_id" time="6h" />
-                        <EllipsisHorizontalIcon class="h-7 w-7 text-gray-500" />
+                        <UserDetail :name="user.name" :user-id="user.user_id" :created="tweet.created" />
+                        <EllipsisHorizontalIcon v-if="isAuthUser" class="h-7 w-7 text-gray-500" />
                     </div>
                     <Content :text="tweet.text" />
                     <div class="flex items-center space-x-6 text-gray-500 mt-2">
