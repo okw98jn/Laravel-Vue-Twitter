@@ -4,19 +4,26 @@ import UserIconImage from '@/components/tweet/UserIconImage.vue';
 import UserDetail from '@/components/tweet/UserDetail.vue';
 import IconButton from "@/components/tweet/IconButton.vue";
 import Content from "@/components/tweet/Content.vue";
+import { Tweet, TweetUser } from "@/types/User";
+
+type Props = {
+    user: TweetUser;
+    tweet: Tweet;
+}
+const { tweet, user } = defineProps<Props>();
 </script>
 
 <template>
     <div class="border-b cursor-pointer hover:bg-gray-50 transition duration-300 ease-in-out">
         <div class="p-4">
             <div class="flex items-start space-x-4">
-                <UserIconImage />
+                <UserIconImage :icon_image="user.icon_image" />
                 <div class="flex-1">
                     <div class="flex justify-between">
-                        <UserDetail name="大川心" user-id="@okawa12334" time="6h" />
+                        <UserDetail :name="user.name" :user-id="user.user_id" time="6h" />
                         <EllipsisHorizontalIcon class="h-7 w-7 text-gray-500" />
                     </div>
-                    <Content text="PCのメモリは何GB以上であるべきか話、とにかく頭の悪い方のエンジニアファーストみたいな連中が確実に湧いて不愉快なのであんま好きじゃない" />
+                    <Content :text="tweet.text" />
                     <div class="flex items-center space-x-6 text-gray-500 mt-2">
                         <IconButton color="indigo" count="11">
                             <ChatBubbleOvalLeftIcon class="h-5 w-5" />

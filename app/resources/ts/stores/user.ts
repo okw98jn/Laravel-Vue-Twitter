@@ -1,5 +1,5 @@
 import axiosClient from "@/axios";
-import { UserStore } from "@/types/User";
+import { UserStore, UserTweetList } from "@/types/User";
 import { defineStore } from "pinia"
 import { ref } from "vue"
 
@@ -19,7 +19,20 @@ export const useUserStore = defineStore('user', () => {
         },
     });
 
+    const userTweetList = ref<UserTweetList>({
+        user: {
+            name: '',
+            user_id: '',
+            icon_image: '',
+        },
+        tweets: [{
+            id: 0,
+            text: '',
+        }],
+    });
+
     const isLoading = ref(false);
+    const isTweetListLoading = ref(false);
 
     const fetchProfile = async (userId: string) => {
         isLoading.value = true;
@@ -40,6 +53,7 @@ export const useUserStore = defineStore('user', () => {
         await axiosClient.post(`/user/${userId}`, formData)
             .then((data) => {
                 fetchProfile(data.data.data.id);
+                fetchUserTweetList(data.data.data.id);
             })
             .catch((err) => {
                 throw err.response.data;
@@ -47,5 +61,28 @@ export const useUserStore = defineStore('user', () => {
 
         return user.value.data;
     }
-    return { user, isLoading, fetchProfile, updateProfile }
+
+    const fetchUserTweetList = async (userId: string) => {
+        isTweetListLoading.value = true;
+
+        try {
+            const { data } = await axiosClient.get(`/user/${userId}/tweets`);
+            userTweetList.value = data.data;
+        } catch (err: any) {
+            throw err.response.data;
+        } finally {
+            isTweetListLoading.value = false;
+        }
+
+        return userTweetList.value;
+    }
+    return {
+        user,
+        isLoading,
+        fetchProfile,
+        updateProfile,
+        userTweetList,
+        fetchUserTweetList,
+        isTweetListLoading,
+    }
 })

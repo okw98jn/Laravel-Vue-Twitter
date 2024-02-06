@@ -31,5 +31,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('user')->group(function () {
         Route::get('/{user}', [UserController::class, 'show']);
         Route::post('/{user}', [UserController::class, 'update']);
+        Route::get('/{user}/tweets', [UserController::class, 'userTweetList']);
     });
 });

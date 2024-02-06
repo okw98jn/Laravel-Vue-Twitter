@@ -20,3 +20,19 @@ export type UpdateUser = {
     icon_image: string | null;
     header_image: string | null;
 };
+
+export type UserTweetList = {
+    user: TweetUser;
+    tweets: Tweet[];
+};
+
+export type TweetUser = {
+    name: string;
+    user_id: string;
+    icon_image: string | undefined;
+};
+
+export type Tweet = {
+    id: number;
+    text: string;
+};

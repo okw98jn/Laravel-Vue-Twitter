@@ -14,19 +14,16 @@ class ShowResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $user = $this->resource;
-        assert($user->relationLoaded('tweets'));
-
         return [
-            'id'           => $user->id,
-            'name'         => $user->name,
-            'user_id'      => $user->user_id,
-            'introduction' => $user->introduction,
-            'location'     => $user->location,
-            'birthday'     => $user->birthday,
-            'icon_image'   => $user->icon_image ? env('MINIO_URL').$user->icon_image : null,
-            'header_image' => $user->header_image ? env('MINIO_URL').$user->header_image : null,
-            'tweet_const'  => $user->tweets->count(),
+            'id'           => $this->id,
+            'name'         => $this->name,
+            'user_id'      => $this->user_id,
+            'introduction' => $this->introduction,
+            'location'     => $this->location,
+            'birthday'     => $this->birthday,
+            'icon_image'   => $this->icon_image ? env('MINIO_URL').$this->icon_image : null,
+            'header_image' => $this->header_image ? env('MINIO_URL').$this->header_image : null,
+            'tweet_const'  => $this->tweets->count(),
         ];
     }
 }

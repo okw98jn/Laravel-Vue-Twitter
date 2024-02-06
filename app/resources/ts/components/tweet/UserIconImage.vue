@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import userImage from '@/assets/user.png';
+
+type Props = {
+    icon_image: string | undefined;
+}
+const { icon_image } = defineProps<Props>();
 </script>
 
 <template>
-    <span class="flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
-        <span class="w-32 h-32 object-cover rounded-full">
-            <img :src="userImage" alt="user" class="rounded-full">
-        </span>
+    <span>
+        <img :src="icon_image" alt="user" class="w-11 h-11 object-cover rounded-full">
     </span>
 </template>
