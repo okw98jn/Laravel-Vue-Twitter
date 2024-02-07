@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Like;
 use App\Models\Tweet;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -16,7 +17,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->has(Tweet::factory(100))->create([
+        User::factory(20)->has(Tweet::factory(10)->has(Like::factory(5)))->create();
+
+        User::factory()->has(Tweet::factory(50)->has(Like::factory(5)))->create([
             'user_id'      => '@user12345678',
             'name'         => '名前',
             'introduction' => '自己紹介',
@@ -25,7 +28,5 @@ class DatabaseSeeder extends Seeder
             'email'        => 'test@example.com',
             'password'     => Hash::make('1234'),
         ]);
-
-        User::factory(20)->has(Tweet::factory(10))->create();
     }
 }
