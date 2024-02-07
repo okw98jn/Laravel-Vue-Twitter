@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { HeartIcon, ChatBubbleOvalLeftIcon, EllipsisHorizontalIcon, ArrowPathRoundedSquareIcon } from "@heroicons/vue/24/outline";
+import { EllipsisHorizontalIcon } from "@heroicons/vue/24/outline";
 import UserIconImage from '@/components/tweet/UserIconImage.vue';
 import UserDetail from '@/components/tweet/UserDetail.vue';
-import IconButton from "@/components/tweet/IconButton.vue";
+import LikeButton from "@/components/tweet/LikeButton.vue";
 import Content from "@/components/tweet/Content.vue";
 import { Tweet, TweetUser } from "@/types/User";
 import { useAuthStore } from "@/stores/auth";
 import { ComputedRef, computed } from "vue";
 import { AuthStore } from "@/types/Auth";
+import ReplyButton from "./ReplyButton.vue";
+import RetweetButton from "./RetweetButton.vue";
 
 type Props = {
     user: TweetUser;
@@ -33,15 +35,9 @@ const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(tweet.u
                     </div>
                     <Content :text="tweet.text" />
                     <div class="flex items-center space-x-6 text-gray-500 mt-2">
-                        <IconButton color="indigo" count="11">
-                            <ChatBubbleOvalLeftIcon class="h-5 w-5" />
-                        </IconButton>
-                        <IconButton color="green" count="11">
-                            <ArrowPathRoundedSquareIcon class="h-5 w-5" />
-                        </IconButton>
-                        <IconButton color="red" count="11">
-                            <HeartIcon class="h-5 w-5" />
-                        </IconButton>
+                        <ReplyButton :count="tweet.likes" />
+                        <RetweetButton :count="tweet.likes" />
+                        <LikeButton :count="tweet.likes" />
                     </div>
                 </div>
             </div>
