@@ -18,6 +18,7 @@ class UserTweetResource extends JsonResource
             'id'      => $this->id,
             'user_id' => $this->user_id,
             'text'    => $this->text,
+            'likes'   => $this->likes->count(),
             'created' => $this->created_at->diffForHumans(),
         ];
     }

@@ -29,6 +29,7 @@ export const useUserStore = defineStore('user', () => {
             id: 0,
             user_id: 0,
             text: '',
+            likes: 0,
             created: '',
         }],
     });

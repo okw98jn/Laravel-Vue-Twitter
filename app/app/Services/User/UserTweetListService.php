@@ -10,7 +10,7 @@ class UserTweetListService
     public function getUserTweetList(User $user)
     {
         $tweets = Tweet::where('user_id', $user->id)
-            ->with('user')
+            ->with('user', 'likes')
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
