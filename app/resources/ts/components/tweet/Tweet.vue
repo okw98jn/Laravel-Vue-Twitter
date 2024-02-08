@@ -15,12 +15,19 @@ type Props = {
     user: TweetUser;
     tweet: Tweet;
 }
+
 const { tweet, user } = defineProps<Props>();
 
 const authStore = useAuthStore();
 const storeAuthUser: ComputedRef<AuthStore> = computed(() => authStore.user);
-
 const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(tweet.user_id));
+
+//いいねボタンをクリックした時の処理
+const handleLike = () => {
+    tweet.is_liked_user = !tweet.is_liked_user;
+    tweet.like_count += tweet.is_liked_user ? 1 : -1;
+}
+
 </script>
 
 <template>
@@ -37,7 +44,7 @@ const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(tweet.u
                     <div class="flex items-center space-x-6 text-gray-500 mt-2">
                         <ReplyButton :count="tweet.like_count" />
                         <RetweetButton :count="tweet.like_count" />
-                        <LikeButton :count="tweet.like_count" :is-liked-user="tweet.is_liked_user" />
+                        <LikeButton :count="tweet.like_count" :is-liked-user="tweet.is_liked_user" @click="handleLike" />
                     </div>
                 </div>
             </div>
