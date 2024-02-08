@@ -15,11 +15,12 @@ class UserTweetResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'      => $this->id,
-            'user_id' => $this->user_id,
-            'text'    => $this->text,
-            'likes'   => $this->likes->count(),
-            'created' => $this->created_at->diffForHumans(),
+            'id'            => $this->id,
+            'user_id'       => $this->user_id,
+            'text'          => $this->text,
+            'like_count'    => $this->likes->count(),
+            'is_liked_user' => $this->isLikedByUser(auth()->user()),
+            'created'       => $this->created_at->diffForHumans(),
         ];
     }
 }

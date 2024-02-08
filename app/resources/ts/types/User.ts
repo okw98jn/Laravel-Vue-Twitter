@@ -36,6 +36,7 @@ export type Tweet = {
     id: number;
     user_id: number;
     text: string;
-    likes: number;
+    like_count: number;
+    is_liked_user: boolean;
     created: string;
 };

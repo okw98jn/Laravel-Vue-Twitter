@@ -4,8 +4,9 @@ import { HeartIcon as HeartIconSolid } from '@heroicons/vue/24/solid';
 
 type Props = {
     count: number;
+    isLikedUser: boolean;
 }
-const { count } = defineProps<Props>();
+const { count, isLikedUser } = defineProps<Props>();
 
 const emit = defineEmits<{
     (event: 'click'): void;
@@ -15,8 +16,8 @@ const emit = defineEmits<{
 <template>
     <div :class="`flex items-center hover:text-red-500`" @click="emit('click')">
         <div class="p-1.5 rounded-full cursor-pointer transition duration-300 ease-in-out" :class="`hover:bg-red-100`">
-            <HeartIconOutline v-if="count === 0" class="h-5 w-5" />
-            <HeartIconSolid v-else class="h-5 w-5 text-rose-500" />
+            <HeartIconSolid v-if="isLikedUser" class="h-5 w-5 text-rose-500" />
+            <HeartIconOutline v-else class="h-5 w-5" />
         </div>
         <span class="text-xs -ml-1">{{ count }}</span>
     </div>

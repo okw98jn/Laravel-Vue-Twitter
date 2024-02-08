@@ -35,9 +35,9 @@ const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(tweet.u
                     </div>
                     <Content :text="tweet.text" />
                     <div class="flex items-center space-x-6 text-gray-500 mt-2">
-                        <ReplyButton :count="tweet.likes" />
-                        <RetweetButton :count="tweet.likes" />
-                        <LikeButton :count="tweet.likes" />
+                        <ReplyButton :count="tweet.like_count" />
+                        <RetweetButton :count="tweet.like_count" />
+                        <LikeButton :count="tweet.like_count" :is-liked-user="tweet.is_liked_user" />
                     </div>
                 </div>
             </div>
