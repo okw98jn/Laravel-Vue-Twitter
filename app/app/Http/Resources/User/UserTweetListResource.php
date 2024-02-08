@@ -18,7 +18,7 @@ class UserTweetListResource extends JsonResource
             'user' => [
                 'name'       => $this->first()->user->name,
                 'user_id'    => $this->first()->user->user_id,
-                'icon_image' => $this->first()->user->icon_image ? env('MINIO_URL').$this->first()->user->icon_image : null,
+                'icon_image' => $this->first()->user->icon_image ? env('IMAGE_URL').$this->first()->user->icon_image : null,
             ],
             'tweets' =>  UserTweetResource::collection($this),
         ];
