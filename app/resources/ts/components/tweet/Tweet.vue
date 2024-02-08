@@ -10,6 +10,7 @@ import { ComputedRef, computed } from "vue";
 import { AuthStore } from "@/types/Auth";
 import ReplyButton from "./ReplyButton.vue";
 import RetweetButton from "./RetweetButton.vue";
+import axiosClient from "@/axios";
 
 type Props = {
     user: TweetUser;
@@ -23,9 +24,20 @@ const storeAuthUser: ComputedRef<AuthStore> = computed(() => authStore.user);
 const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(tweet.user_id));
 
 //いいねボタンをクリックした時の処理
-const handleLike = () => {
-    tweet.is_liked_user = !tweet.is_liked_user;
-    tweet.like_count += tweet.is_liked_user ? 1 : -1;
+const handleLike = async () => {
+    try {
+        if (tweet.is_liked_user) {
+            await axiosClient.delete(`/like/${tweet.id}`);
+            tweet.is_liked_user = false;
+            tweet.like_count--;
+        } else {
+            await axiosClient.post(`/like/${tweet.id}`);
+            tweet.is_liked_user = true;
+            tweet.like_count++;
+        }
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 </script>

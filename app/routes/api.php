@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use App\Http\Resources\Auth\AuthResource;
 use Illuminate\Support\Facades\Auth;
@@ -32,5 +33,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{user}', [UserController::class, 'show']);
         Route::post('/{user}', [UserController::class, 'update']);
         Route::get('/{user}/tweets', [UserController::class, 'userTweetList']);
+    });
+
+    Route::prefix('like')->group(function () {
+        Route::post('/{tweet}', [LikeController::class, 'like']);
+        Route::delete('/{tweet}', [LikeController::class, 'unlike']);
     });
 });
