@@ -4,7 +4,7 @@ type Props = {
     userId: string;
     created: string;
 }
-const { name, userId } = defineProps<Props>();
+const { name, userId, created } = defineProps<Props>();
 </script>
 
 <template>
