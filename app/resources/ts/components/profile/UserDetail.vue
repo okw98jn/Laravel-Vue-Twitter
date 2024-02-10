@@ -37,13 +37,13 @@ const isLoading: ComputedRef<boolean> = computed(() => userStore.isLoading);
             </p>
         </div>
         <div class="flex items-center">
-            <RouterLink :to="{ name: 'Home' }" class="mr-3">
+            <RouterLink :to="{ name: 'FollowList' }" class="mr-3">
                 <p class="text-sm border-b border-transparent hover:border-current">
                     <span class="font-medium">10</span>
                     <span class="text-gray-500">フォロー</span>
                 </p>
             </RouterLink>
-            <RouterLink :to="{ name: 'Home' }">
+            <RouterLink :to="{ name: 'FollowerList' }">
                 <p class="text-sm border-b border-transparent hover:border-current">
                     <span class="font-medium">10</span>
                     <span class="text-gray-500">フォロワー</span>

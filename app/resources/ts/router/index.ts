@@ -8,6 +8,10 @@ import Register from '@/views/Register.vue';
 import Profile from '@/views/Profile.vue';
 import LikeList from '@/components/profile/LikeList.vue';
 import TweetList from '@/components/profile/TweetList.vue';
+import Users from '@/views/Users.vue';
+import UserList from '@/components/users/UserList.vue';
+import FollowList from '@/components/users/FollowList.vue';
+import FollowerList from '@/components/users/FollowerList.vue';
 
 const routes = [
 	{
@@ -23,6 +27,13 @@ const routes = [
 					{ path: 'like', name: 'LikeList', component: LikeList },
 				]
 			},
+			{
+				path: '/:userId', name: 'Users', component: Users, children: [
+					{ path: 'users', name: 'UserList', component: UserList },
+					{ path: 'following', name: 'FollowList', component: FollowList },
+					{ path: 'followers', name: 'FollowerList', component: FollowerList },
+				]
+			}
 		]
 	},
 	{

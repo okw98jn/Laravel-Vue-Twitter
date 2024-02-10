@@ -11,12 +11,12 @@ const user: ComputedRef<UserStore> = computed(() => userStore.user);
 
 <template>
     <div class="flex items-center space-x-8 px-4 py-1">
-        <RouterLink :to="{ name: 'Home' }">
+        <RouterLink :to="{ name: 'TweetList' }">
             <ArrowLeftIcon class="h-6 w-6 cursor-pointer" />
         </RouterLink>
         <div>
             <h2 class="font-bold text-lg">{{ user.data.name }}</h2>
-            <span class="text-sm text-gray-500">{{ user.data.tweet_count }} ツイート</span>
+            <span class="text-sm text-gray-500">{{ user.data.user_id }}</span>
         </div>
     </div>
 </template>

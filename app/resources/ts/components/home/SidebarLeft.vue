@@ -23,7 +23,7 @@ const navigation = computed(() => [
             params: { userId: (authUser.value.data.id) ?? 0 }
         },
         icon: UserIcon,
-        isActive: route.name === 'TweetList' || route.name === 'LikeList',
+        isActive: route.name === 'TweetList' || route.name === 'LikeList' || route.name === 'UserList' || route.name === 'FollowList' || route.name === 'FollowerList',
     },
 ]);
 
