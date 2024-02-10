@@ -167,11 +167,11 @@ const toggleModal = (): void => {
                     :error-message="errorMessages.introduction" v-model="user.introduction" />
                 <InputCount name="location" label="場所" placeholder="場所" maxCount="30" v-model="user.location"
                     :error-message="errorMessages.location" />
-                <DateInput name="" label="生年月日" :error-message="errorMessages.birthday" v-model="user.birthday"/>
+                <DateInput name="" label="生年月日" :error-message="errorMessages.birthday" v-model="user.birthday" />
                 <div class="flex justify-end w-full">
-                    <div class="w-20">
+                    <div class="w-20 mt-4">
                         <Button text="保存" @click="updateUser" :is-loading="isUpdateLoading"
-                            :className="isUpdateLoading ? 'mt-4 inline-flex items-center justify-center h-10 px-4 py-2 text-white bg-gray-300' : 'mt-4 inline-flex items-center justify-center h-10 px-4 py-2 text-white bg-indigo-500 hover:bg-indigo-600'" />
+                            className="h-10 text-white bg-indigo-500 hover:bg-indigo-600" />
                     </div>
                 </div>
             </div>

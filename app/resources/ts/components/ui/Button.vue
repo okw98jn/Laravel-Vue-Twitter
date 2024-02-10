@@ -13,8 +13,8 @@ const emit = defineEmits<{
 
 <template>
     <button @click="emit('click')"
-        class="w-full mb-4 text-center cursor-pointer px-4 py-3 transition duration-300 ease-in-out rounded-full"
-        :class="className" :disabled="isLoading">
+        class="w-full mb-4 text-center cursor-pointer px-4 py-3 transition duration-300 ease-in-out rounded-full inline-flex items-center justify-center"
+        :class="[className, isLoading ? '!bg-gray-300' : '']" :disabled="isLoading">
         <template v-if="isLoading">
             <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
