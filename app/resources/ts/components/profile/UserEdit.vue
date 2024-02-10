@@ -69,7 +69,11 @@ const updateUser = () => {
     userStore.updateProfile(userId, formData)
         .then(() => {
             toggleModal();
-            tweetStore.fetchUserTweetList(userId);
+            if (route.name === 'TweetList') {
+                tweetStore.fetchUserTweetList(userId);
+            } else {
+                tweetStore.fetchUserLikedTweetList(userId);
+            }
         })
         .catch((err) => {
             errorMessages.value = err

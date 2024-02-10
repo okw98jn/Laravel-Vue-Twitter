@@ -5,12 +5,14 @@ import LikeButton from "@/components/tweet/LikeButton.vue";
 import Content from "@/components/tweet/Content.vue";
 import { Tweet, TweetUser } from "@/types/Tweet";
 import { useAuthStore } from "@/stores/auth";
+import { useTweetStore } from "@/stores/tweet";
 import { ComputedRef, computed } from "vue";
 import { AuthStore } from "@/types/Auth";
 import ReplyButton from "./ReplyButton.vue";
 import RetweetButton from "./RetweetButton.vue";
 import axiosClient from "@/axios";
 import TweetDelete from "./TweetDelete.vue";
+import { useRoute } from 'vue-router';
 
 type Props = {
     user: TweetUser;
@@ -19,21 +21,26 @@ type Props = {
 
 const { tweet, user } = defineProps<Props>();
 
+const route = useRoute();
+const userId = route.params.userId as string;
+
 const authStore = useAuthStore();
+const tweetStore = useTweetStore();
+
 const storeAuthUser: ComputedRef<AuthStore> = computed(() => authStore.user);
-const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(tweet.user_id));
+const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(userId));
+const canTweetDelete = computed(() => storeAuthUser.value.data.id === Number(tweet.user_id));
 
 //いいねボタンをクリックした時の処理
 const handleLike = async () => {
     try {
-        if (tweet.is_liked_user) {
-            await axiosClient.delete(`/like/${tweet.id}`);
-            tweet.is_liked_user = false;
-            tweet.like_count--;
-        } else {
-            await axiosClient.post(`/like/${tweet.id}`);
-            tweet.is_liked_user = true;
-            tweet.like_count++;
+        const method = tweet.is_liked_user ? 'delete' : 'post';
+        await axiosClient[method](`/like/${tweet.id}`);
+        tweet.is_liked_user = !tweet.is_liked_user;
+        tweet.like_count += tweet.is_liked_user ? 1 : -1;
+
+        if (tweet.is_liked_user === false && route.name === 'LikeList' && isAuthUser.value) {
+            tweetStore.removeTweetById(tweet.id);
         }
     } catch (err) {
         console.log(err);
@@ -50,7 +57,7 @@ const handleLike = async () => {
                 <div class="flex-1">
                     <div class="flex justify-between items-center">
                         <UserDetail :name="user.name" :user-id="user.user_id" :created="tweet.created" />
-                        <TweetDelete v-if="isAuthUser" :tweet-id="tweet.id" />
+                        <TweetDelete v-if="canTweetDelete" :tweet-id="tweet.id" />
                     </div>
                     <Content :text="tweet.text" />
                     <div class="flex items-center space-x-6 text-gray-500 mt-2">
