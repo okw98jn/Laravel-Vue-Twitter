@@ -8,7 +8,7 @@ export type UserStore = {
         birthday: string;
         icon_image: string | null;
         header_image: string | null;
-        tweet_const: number;
+        tweet_count: number;
     },
 };
 

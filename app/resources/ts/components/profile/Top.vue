@@ -14,6 +14,6 @@ const user: ComputedRef<UserStore> = computed(() => store.user);
         <RouterLink :to="{ name: 'Home' }">
             <ArrowLeftIcon class="h-6 w-6 cursor-pointer" />
         </RouterLink>
-        <span class="text-sm">{{ user.data.tweet_const }} ツイート</span>
+        <span class="text-sm">{{ user.data.tweet_count }} ツイート</span>
     </div>
 </template>

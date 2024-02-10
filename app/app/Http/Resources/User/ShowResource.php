@@ -23,7 +23,7 @@ class ShowResource extends JsonResource
             'birthday'     => $this->birthday,
             'icon_image'   => $this->icon_image ? env('IMAGE_URL').$this->icon_image : null,
             'header_image' => $this->header_image ? env('IMAGE_URL').$this->header_image : null,
-            'tweet_const'  => $this->tweets->count(),
+            'tweet_count'  => $this->tweets->count(),
         ];
     }
 }

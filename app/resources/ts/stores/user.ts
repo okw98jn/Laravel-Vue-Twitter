@@ -15,7 +15,7 @@ export const useUserStore = defineStore('user', () => {
             birthday: '',
             icon_image: '',
             header_image: '',
-            tweet_const: 0,
+            tweet_count: 0,
         },
     });
 
