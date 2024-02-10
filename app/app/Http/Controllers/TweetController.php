@@ -35,6 +35,8 @@ class TweetController extends Controller
 
     public function delete(Tweet $tweet)
     {
+        $this->authorize('delete', $tweet);
+
         $tweet->delete();
 
         return response()->json([], Response::HTTP_NO_CONTENT);
