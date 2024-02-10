@@ -8,11 +8,13 @@ const { text, className, isLoading } = defineProps<Props>();
 
 const emit = defineEmits<{
     (event: 'click'): void;
+    (event: 'mouseover'): void;
+    (event: 'mouseout'): void;
 }>();
 </script>
 
 <template>
-    <button @click="emit('click')"
+    <button @click="emit('click')" @mouseover="emit('mouseover')" @mouseout="emit('mouseout')"
         class="w-full mb-4 text-center cursor-pointer px-4 py-3 transition duration-300 ease-in-out rounded-full inline-flex items-center justify-center"
         :class="[className, isLoading ? '!bg-gray-300' : '']" :disabled="isLoading">
         <template v-if="isLoading">

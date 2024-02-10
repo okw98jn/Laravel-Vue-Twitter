@@ -1,8 +1,14 @@
 <script setup lang="ts">
-
+import User from '@/components/users/User.vue';
 
 </script>
 
 <template>
-    <div>ユーザー一覧</div>
+    <div>
+        <User />
+        <User />
+        <User />
+        <User />
+        <User />
+    </div>
 </template>
