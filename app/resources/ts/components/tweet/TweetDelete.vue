@@ -1,0 +1,53 @@
+<script setup lang="ts">
+import { TrashIcon } from "@heroicons/vue/24/outline";
+import { ref } from "vue";
+import ModalAlert from "../ui/ModalAlert.vue";
+import Button from "../ui/Button.vue";
+import { useUserStore } from "@/stores/user";
+
+type Props = {
+    tweetId: number;
+}
+
+const { tweetId } = defineProps<Props>();
+
+const userStore = useUserStore();
+const isOpen = ref(false);
+const isLoading = ref(false);
+
+const toggleModal = (): void => {
+    isOpen.value = !isOpen.value;
+};
+
+const handleDelete = async () => {
+    isLoading.value = true;
+    userStore.deleteUserTweet(tweetId)
+        .then(() => {
+            toggleModal();
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        .finally(() => {
+            isLoading.value = false;
+        });
+};
+
+</script>
+
+<template>
+    <div class="mb-1 p-1.5 rounded-full cursor-pointer transition duration-300 ease-in-out hover:bg-gray-200"
+        @click="toggleModal">
+        <TrashIcon class="h-5 w-5 text-gray-500" />
+    </div>
+    <ModalAlert :isOpen="isOpen" title="このツイートを削除しますか？" @click="toggleModal">
+        <div class="mb-6">
+            <p class="text-gray-500 text-sm">元に戻すことができず、あなたのプロフィール、あなたをフォローしているアカウントのタイムライン、検索結果から削除されます</p>
+        </div>
+        <div>
+            <Button text="削除" @click="handleDelete" :isLoading="isLoading"
+                className="text-white text-center bg-red-500 hover:bg-red-600 h-12" />
+            <Button text="キャンセル" @click="toggleModal" className="text-black border bg-white hover:bg-gray-200 h-12" />
+        </div>
+    </ModalAlert>
+</template>

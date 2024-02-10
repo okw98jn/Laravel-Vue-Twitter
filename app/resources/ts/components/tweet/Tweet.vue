@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { EllipsisHorizontalIcon } from "@heroicons/vue/24/outline";
 import UserIconImage from '@/components/tweet/UserIconImage.vue';
 import UserDetail from '@/components/tweet/UserDetail.vue';
 import LikeButton from "@/components/tweet/LikeButton.vue";
@@ -11,6 +10,7 @@ import { AuthStore } from "@/types/Auth";
 import ReplyButton from "./ReplyButton.vue";
 import RetweetButton from "./RetweetButton.vue";
 import axiosClient from "@/axios";
+import TweetDelete from "./TweetDelete.vue";
 
 type Props = {
     user: TweetUser;
@@ -48,9 +48,9 @@ const handleLike = async () => {
             <div class="flex items-start space-x-4">
                 <UserIconImage :icon_image="user.icon_image" />
                 <div class="flex-1">
-                    <div class="flex justify-between">
+                    <div class="flex justify-between items-center">
                         <UserDetail :name="user.name" :user-id="user.user_id" :created="tweet.created" />
-                        <EllipsisHorizontalIcon v-if="isAuthUser" class="h-7 w-7 text-gray-500" />
+                        <TweetDelete v-if="isAuthUser" :tweet-id="tweet.id" />
                     </div>
                     <Content :text="tweet.text" />
                     <div class="flex items-center space-x-6 text-gray-500 mt-2">
