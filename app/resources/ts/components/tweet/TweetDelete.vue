@@ -50,8 +50,9 @@ const handleDelete = async () => {
         </div>
         <div>
             <Button text="削除" @click="handleDelete" :isLoading="isLoading"
-                className="text-white text-center bg-red-500 hover:bg-red-600 h-12" />
-            <Button text="キャンセル" @click="toggleModal" className="text-black border bg-white hover:bg-gray-200 h-12" />
+                className="text-white text-center bg-red-500 hover:bg-red-600 h-12 font-semibold" />
+            <Button text="キャンセル" @click="toggleModal"
+                className="text-black border bg-white hover:bg-gray-200 h-12 font-semibold" />
         </div>
     </ModalAlert>
 </template>
