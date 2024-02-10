@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import Top from '@/components/users/Top.vue';
 import UsersTab from '@/components/users/UsersTab.vue';
-import { useUserStore } from '@/stores/user';
+import { useProfileStore } from '@/stores/profile';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 onMounted(async () => {
     const route = useRoute();
     const userId = route.params.userId as string;
-    const userStore = useUserStore();
-    await userStore.fetchProfile(userId);
+    const profileStore = useProfileStore();
+    await profileStore.fetchProfile(userId);
 });
 
 </script>

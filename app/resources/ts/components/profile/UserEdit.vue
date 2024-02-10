@@ -5,8 +5,8 @@ import { ComputedRef, computed, ref, watchEffect } from 'vue';
 import Modal from '@/components/ui/Modal.vue';
 import InputCount from './InputCount.vue';
 import TextAreaCount from './TextAreaCount.vue';
-import { useUserStore } from '@/stores/user';
-import { UserStore, UpdateUser } from '@/types/User';
+import { useProfileStore } from '@/stores/profile';
+import { Profile, UpdateProfile } from '@/types/Profile';
 import { CameraIcon } from "@heroicons/vue/24/outline";
 import { useAuthStore } from '@/stores/auth';
 import { AuthStore } from '@/types/Auth';
@@ -18,18 +18,18 @@ const route = useRoute();
 const userId = route.params.userId as string;
 
 const authStore = useAuthStore();
-const userStore = useUserStore();
+const profileStore = useProfileStore();
 const tweetStore = useTweetStore();
 
 const storeAuthUser: ComputedRef<AuthStore> = computed(() => authStore.user);
 const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(userId));
 
-const storeUser: ComputedRef<UserStore> = computed(() => userStore.user);
+const profile: ComputedRef<Profile> = computed(() => profileStore.profile);
 
-const isLoading: ComputedRef<boolean> = computed(() => userStore.isLoading);
+const isLoading: ComputedRef<boolean> = computed(() => profileStore.isLoading);
 const isUpdateLoading = ref(false);
 
-const user = ref<UpdateUser>({
+const user = ref<UpdateProfile>({
     name: '',
     introduction: '',
     location: '',
@@ -40,12 +40,12 @@ const user = ref<UpdateUser>({
 
 watchEffect(() => {
     user.value = {
-        name: storeUser.value.data.name ?? '',
-        introduction: storeUser.value.data.introduction ?? '',
-        location: storeUser.value.data.location ?? '',
-        birthday: storeUser.value.data.birthday ?? '',
-        icon_image: storeUser.value.data.icon_image ?? '',
-        header_image: storeUser.value.data.header_image ?? '',
+        name: profile.value.data.name ?? '',
+        introduction: profile.value.data.introduction ?? '',
+        location: profile.value.data.location ?? '',
+        birthday: profile.value.data.birthday ?? '',
+        icon_image: profile.value.data.icon_image ?? '',
+        header_image: profile.value.data.header_image ?? '',
     };
 });
 
@@ -66,7 +66,7 @@ const updateUser = () => {
     formData.append('introduction', user.value.introduction ?? '');
     formData.append('birthday', user.value.birthday ?? '');
 
-    userStore.updateProfile(userId, formData)
+    profileStore.updateProfile(userId, formData)
         .then(() => {
             toggleModal();
             if (route.name === 'TweetList') {
@@ -107,12 +107,12 @@ const isOpen = ref(false);
 const toggleModal = (): void => {
     isOpen.value = !isOpen.value;
     user.value = {
-        name: storeUser.value.data.name ?? '',
-        introduction: storeUser.value.data.introduction ?? '',
-        location: storeUser.value.data.location ?? '',
-        birthday: storeUser.value.data.birthday ?? '',
-        icon_image: storeUser.value.data.icon_image ?? '',
-        header_image: storeUser.value.data.header_image ?? '',
+        name: profile.value.data.name ?? '',
+        introduction: profile.value.data.introduction ?? '',
+        location: profile.value.data.location ?? '',
+        birthday: profile.value.data.birthday ?? '',
+        icon_image: profile.value.data.icon_image ?? '',
+        header_image: profile.value.data.header_image ?? '',
     };
     errorMessages.value = {
         name: '',

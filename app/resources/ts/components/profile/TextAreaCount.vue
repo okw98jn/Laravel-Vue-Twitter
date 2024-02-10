@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-
 type Props = {
     name: string;
     label: string;
@@ -9,7 +8,9 @@ type Props = {
     maxCount: string;
     errorMessage?: string;
 }
+
 const { name, label, placeholder, maxCount, errorMessage } = defineProps<Props>();
+
 const model = defineModel<string | null>();
 const isFocused = ref(false);
 </script>
