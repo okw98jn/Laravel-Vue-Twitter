@@ -3,7 +3,7 @@ import UserIconImage from '@/components/tweet/UserIconImage.vue';
 import UserDetail from '@/components/tweet/UserDetail.vue';
 import LikeButton from "@/components/tweet/LikeButton.vue";
 import Content from "@/components/tweet/Content.vue";
-import { Tweet, TweetUser } from "@/types/User";
+import { Tweet, TweetUser } from "@/types/Tweet";
 import { useAuthStore } from "@/stores/auth";
 import { ComputedRef, computed } from "vue";
 import { AuthStore } from "@/types/Auth";

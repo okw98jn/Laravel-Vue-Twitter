@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ChatBubbleOvalLeftIcon } from '@heroicons/vue/24/outline';
 
-
 type Props = {
     count: number;
 }

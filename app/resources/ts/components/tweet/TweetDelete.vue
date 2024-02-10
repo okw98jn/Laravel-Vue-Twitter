@@ -3,6 +3,7 @@ import { TrashIcon } from "@heroicons/vue/24/outline";
 import { ref } from "vue";
 import ModalAlert from "../ui/ModalAlert.vue";
 import Button from "../ui/Button.vue";
+import { useTweetStore } from "@/stores/tweet";
 import { useUserStore } from "@/stores/user";
 
 type Props = {
@@ -11,7 +12,9 @@ type Props = {
 
 const { tweetId } = defineProps<Props>();
 
+const tweetStore = useTweetStore();
 const userStore = useUserStore();
+
 const isOpen = ref(false);
 const isLoading = ref(false);
 
@@ -21,9 +24,10 @@ const toggleModal = (): void => {
 
 const handleDelete = async () => {
     isLoading.value = true;
-    userStore.deleteUserTweet(tweetId)
+    tweetStore.deleteUserTweet(tweetId)
         .then(() => {
             toggleModal();
+            userStore.user.data.tweet_count--;
         })
         .catch((err) => {
             console.log(err);

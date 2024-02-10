@@ -11,8 +11,8 @@ import TweetTab from '@/components/profile/TweetTab.vue';
 onMounted(async () => {
     const route = useRoute();
     const userId = route.params.userId as string;
-    const store = useUserStore();
-    await store.fetchProfile(userId);
+    const userStore = useUserStore();
+    await userStore.fetchProfile(userId);
 });
 
 </script>

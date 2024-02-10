@@ -9,7 +9,7 @@ import { ref } from 'vue';
 import FooterLink from '@/components/auth/FooterLink.vue';
 
 const router = useRouter();
-const store = useAuthStore();
+const authStore = useAuthStore();
 const isLoading = ref(false);
 
 const user: AuthLogin = {
@@ -26,7 +26,7 @@ const errorMessages = ref({
 const login = (e: Event): void => {
 	e.preventDefault();
 	isLoading.value = true;
-	store.login(user)
+	authStore.login(user)
 		.then(() => {
 			router.push({
 				name: 'Home'

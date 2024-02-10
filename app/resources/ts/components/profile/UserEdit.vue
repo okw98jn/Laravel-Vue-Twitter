@@ -12,19 +12,21 @@ import { useAuthStore } from '@/stores/auth';
 import { AuthStore } from '@/types/Auth';
 import { useRoute } from 'vue-router';
 import DateInput from './DateInput.vue';
+import { useTweetStore } from '@/stores/tweet';
 
 const route = useRoute();
 const userId = route.params.userId as string;
 
 const authStore = useAuthStore();
-const storeAuthUser: ComputedRef<AuthStore> = computed(() => authStore.user);
+const userStore = useUserStore();
+const tweetStore = useTweetStore();
 
+const storeAuthUser: ComputedRef<AuthStore> = computed(() => authStore.user);
 const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(userId));
 
-const store = useUserStore();
-const storeUser: ComputedRef<UserStore> = computed(() => store.user);
+const storeUser: ComputedRef<UserStore> = computed(() => userStore.user);
 
-const isLoading: ComputedRef<boolean> = computed(() => store.isLoading);
+const isLoading: ComputedRef<boolean> = computed(() => userStore.isLoading);
 const isUpdateLoading = ref(false);
 
 const user = ref<UpdateUser>({
@@ -64,9 +66,10 @@ const updateUser = () => {
     formData.append('introduction', user.value.introduction ?? '');
     formData.append('birthday', user.value.birthday ?? '');
 
-    store.updateProfile(userId, formData)
+    userStore.updateProfile(userId, formData)
         .then(() => {
             toggleModal();
+            tweetStore.fetchUserTweetList(userId);
         })
         .catch((err) => {
             errorMessages.value = err

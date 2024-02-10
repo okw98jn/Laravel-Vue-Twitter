@@ -8,7 +8,7 @@ import InputItem from '@/components/auth/InputItem.vue';
 import { ref } from 'vue';
 import FooterLink from '@/components/auth/FooterLink.vue';
 
-const store = useAuthStore();
+const authStore = useAuthStore();
 const router = useRouter();
 const isLoading = ref(false);
 
@@ -28,7 +28,7 @@ const errorMessages = ref({
 const register = (e: Event): void => {
 	e.preventDefault();
 	isLoading.value = true;
-	store.register(user)
+	authStore.register(user)
 		.then(() => {
 			router.push({
 				name: 'Home'

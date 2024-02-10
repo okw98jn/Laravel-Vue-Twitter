@@ -3,9 +3,9 @@ import { useUserStore } from '@/stores/user';
 import { UserStore } from '@/types/User';
 import { ComputedRef, computed } from 'vue';
 
-const store = useUserStore();
-const user: ComputedRef<UserStore> = computed(() => store.user);
-const isLoading: ComputedRef<boolean> = computed(() => store.isLoading);
+const userStore = useUserStore();
+const user: ComputedRef<UserStore> = computed(() => userStore.user);
+const isLoading: ComputedRef<boolean> = computed(() => userStore.isLoading);
 </script>
 
 <template>

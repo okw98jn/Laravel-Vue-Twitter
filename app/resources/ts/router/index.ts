@@ -44,11 +44,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	const store = useAuthStore();
+	const authStore = useAuthStore();
 
-	if (to.meta.requiresAuth && store.user.isLogin === null) {
+	if (to.meta.requiresAuth && authStore.user.isLogin === null) {
 		next({ name: 'Login' })
-	} else if (store.user.isLogin && (to.meta.isGuest)) {
+	} else if (authStore.user.isLogin && (to.meta.isGuest)) {
 		next({ name: 'Home' })
 	} else {
 		next()

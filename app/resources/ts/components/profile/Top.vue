@@ -4,8 +4,8 @@ import { UserStore } from "@/types/User";
 import { ArrowLeftIcon } from "@heroicons/vue/24/outline"
 import { ComputedRef, computed } from "vue";
 
-const store = useUserStore();
-const user: ComputedRef<UserStore> = computed(() => store.user);
+const userStore = useUserStore();
+const user: ComputedRef<UserStore> = computed(() => userStore.user);
 
 </script>
 

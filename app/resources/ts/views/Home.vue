@@ -2,11 +2,11 @@
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 
-const store = useAuthStore();
+const authStore = useAuthStore();
 const router = useRouter();
 
 const logout = (): void => {
-    store.logout()
+    authStore.logout()
         .then(() => {
             router.push({ name: 'Login' });
         })
@@ -16,8 +16,8 @@ const logout = (): void => {
 
 <template>
     <p>Home</p>
-	<p>{{ store.user.data.email }}</p>
-	<button @click="logout">ログアウト</button>
+    <p>{{ authStore.user.data.email }}</p>
+    <button @click="logout">ログアウト</button>
     <p>
         <br>
         <br>

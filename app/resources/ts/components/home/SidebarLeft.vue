@@ -6,8 +6,8 @@ import { useAuthStore } from "@/stores/auth";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
-const store = useAuthStore();
-const authUser = computed(() => store.user);
+const authStore = useAuthStore();
+const authUser = computed(() => authStore.user);
 const route = useRoute()
 const navigation = computed(() => [
     {
@@ -53,5 +53,6 @@ const navigation = computed(() => [
                 </div>
             </div>
             <Button text="ツイート" className="text-white bg-indigo-500 hover:bg-indigo-600" />
+        </div>
     </div>
-</div></template>
+</template>
