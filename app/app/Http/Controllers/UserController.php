@@ -5,11 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Resources\User\ShowResource;
 use App\Http\Resources\User\UpdateResource;
+use App\Http\Resources\User\UserListResource;
 use App\Models\User;
 use App\Services\CommonService;
+use App\Services\User\IndexService;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
+    public function index(Request $request, IndexService $indexService)
+    {
+        $users = $indexService->getUsers($request);
+        if ($users->isEmpty()) {
+            return response()->json([], Response::HTTP_NO_CONTENT);
+        }
+
+        return UserListResource::collection($users);
+    }
+
     /**
      * 指定されたユーザーの詳細情報とツイートの数を取得します。
      *

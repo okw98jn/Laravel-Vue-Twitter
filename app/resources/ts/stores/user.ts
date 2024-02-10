@@ -1,5 +1,5 @@
 import axiosClient from "@/axios";
-import { UserStore } from "@/types/User";
+import { User, UserStore } from "@/types/User";
 import { defineStore } from "pinia"
 import { ref } from "vue"
 
@@ -47,10 +47,27 @@ export const useUserStore = defineStore('user', () => {
         return user.value.data;
     }
 
+    const userList = ref<User[]>([]);
+    const fetchUsers = async () => {
+        isLoading.value = true;
+
+        try {
+            const { data } = await axiosClient.get('/user/users');
+            userList.value = data.data;
+        } catch (error: any) {
+            throw error.response.data;
+        } finally {
+            isLoading.value = false;
+        }
+
+        return userList.value;
+    }
     return {
         user,
         isLoading,
         fetchProfile,
         updateProfile,
+        userList,
+        fetchUsers,
     }
 })
