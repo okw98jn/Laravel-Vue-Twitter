@@ -10,25 +10,17 @@ export const useTweetStore = defineStore('tweet', () => {
             user_id: '',
             icon_image: '',
         },
-        tweets: [{
-            id: 0,
-            user_id: 0,
-            text: '',
-            like_count: 0,
-            is_liked_user: false,
-            created: '',
-        }],
+        tweets: [],
     });
 
     const isLoading = ref(false);
 
-    const fetchUserTweetList = async (userId: string) => {
+    const fetchTweets = async (url: string) => {
         isLoading.value = true;
 
         try {
-            // const { data } = await axiosClient.get(`/user/${userId}/tweets?page=2`);
-            const { data } = await axiosClient.get(`/tweet/${userId}`);
-            tweetList.value = data.data;
+            const { data } = await axiosClient.get(url);
+            tweetList.value = data ? data.data : tweetList.value;
         } catch (err: any) {
             throw err.response.data;
         } finally {
@@ -37,6 +29,9 @@ export const useTweetStore = defineStore('tweet', () => {
 
         return tweetList.value;
     }
+
+    const fetchUserTweetList = (userId: string) => fetchTweets(`/tweet/${userId}`);
+    const fetchUserLikedTweetList = (userId: string) => fetchTweets(`/tweet/liked/${userId}`);
 
     const deleteTweet = async (tweetId: number) => {
         await axiosClient.delete(`/tweet/${tweetId}`)
@@ -52,6 +47,7 @@ export const useTweetStore = defineStore('tweet', () => {
         isLoading,
         tweetList,
         fetchUserTweetList,
+        fetchUserLikedTweetList,
         deleteTweet,
     }
 })

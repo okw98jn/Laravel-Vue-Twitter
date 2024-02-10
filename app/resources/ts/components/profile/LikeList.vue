@@ -12,7 +12,7 @@ const isLoading: ComputedRef<boolean> = computed(() => tweetStore.isLoading);
 onMounted(async () => {
     const route = useRoute();
     const userId = route.params.userId as string;
-    await tweetStore.fetchUserTweetList(userId);
+    await tweetStore.fetchUserLikedTweetList(userId);
 });
 </script>
 

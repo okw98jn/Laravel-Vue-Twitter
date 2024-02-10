@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('tweet')->group(function () {
         Route::get('/{user}', [TweetController::class, 'userTweets']);
+        Route::get('/liked/{user}', [TweetController::class, 'userLikedTweets']);
         Route::delete('/{tweet}', [TweetController::class, 'delete']);
     });
 
