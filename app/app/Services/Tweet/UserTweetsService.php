@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\Tweet;
 
 use App\Models\Tweet;
 use App\Models\User;
 
-class UserTweetListService
+class UserTweetsService
 {
-    public function getUserTweetList(User $user)
+    public function getUserTweets(User $user)
     {
         $tweets = Tweet::where('user_id', $user->id)
             ->with('user', 'likes')

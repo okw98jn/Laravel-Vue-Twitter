@@ -5,16 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Resources\User\ShowResource;
 use App\Http\Resources\User\UpdateResource;
-use App\Http\Resources\User\UserTweetListResource;
 use App\Models\User;
 use App\Services\CommonService;
-use App\Services\User\UserTweetListService;
 
 class UserController extends Controller
 {
     /**
      * 指定されたユーザーの詳細情報とツイートの数を取得します。
-     * ツイートのリストは、Eager Loadingを使用してn+1問題を解決します。
      *
      * @param  User  $user 詳細情報を取得するユーザー。
      * @return ShowResource ユーザーの詳細情報とそのユーザーのツイート数のレスポンスを返します。
@@ -47,12 +44,5 @@ class UserController extends Controller
         $user->update($data);
 
         return new UpdateResource($user);
-    }
-
-    public function userTweetList(User $user, UserTweetListService $userTweetListService)
-    {
-        $userTweetList = $userTweetListService->getUserTweetList($user);
-
-        return new UserTweetListResource($userTweetList);
     }
 }

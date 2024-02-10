@@ -24,7 +24,7 @@ const toggleModal = (): void => {
 
 const handleDelete = async () => {
     isLoading.value = true;
-    tweetStore.deleteUserTweet(tweetId)
+    tweetStore.deleteTweet(tweetId)
         .then(() => {
             toggleModal();
             userStore.user.data.tweet_count--;

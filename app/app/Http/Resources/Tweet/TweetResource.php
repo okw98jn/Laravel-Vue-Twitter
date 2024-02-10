@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\Tweet;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserTweetResource extends JsonResource
+class TweetResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

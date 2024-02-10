@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\Tweet;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserTweetListResource extends JsonResource
+class TweetListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,7 +20,7 @@ class UserTweetListResource extends JsonResource
                 'user_id'    => $this->first()->user->user_id,
                 'icon_image' => $this->first()->user->icon_image ? env('IMAGE_URL').$this->first()->user->icon_image : null,
             ],
-            'tweets' =>  UserTweetResource::collection($this),
+            'tweets' =>  TweetResource::collection($this),
         ];
     }
 }
