@@ -4,14 +4,21 @@ import { defineStore } from "pinia"
 import { ref } from "vue"
 
 export const useTweetStore = defineStore('tweet', () => {
-    const tweetList = ref<TweetList>({
+    const tweetList = ref<TweetList>([{
         user: {
             name: '',
             user_id: '',
             icon_image: '',
         },
-        tweets: [],
-    });
+        tweet: {
+            id: 0,
+            user_id: 0,
+            text: '',
+            like_count: 0,
+            is_liked_user: false,
+            created: '',
+        },
+    }]);
 
     const isLoading = ref(false);
 
@@ -20,7 +27,11 @@ export const useTweetStore = defineStore('tweet', () => {
 
         try {
             const { data } = await axiosClient.get(url);
-            tweetList.value = data ? data.data : tweetList.value;
+            if (data) {
+                tweetList.value = data.data;
+            } else {
+                tweetList.value = [];
+            }
         } catch (err: any) {
             throw err.response.data;
         } finally {
@@ -29,18 +40,21 @@ export const useTweetStore = defineStore('tweet', () => {
 
         return tweetList.value;
     }
-
     const fetchUserTweetList = (userId: string) => fetchTweets(`/tweet/${userId}`);
     const fetchUserLikedTweetList = (userId: string) => fetchTweets(`/tweet/liked/${userId}`);
 
+    const removeTweetById = (tweetId: number) => {
+        tweetList.value = tweetList.value.filter((tweet) => tweet.tweet.id !== tweetId);
+    }
+
     const deleteTweet = async (tweetId: number) => {
         await axiosClient.delete(`/tweet/${tweetId}`)
+            .then(() => {
+                removeTweetById(tweetId);
+            })
             .catch((err) => {
                 throw err.response.data;
             })
-            .finally(() => {
-                tweetList.value.tweets = tweetList.value.tweets.filter((tweet) => tweet.id !== tweetId);
-            });
     }
 
     return {
@@ -49,5 +63,6 @@ export const useTweetStore = defineStore('tweet', () => {
         fetchUserTweetList,
         fetchUserLikedTweetList,
         deleteTweet,
+        removeTweetById,
     }
 })

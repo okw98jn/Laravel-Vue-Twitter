@@ -21,6 +21,6 @@ onMounted(async () => {
         <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" style="z-index: 1;" />
     </div>
     <div v-else>
-        <Tweet v-for="tweet in tweetList.tweets" :key="tweet.id" :user="tweetList.user" :tweet="tweet" />
+        <Tweet v-for="tweet in tweetList" :key="tweet.tweet.id" :user="tweet.user" :tweet="tweet.tweet" />
     </div>
 </template>

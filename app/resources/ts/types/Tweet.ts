@@ -1,7 +1,7 @@
 export type TweetList = {
     user: TweetUser;
-    tweets: Tweet[];
-};
+    tweet: Tweet;
+}[];
 
 export type TweetUser = {
     name: string;

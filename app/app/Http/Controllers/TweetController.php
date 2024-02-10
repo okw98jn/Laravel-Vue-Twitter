@@ -19,7 +19,7 @@ class TweetController extends Controller
             return response()->json([], Response::HTTP_NO_CONTENT);
         }
 
-        return new TweetListResource($userTweets);
+        return TweetListResource::collection($userTweets);
     }
 
     public function userLikedTweets(User $user, UserLikedTweetsService $userLikedTweetsService)
@@ -30,7 +30,7 @@ class TweetController extends Controller
             return response()->json([], Response::HTTP_NO_CONTENT);
         }
 
-        return new TweetListResource($likedTweets);
+        return TweetListResource::collection($likedTweets);
     }
 
     public function delete(Tweet $tweet)
