@@ -40,7 +40,7 @@ const handleDelete = async () => {
 </script>
 
 <template>
-    <div class="mb-1 p-1.5 rounded-full cursor-pointer transition duration-300 ease-in-out hover:bg-gray-200"
+    <div class="p-1.5 rounded-full cursor-pointer transition duration-300 ease-in-out hover:bg-gray-200"
         @click="toggleModal">
         <TrashIcon class="h-5 w-5 text-gray-500" />
     </div>

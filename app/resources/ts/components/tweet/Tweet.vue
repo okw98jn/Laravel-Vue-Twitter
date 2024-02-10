@@ -56,7 +56,9 @@ const handleLike = async () => {
                 <UserIconImage :icon_image="user.icon_image" />
                 <div class="flex-1">
                     <div class="flex justify-between items-center">
-                        <UserDetail :name="user.name" :user-id="user.user_id" :created="tweet.created" />
+                        <div class="mb-1">
+                            <UserDetail :name="user.name" :user-id="user.user_id" :created="tweet.created" />
+                        </div>
                         <TweetDelete v-if="canTweetDelete" :tweet-id="tweet.id" />
                     </div>
                     <Content :text="tweet.text" />
