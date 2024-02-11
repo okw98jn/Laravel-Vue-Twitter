@@ -63,6 +63,10 @@ fresh:
 Pint:
 	docker compose exec app ./vendor/bin/pint
 
+# stan
+stan:
+	docker compose exec app ./vendor/bin/phpstan analyse --memory-limit=2G
+
 # npm install
 npm-i:
 	docker compose exec app npm install
