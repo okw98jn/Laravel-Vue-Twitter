@@ -14,6 +14,10 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        if (! $this->user()) {
+            return false;
+        }
+
         $user = $this->route('user');
 
         return $this->user()->can('update', $user);
@@ -31,17 +35,17 @@ class UpdateRequest extends FormRequest
             'introduction' => ['nullable', 'string', 'max:160'],
             'location'     => ['nullable', 'string', 'max:30'],
             'birthday'     => ['required'],
-            'icon_image'   => ['nullable', 'image'],
-            'header_image' => ['nullable', 'image'],
+            'icon_image'   => ['nullable', 'image', 'file'],
+            'header_image' => ['nullable', 'image', 'file'],
         ];
     }
 
     /**
      * Get custom attributes for validator errors.
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'name'         => '名前',

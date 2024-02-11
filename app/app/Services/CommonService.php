@@ -21,6 +21,12 @@ class CommonService
             Storage::delete($oldFile);
         }
 
-        return Storage::putFile($path, $newFile);
+        $result = Storage::putFile($path, $newFile);
+
+        if ($result === false) {
+            throw new \RuntimeException('画像の保存に失敗しました。');
+        }
+
+        return $result;
     }
 }

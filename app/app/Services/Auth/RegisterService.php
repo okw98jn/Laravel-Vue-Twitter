@@ -7,7 +7,10 @@ use App\Models\User;
 class RegisterService
 {
     /**
-     * ユーザーを新規登録します。
+     * ユーザーを新規登録します
+     *
+     * @param  array<mixed>  $data
+     * @return User
      */
     public function store(array $data): User
     {

@@ -7,7 +7,13 @@ use App\Models\Tweet;
 
 class LikeService
 {
-    public function like(Tweet $tweet)
+    /**
+     * いいねデータを作成します
+     *
+     * @param  Tweet  $tweet
+     * @return void
+     */
+    public function like(Tweet $tweet): void
     {
         $data = [
             'user_id'  => auth()->id(),

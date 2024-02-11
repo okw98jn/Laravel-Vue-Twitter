@@ -59,11 +59,11 @@ class UserController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('icon_image')) {
-            $data['icon_image'] = $commonService->savaFile($user->icon_image, $request->file('icon_image'), 'user/icon');
+        if (isset($data['icon_image'])) {
+            $data['icon_image'] = $commonService->savaFile($user->icon_image, $data['icon_image'], 'user/icon');
         }
-        if ($request->hasFile('header_image')) {
-            $data['header_image'] = $commonService->savaFile($user->header_image, $request->file('header_image'), 'user/header');
+        if (isset($data['header_image'])) {
+            $data['header_image'] = $commonService->savaFile($user->header_image, $data['header_image'], 'user/header');
         }
 
         $user->update($data);

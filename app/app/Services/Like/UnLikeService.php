@@ -7,7 +7,13 @@ use App\Models\Tweet;
 
 class UnLikeService
 {
-    public function unLike(Tweet $tweet)
+    /**
+     * いいねデータを削除します
+     *
+     * @param  Tweet  $tweet
+     * @return void
+     */
+    public function unLike(Tweet $tweet): void
     {
         $where = [
             'user_id'  => auth()->id(),
