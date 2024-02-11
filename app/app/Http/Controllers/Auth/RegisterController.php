@@ -18,7 +18,8 @@ class RegisterController extends Controller
 
     /**
      * ユーザー登録API
-     * @param RegisterRequest $request
+     *
+     * @param  RegisterRequest  $request
      * @return AuthResource|JsonResponse
      */
     public function __invoke(RegisterRequest $request): AuthResource|JsonResponse

@@ -9,7 +9,8 @@ class UserTweetsService
 {
     /**
      * ユーザーのツイート一覧を取得
-     * @param User $user
+     *
+     * @param  User  $user
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getUserTweets(User $user): \Illuminate\Pagination\LengthAwarePaginator

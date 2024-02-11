@@ -12,8 +12,9 @@ class LikeController extends Controller
 {
     /**
      * いいねAPI
-     * @param Tweet $tweet
-     * @param LikeService $likeService
+     *
+     * @param  Tweet  $tweet
+     * @param  LikeService  $likeService
      * @return JsonResponse
      */
     public function like(Tweet $tweet, LikeService $likeService): JsonResponse
@@ -25,8 +26,9 @@ class LikeController extends Controller
 
     /**
      * いいね解除API
-     * @param Tweet $tweet
-     * @param UnLikeService $UnlikeService
+     *
+     * @param  Tweet  $tweet
+     * @param  UnLikeService  $UnlikeService
      * @return JsonResponse
      */
     public function unlike(Tweet $tweet, UnLikeService $UnlikeService): JsonResponse

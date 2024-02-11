@@ -15,10 +15,9 @@ class TweetController extends Controller
 {
     /**
      * ユーザーのツイート一覧API
-     * 
-     * @param User $user
-     * @param UserTweetsService $userTweetService
-     * 
+     *
+     * @param  User  $user
+     * @param  UserTweetsService  $userTweetService
      * @return AnonymousResourceCollection|JsonResponse
      */
     public function userTweets(User $user, UserTweetsService $userTweetService): AnonymousResourceCollection|JsonResponse
@@ -34,8 +33,9 @@ class TweetController extends Controller
 
     /**
      * ユーザーのいいねしたツイート一覧API
-     * @param User $user
-     * @param UserLikedTweetsService $userLikedTweetsService
+     *
+     * @param  User  $user
+     * @param  UserLikedTweetsService  $userLikedTweetsService
      * @return AnonymousResourceCollection|JsonResponse
      */
     public function userLikedTweets(User $user, UserLikedTweetsService $userLikedTweetsService): AnonymousResourceCollection|JsonResponse
@@ -51,7 +51,8 @@ class TweetController extends Controller
 
     /**
      * ツイート削除API
-     * @param Tweet $tweet
+     *
+     * @param  Tweet  $tweet
      * @return JsonResponse
      */
     public function delete(Tweet $tweet): JsonResponse

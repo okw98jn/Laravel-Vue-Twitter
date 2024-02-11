@@ -19,8 +19,9 @@ class UserController extends Controller
     /**
      * ユーザー一覧API
      * 検索キーワードがリクエストに含まれている場合、ユーザー名と自己紹介文から検索を行います
-     * @param Request $request
-     * @param IndexService $indexService
+     *
+     * @param  Request  $request
+     * @param  IndexService  $indexService
      * @return AnonymousResourceCollection|JsonResponse
      */
     public function index(Request $request, IndexService $indexService): AnonymousResourceCollection|JsonResponse
@@ -36,7 +37,8 @@ class UserController extends Controller
 
     /**
      * ユーザー情報取得API
-     * @param User $user
+     *
+     * @param  User  $user
      * @return ShowResource
      */
     public function show(User $user): ShowResource
@@ -47,9 +49,10 @@ class UserController extends Controller
     /**
      * ユーザー情報更新API
      * アイコン画像とヘッダー画像は、'user/icon' と 'user/header' のパスに保存されます
-     * @param CommonService $commonService
-     * @param UpdateRequest $request
-     * @param User $user
+     *
+     * @param  CommonService  $commonService
+     * @param  UpdateRequest  $request
+     * @param  User  $user
      * @return UpdateResource
      */
     public function update(CommonService $commonService, UpdateRequest $request, User $user): UpdateResource

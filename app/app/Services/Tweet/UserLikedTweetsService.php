@@ -9,7 +9,8 @@ class UserLikedTweetsService
 {
     /**
      * ユーザーのいいねしたツイート一覧を取得
-     * @param User $user
+     *
+     * @param  User  $user
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getUserLikedTweets(User $user): \Illuminate\Pagination\LengthAwarePaginator
