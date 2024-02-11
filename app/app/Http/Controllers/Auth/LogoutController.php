@@ -8,7 +8,12 @@ use Illuminate\Http\Request;
 
 class LogoutController extends Controller
 {
-    public function __invoke(Request $request)
+    /**
+     * ログアウトAPI
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function __invoke(Request $request): JsonResponse
     {
         auth('web')->logout();
 

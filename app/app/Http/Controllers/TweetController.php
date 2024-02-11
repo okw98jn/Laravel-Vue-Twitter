@@ -7,11 +7,21 @@ use App\Models\Tweet;
 use App\Models\User;
 use App\Services\Tweet\UserLikedTweetsService;
 use App\Services\Tweet\UserTweetsService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class TweetController extends Controller
 {
-    public function userTweets(User $user, UserTweetsService $userTweetService)
+    /**
+     * ユーザーのツイート一覧API
+     * 
+     * @param User $user
+     * @param UserTweetsService $userTweetService
+     * 
+     * @return AnonymousResourceCollection|JsonResponse
+     */
+    public function userTweets(User $user, UserTweetsService $userTweetService): AnonymousResourceCollection|JsonResponse
     {
         $userTweets = $userTweetService->getUserTweets($user);
 
@@ -22,7 +32,13 @@ class TweetController extends Controller
         return TweetListResource::collection($userTweets);
     }
 
-    public function userLikedTweets(User $user, UserLikedTweetsService $userLikedTweetsService)
+    /**
+     * ユーザーのいいねしたツイート一覧API
+     * @param User $user
+     * @param UserLikedTweetsService $userLikedTweetsService
+     * @return AnonymousResourceCollection|JsonResponse
+     */
+    public function userLikedTweets(User $user, UserLikedTweetsService $userLikedTweetsService): AnonymousResourceCollection|JsonResponse
     {
         $likedTweets = $userLikedTweetsService->getUserLikedTweets($user);
 
@@ -33,7 +49,12 @@ class TweetController extends Controller
         return TweetListResource::collection($likedTweets);
     }
 
-    public function delete(Tweet $tweet)
+    /**
+     * ツイート削除API
+     * @param Tweet $tweet
+     * @return JsonResponse
+     */
+    public function delete(Tweet $tweet): JsonResponse
     {
         $this->authorize('delete', $tweet);
 

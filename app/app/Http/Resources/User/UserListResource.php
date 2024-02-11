@@ -15,11 +15,11 @@ class UserListResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'           => $this->id,
-            'name'         => $this->name,
-            'user_id'      => $this->user_id,
-            'introduction' => $this->introduction,
-            'icon_image'   => $this->icon_image ? env('IMAGE_URL').$this->icon_image : null,
+            'id'           => $this->resource->id,
+            'name'         => $this->resource->name,
+            'user_id'      => $this->resource->user_id,
+            'introduction' => $this->resource->introduction,
+            'icon_image'   => $this->resource->icon_image ? env('IMAGE_URL').$this->resource->icon_image : null,
             'is_follow'    => true,
             'is_follower'  => true,
         ];

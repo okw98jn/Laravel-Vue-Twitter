@@ -9,14 +9,24 @@ use App\Http\Resources\User\UserListResource;
 use App\Models\User;
 use App\Services\CommonService;
 use App\Services\User\IndexService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
-    public function index(Request $request, IndexService $indexService)
+    /**
+     * ユーザー一覧API
+     * 検索キーワードがリクエストに含まれている場合、ユーザー名と自己紹介文から検索を行います
+     * @param Request $request
+     * @param IndexService $indexService
+     * @return AnonymousResourceCollection|JsonResponse
+     */
+    public function index(Request $request, IndexService $indexService): AnonymousResourceCollection|JsonResponse
     {
-        $users = $indexService->getUsers($request);
+        $request = 1;
+        $users = $indexService->getUsers();
         if ($users->isEmpty()) {
             return response()->json([], Response::HTTP_NO_CONTENT);
         }
@@ -25,26 +35,24 @@ class UserController extends Controller
     }
 
     /**
-     * 指定されたユーザーの詳細情報とツイートの数を取得します。
-     *
-     * @param  User  $user 詳細情報を取得するユーザー。
-     * @return ShowResource ユーザーの詳細情報とそのユーザーのツイート数のレスポンスを返します。
+     * ユーザー情報取得API
+     * @param User $user
+     * @return ShowResource
      */
-    public function show(User $user)
+    public function show(User $user): ShowResource
     {
         return new ShowResource($user);
     }
 
     /**
-     * ユーザー情報を更新します。
-     * アイコン画像とヘッダー画像は、'user/icon' と 'user/header' のパスに保存されます。
-     *
-     * @param  CommonService  $commonService 共通処理のサービスクラス。
-     * @param  UpdateRequest  $request 更新リクエスト。バリデーション済みのリクエストデータを提供します。
-     * @param  User  $user 更新対象のユーザー。
-     * @return UpdateResource 更新されたユーザー情報のレスポンスを返します。
+     * ユーザー情報更新API
+     * アイコン画像とヘッダー画像は、'user/icon' と 'user/header' のパスに保存されます
+     * @param CommonService $commonService
+     * @param UpdateRequest $request
+     * @param User $user
+     * @return UpdateResource
      */
-    public function update(CommonService $commonService, UpdateRequest $request, User $user)
+    public function update(CommonService $commonService, UpdateRequest $request, User $user): UpdateResource
     {
         $data = $request->validated();
 

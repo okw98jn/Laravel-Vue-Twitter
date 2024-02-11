@@ -15,12 +15,12 @@ class TweetResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'            => $this->id,
-            'user_id'       => $this->user_id,
-            'text'          => $this->text,
-            'like_count'    => $this->likes->count(),
-            'is_liked_user' => $this->isLikedByUser(auth()->user()),
-            'created'       => $this->created_at->diffForHumans(),
+            'id'            => $this->resource->id,
+            'user_id'       => $this->resource->user_id,
+            'text'          => $this->resource->text,
+            'like_count'    => $this->resource->likes->count(),
+            'is_liked_user' => $this->resource->isLikedByUser(auth()->user()),
+            'created'       => $this->resource->created_at->diffForHumans(),
         ];
     }
 }

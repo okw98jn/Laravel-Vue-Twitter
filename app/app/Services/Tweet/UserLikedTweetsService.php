@@ -7,7 +7,12 @@ use App\Models\User;
 
 class UserLikedTweetsService
 {
-    public function getUserLikedTweets(User $user)
+    /**
+     * ユーザーのいいねしたツイート一覧を取得
+     * @param User $user
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function getUserLikedTweets(User $user): \Illuminate\Pagination\LengthAwarePaginator
     {
         $tweets = Tweet::whereHas('likes', function ($query) use ($user) {
             $query->where('user_id', $user->id);

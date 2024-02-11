@@ -10,7 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function __invoke(LoginRequest $request)
+    /**
+     * ログインAPI
+     *
+     * @return AuthResource|Response
+     */
+    public function __invoke(LoginRequest $request): AuthResource|Response
     {
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();

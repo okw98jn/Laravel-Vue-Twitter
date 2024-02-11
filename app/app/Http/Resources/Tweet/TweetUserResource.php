@@ -15,9 +15,9 @@ class TweetUserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name'       => $this->user->name,
-            'user_id'    => $this->user->user_id,
-            'icon_image' => $this->user->icon_image ? env('IMAGE_URL').$this->user->icon_image : null,
+            'name'       => $this->resource->user->name,
+            'user_id'    => $this->resource->user->user_id,
+            'icon_image' => $this->resource->user->icon_image ? env('IMAGE_URL').$this->resource->user->icon_image : null,
         ];
     }
 }
