@@ -9,8 +9,10 @@ use App\Http\Resources\User\UserListResource;
 use App\Models\User;
 use App\Services\CommonService;
 use App\Services\User\FollowerUsersService;
+use App\Services\User\FollowService;
 use App\Services\User\FollowUsersService;
 use App\Services\User\IndexService;
+use App\Services\User\UnFollowService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -108,5 +110,35 @@ class UserController extends Controller
         $user->update($data);
 
         return new UpdateResource($user);
+    }
+
+    /**
+     * フォローAPI
+     *
+     * @param  FollowService  $followService
+     * @param  User  $user
+     * @return JsonResponse
+     */
+    public function follow(FollowService $followService, User $user): JsonResponse
+    {
+        $this->authorize('follow', $user);
+
+        $followService->follow($user);
+
+        return response()->json([], Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * フォロー解除API
+     *
+     * @param  UnFollowService  $unFollowService
+     * @param  User  $user
+     * @return JsonResponse
+     */
+    public function unFollow(UnFollowService $unFollowService, User $user): JsonResponse
+    {
+        $unFollowService->unFollow($user);
+
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
