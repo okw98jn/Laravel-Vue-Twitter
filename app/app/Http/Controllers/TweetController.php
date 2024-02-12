@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Tweet\TweetListResource;
 use App\Models\Tweet;
 use App\Models\User;
+use App\Services\Tweet\IndexService;
 use App\Services\Tweet\UserLikedTweetsService;
 use App\Services\Tweet\UserTweetsService;
 use Illuminate\Http\JsonResponse;
@@ -13,6 +14,23 @@ use Illuminate\Http\Response;
 
 class TweetController extends Controller
 {
+    /**
+     * ツイート一覧API
+     *
+     * @param  IndexService  $indexService
+     * @return AnonymousResourceCollection|JsonResponse
+     */
+    public function index(IndexService $indexService): AnonymousResourceCollection|JsonResponse
+    {
+        $tweets = $indexService->getTweets();
+
+        if ($tweets->isEmpty()) {
+            return response()->json([], Response::HTTP_NO_CONTENT);
+        }
+
+        return TweetListResource::collection($tweets);
+    }
+
     /**
      * ユーザーのツイート一覧API
      *
