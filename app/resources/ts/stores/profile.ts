@@ -15,7 +15,10 @@ export const useProfileStore = defineStore('profile', () => {
             icon_image: '',
             header_image: '',
             tweet_count: 0,
+            follow_count: 0,
+            follower_count: 0,
             is_auth_user: false,
+            is_follow: false,
         },
     });
 

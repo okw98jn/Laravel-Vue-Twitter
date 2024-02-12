@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import UserIconImage from '@/components/users/UserIconImage.vue';
 import UserDetail from '@/components/users/UserDetail.vue';
-import FollowButton from '@/components/users/FollowButton.vue';
+import FollowButton from '@/components/ui/FollowButton.vue';
 import { User } from '@/types/User';
 
 type Props = {
@@ -19,7 +19,8 @@ const { user } = defineProps<Props>();
                 <div class="flex-1">
                     <UserDetail :name="user.name" :user-id="user.user_id" :is-follower="user.is_follower"
                         :introduction="user.introduction">
-                        <FollowButton v-if="!user.is_auth_user" :user-id="user.user_id" :is-follow="user.is_follow" />
+                        <FollowButton v-if="!user.is_auth_user" :target-user-id="user.id" :user-id="user.user_id"
+                            :is-follow="user.is_follow" />
                     </UserDetail>
                 </div>
             </div>

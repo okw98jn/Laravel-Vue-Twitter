@@ -11,6 +11,7 @@ import { CameraIcon } from "@heroicons/vue/24/outline";
 import { useRoute } from 'vue-router';
 import DateInput from './DateInput.vue';
 import { useTweetStore } from '@/stores/tweet';
+import FollowButton from '@/components/ui/FollowButton.vue';
 
 const route = useRoute();
 const userId = route.params.userId as string;
@@ -129,10 +130,11 @@ const toggleModal = (): void => {
             </h2>
         </template>
         <div class="mt-12">
-            <template v-if="profile.data.is_auth_user">
-                <Button text="編集" @click="toggleModal"
-                    class-name="inline-flex items-center justify-center text-sm font-medium border bg-white h-10 px-4 py-2 mt-6 hover:bg-gray-200 " />
-            </template>
+            <Button v-if="profile.data.is_auth_user" text="編集" @click="toggleModal"
+                class-name="inline-flex items-center justify-center text-sm font-medium border bg-white h-10 px-4 py-2 mt-6 hover:bg-gray-200 " />
+            <div class="mt-6" v-else>
+                <FollowButton :isFollow="profile.data.is_follow" :target-user-id="userId" :user-id="profile.data.user_id" />
+            </div>
         </div>
         <Modal :isOpen="isOpen" title="プロフィール編集" @click="toggleModal">
             <div class="mb-16">

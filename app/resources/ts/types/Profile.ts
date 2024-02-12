@@ -9,7 +9,10 @@ export type Profile = {
         icon_image: string | null;
         header_image: string | null;
         tweet_count: number;
+        follow_count: number;
+        follower_count: number;
         is_auth_user: boolean;
+        is_follow: boolean;
     },
 };
 
