@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('likes', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('ユーザーID');
             $table->foreignId('tweet_id')->constrained('tweets')->onDelete('cascade')->comment('ツイートID');
+
+            $table->unique(['user_id', 'tweet_id']);
             $table->comment('いいね');
         });
     }

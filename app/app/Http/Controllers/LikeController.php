@@ -28,12 +28,12 @@ class LikeController extends Controller
      * いいね解除API
      *
      * @param  Tweet  $tweet
-     * @param  UnLikeService  $UnlikeService
+     * @param  UnLikeService  $unlikeService
      * @return JsonResponse
      */
-    public function unlike(Tweet $tweet, UnLikeService $UnlikeService): JsonResponse
+    public function unlike(Tweet $tweet, UnLikeService $unlikeService): JsonResponse
     {
-        $UnlikeService->unLike($tweet);
+        $unlikeService->unLike($tweet);
 
         return response()->json([], Response::HTTP_NO_CONTENT);
     }

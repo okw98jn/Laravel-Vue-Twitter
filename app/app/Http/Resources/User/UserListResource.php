@@ -20,8 +20,9 @@ class UserListResource extends JsonResource
             'user_id'      => $this->resource->user_id,
             'introduction' => $this->resource->introduction,
             'icon_image'   => $this->resource->icon_image ? env('IMAGE_URL').$this->resource->icon_image : null,
-            'is_follow'    => true,
-            'is_follower'  => true,
+            'is_follow'    => $this->resource->isFollowing($this->resource->id),
+            'is_follower'  => $this->resource->isFollowedBy($this->resource->id),
+            'is_auth_user' => $this->resource->id === auth()->id(),
         ];
     }
 }

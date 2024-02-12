@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,5 +63,41 @@ class User extends Authenticatable
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function follows(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
+    }
+
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
+    }
+
+    /**
+     * ログインユーザーがフォローしているかどうか
+     *
+     * @param  int  $userId
+     * @return bool
+     */
+    public function isFollowing(int $userId): bool
+    {
+        $authUser = $this->find(auth()->id());
+
+        return $authUser ? $authUser->follows()->where('followed_id', $userId)->exists() : false;
+    }
+
+    /**
+     * ログインユーザーがフォローされているかどうか
+     *
+     * @param  int  $userId
+     * @return bool
+     */
+    public function isFollowedBy(int $userId): bool
+    {
+        $authUser = $this->find(auth()->id());
+
+        return $authUser ? $authUser->followers()->where('follower_id', $userId)->exists() : false;
     }
 }

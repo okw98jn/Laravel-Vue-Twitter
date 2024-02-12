@@ -8,6 +8,8 @@ use App\Http\Resources\User\UpdateResource;
 use App\Http\Resources\User\UserListResource;
 use App\Models\User;
 use App\Services\CommonService;
+use App\Services\User\FollowerUsersService;
+use App\Services\User\FollowUsersService;
 use App\Services\User\IndexService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -27,6 +29,44 @@ class UserController extends Controller
     public function index(Request $request, IndexService $indexService): AnonymousResourceCollection|JsonResponse
     {
         $users = $indexService->getUsers($request->input('search') ?? '');
+        if ($users->isEmpty()) {
+            return response()->json([], Response::HTTP_NO_CONTENT);
+        }
+
+        return UserListResource::collection($users);
+    }
+
+    /**
+     * フォロー一覧API
+     * 検索キーワードがリクエストに含まれている場合、ユーザー名と自己紹介文から検索を行います
+     *
+     * @param  User  $user
+     * @param  Request  $request
+     * @param  FollowUsersService  $followUsersService
+     * @return AnonymousResourceCollection|JsonResponse
+     */
+    public function followUsers(User $user, Request $request, FollowUsersService $followUsersService): AnonymousResourceCollection|JsonResponse
+    {
+        $users = $followUsersService->getFollowUsers($user, $request->input('search') ?? '');
+        if ($users->isEmpty()) {
+            return response()->json([], Response::HTTP_NO_CONTENT);
+        }
+
+        return UserListResource::collection($users);
+    }
+
+    /**
+     * フォロワー一覧API
+     * 検索キーワードがリクエストに含まれている場合、ユーザー名と自己紹介文から検索を行います
+     *
+     * @param  User  $user
+     * @param  Request  $request
+     * @param  FollowerUsersService  $followerUsersService
+     * @return AnonymousResourceCollection|JsonResponse
+     */
+    public function followerUsers(User $user, Request $request, FollowerUsersService $followerUsersService): AnonymousResourceCollection|JsonResponse
+    {
+        $users = $followerUsersService->getFollowerUsers($user, $request->input('search') ?? '');
         if ($users->isEmpty()) {
             return response()->json([], Response::HTTP_NO_CONTENT);
         }
