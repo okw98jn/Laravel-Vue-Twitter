@@ -4,7 +4,7 @@ import { UserIcon } from "@heroicons/vue/24/outline";
 import Button from '@/components/ui/Button.vue';
 import { useAuthStore } from "@/stores/auth";
 import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const authStore = useAuthStore();
 const authUser = computed(() => authStore.user);
@@ -12,9 +12,9 @@ const route = useRoute()
 const navigation = computed(() => [
     {
         name: 'タイムライン',
-        to: { name: 'Home' },
+        to: { name: 'AllTweet' },
         icon: HomeIcon,
-        isActive: route.name === 'Home',
+        isActive: route.name === 'AllTweet' || route.name === 'FollowTweet',
     },
     {
         name: 'プロフィール',
@@ -27,6 +27,13 @@ const navigation = computed(() => [
     },
 ]);
 
+const router = useRouter();
+const logout = (): void => {
+    authStore.logout()
+        .then(() => {
+            router.push({ name: 'Login' });
+        })
+};
 </script>
 
 <template>
@@ -34,7 +41,7 @@ const navigation = computed(() => [
         <div class="w-1/2"></div>
         <div class="w-1/2">
             <div class="mb-10">
-                <RouterLink :to="{ name: 'Home' }">
+                <RouterLink :to="{ name: 'AllTweet' }">
                     <div class="mb-4 px-1 cursor-pointer">
                         <span class="transition hover:bg-gray-200 rounded-full px-4 py-3">✘</span>
                     </div>
@@ -55,4 +62,5 @@ const navigation = computed(() => [
             <Button text="ツイート" className="text-white bg-indigo-500 hover:bg-indigo-600" />
         </div>
     </div>
+    <button @click="logout">ログアウト</button>
 </template>

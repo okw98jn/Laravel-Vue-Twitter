@@ -41,6 +41,7 @@ export const useTweetStore = defineStore('tweet', () => {
 
         return tweetList.value;
     }
+    const fetchTweetList = () => fetchTweets('/tweet');
     const fetchUserTweetList = (userId: string) => fetchTweets(`/tweet/${userId}`);
     const fetchUserLikedTweetList = (userId: string) => fetchTweets(`/tweet/liked/${userId}`);
 
@@ -61,6 +62,7 @@ export const useTweetStore = defineStore('tweet', () => {
     return {
         isLoading,
         tweetList,
+        fetchTweetList,
         fetchUserTweetList,
         fetchUserLikedTweetList,
         deleteTweet,

@@ -49,25 +49,31 @@ const handleLike = async () => {
 </script>
 
 <template>
-    <div class="border-b cursor-pointer hover:bg-gray-50 transition duration-300 ease-in-out">
-        <div class="px-4 py-2">
-            <div class="flex items-start space-x-4">
-                <UserIconImage :icon_image="user.icon_image" />
-                <div class="flex-1">
-                    <div class="flex justify-between items-center">
-                        <div class="mb-1">
-                            <UserDetail :name="user.name" :user-id="user.user_id" :created="tweet.created" />
-                        </div>
-                        <TweetDelete v-if="tweet.can_delete" :tweet-id="tweet.id" />
+    <RouterLink :to="{ name: 'Home' }">
+        <div class="border-b cursor-pointer hover:bg-gray-50 transition duration-300 ease-in-out">
+            <div class="px-4 py-2">
+                <div class="flex items-start space-x-4">
+                    <div @click.prevent>
+                        <UserIconImage :id="tweet.user_id" :icon_image="user.icon_image" />
                     </div>
-                    <Content :text="tweet.text" />
-                    <div class="flex items-center space-x-6 text-gray-500 mt-2">
-                        <ReplyButton :count="tweet.like_count" />
-                        <RetweetButton :count="tweet.like_count" />
-                        <LikeButton :count="tweet.like_count" :is-liked-user="tweet.is_liked_user" @click="handleLike" />
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center" @click.prevent>
+                            <div class="mb-1">
+                                <UserDetail :name="user.name" :user-id="user.user_id" :created="tweet.created"
+                                    :id="tweet.user_id" />
+                            </div>
+                            <TweetDelete v-if="tweet.can_delete" :tweet-id="tweet.id" />
+                        </div>
+                        <Content :text="tweet.text" />
+                        <div class="flex items-center space-x-6 text-gray-500 mt-2" @click.prevent>
+                            <ReplyButton :count="tweet.like_count" />
+                            <RetweetButton :count="tweet.like_count" />
+                            <LikeButton :count="tweet.like_count" :is-liked-user="tweet.is_liked_user"
+                                @click="handleLike" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </RouterLink>
 </template>

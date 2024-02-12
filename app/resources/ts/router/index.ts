@@ -12,6 +12,8 @@ import Users from '@/views/Users.vue';
 import UserList from '@/components/users/UserList.vue';
 import FollowList from '@/components/users/FollowList.vue';
 import FollowerList from '@/components/users/FollowerList.vue';
+import FollowTweetList from '@/components/home/FollowTweetList.vue';
+import AllTweetList from '@/components/home/AllTweetList.vue';
 
 const routes = [
 	{
@@ -20,7 +22,12 @@ const routes = [
 		component: DefaultLayout,
 		meta: { requiresAuth: true },
 		children: [
-			{ path: '/home', name: 'Home', component: Home },
+			{
+				path: '/home', name: 'Home', component: Home, children: [
+					{ path: '', name: 'AllTweet', component: AllTweetList },
+					{ path: 'follow', name: 'FollowTweet', component: FollowTweetList },
+				]
+			},
 			{
 				path: '/profile/:userId', name: 'Profile', component: Profile, children: [
 					{ path: '', name: 'TweetList', component: TweetList },
