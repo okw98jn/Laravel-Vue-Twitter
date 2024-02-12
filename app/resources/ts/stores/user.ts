@@ -7,11 +7,11 @@ export const useUserStore = defineStore('user', () => {
     const userList = ref<User[]>([]);
     const isLoading = ref(false);
 
-    const fetchUsers = async (searchWord?: string) => {
+    const fetchUsersFromEndpoint = async (endpoint: string, searchWord?: string) => {
         isLoading.value = true;
 
         try {
-            const { data } = await axiosClient.get('/user/users', {
+            const { data } = await axiosClient.get(endpoint, {
                 params: {
                     search: searchWord
                 }
@@ -25,9 +25,22 @@ export const useUserStore = defineStore('user', () => {
 
         return userList.value;
     }
+
+    const fetchUsers = (searchWord?: string) => fetchUsersFromEndpoint('/user/users', searchWord);
+
+    const fetchFollowUsers = (userId: number | string, searchWord?: string) => {
+        return fetchUsersFromEndpoint(`/user/${userId}/follow`, searchWord);
+    }
+
+    const fetchFollowerUsers = (userId: number | string, searchWord?: string) => {
+        return fetchUsersFromEndpoint(`/user/${userId}/follower`, searchWord);
+    }
+
     return {
         isLoading,
         userList,
         fetchUsers,
+        fetchFollowUsers,
+        fetchFollowerUsers,
     }
 })

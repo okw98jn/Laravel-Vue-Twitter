@@ -6,4 +6,5 @@ export type User = {
     icon_image: string | undefined;
     is_follow: boolean;
     is_follower: boolean;
+    is_auth_user: boolean;
 };

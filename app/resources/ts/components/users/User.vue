@@ -19,7 +19,7 @@ const { user } = defineProps<Props>();
                 <div class="flex-1">
                     <UserDetail :name="user.name" :user-id="user.user_id" :is-follower="user.is_follower"
                         :introduction="user.introduction">
-                        <FollowButton :user-id="user.user_id" :is-follow="user.is_follow" />
+                        <FollowButton v-if="!user.is_auth_user" :user-id="user.user_id" :is-follow="user.is_follow" />
                     </UserDetail>
                 </div>
             </div>

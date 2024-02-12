@@ -40,9 +40,9 @@ const toggleModal = (): void => {
 <template>
     <div>
         <Button v-if="isFollow" :text="buttonText" @click="toggleModal" @mouseover="onMouseOver" @mouseout="onMouseOut"
-            class-name="w-36 h-8 text-black border hover:bg-red-100 hover:border-red-200 hover:text-red-500 font-semibold" />
+            class-name="!w-28 h-8 text-black border hover:bg-red-100 hover:border-red-200 hover:text-red-500 font-semibold" />
         <Button v-else text="フォロー" @click="handleFollow"
-            class-name="w-36 h-8 text-white bg-black hover:opacity-75 font-semibold" />
+            class-name="!w-28 h-8 text-white bg-black hover:opacity-75 font-semibold" />
     </div>
     <ModalAlert :isOpen="isOpen" :title="userId + 'のフォローを解除しますか？'" @click="toggleModal">
         <div class="mb-6">
