@@ -2,6 +2,7 @@
 
 namespace App\Services\Tweet;
 
+use App\Const\CommonConst;
 use App\Models\Tweet;
 use App\Models\User;
 
@@ -18,7 +19,7 @@ class UserTweetsService
         $tweets = Tweet::where('user_id', $user->id)
             ->with('user', 'likes')
             ->orderBy('created_at', 'desc')
-            ->paginate(20);
+            ->paginate(CommonConst::PAGE_MAX_COUNT);
 
         return $tweets;
     }

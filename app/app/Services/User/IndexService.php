@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Const\CommonConst;
 use App\Models\User;
 
 class IndexService
@@ -18,7 +19,7 @@ class IndexService
             $query->where('name', 'like', "%$searchWord%")
                 ->orWhere('user_id', 'like', "%$searchWord%")
                 ->orWhere('introduction', 'like', "%$searchWord%");
-        })->paginate(20);
+        })->paginate(CommonConst::PAGE_MAX_COUNT);
 
         return $users;
     }
