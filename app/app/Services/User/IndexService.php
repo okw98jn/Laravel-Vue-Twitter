@@ -7,12 +7,20 @@ use App\Models\User;
 class IndexService
 {
     /**
-     * ユーザー一覧を取得します
+     * ユーザー一覧を取得します(ログインユーザーは除く)
      *
-     * @return User[]|\Illuminate\Database\Eloquent\Collection
+     * @param  string  $searchWord
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getUsers()
+    public function getUsers(string $searchWord): \Illuminate\Pagination\LengthAwarePaginator
     {
-        return User::all();
+        $users = User::where(function ($query) use ($searchWord) {
+            $query->where('name', 'like', "%$searchWord%")
+                ->orWhere('user_id', 'like', "%$searchWord%")
+                ->orWhere('introduction', 'like', "%$searchWord%");
+        })->where('id', '!=', auth()->id())
+            ->paginate(20);
+
+        return $users;
     }
 }

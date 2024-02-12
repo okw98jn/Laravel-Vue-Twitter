@@ -26,8 +26,7 @@ class UserController extends Controller
      */
     public function index(Request $request, IndexService $indexService): AnonymousResourceCollection|JsonResponse
     {
-        $request = 1;
-        $users = $indexService->getUsers();
+        $users = $indexService->getUsers($request->input('search') ?? '');
         if ($users->isEmpty()) {
             return response()->json([], Response::HTTP_NO_CONTENT);
         }
