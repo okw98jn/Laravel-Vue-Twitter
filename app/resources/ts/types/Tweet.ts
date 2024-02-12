@@ -16,4 +16,5 @@ export type Tweet = {
     like_count: number;
     is_liked_user: boolean;
     created: string;
+    can_delete: boolean;
 };

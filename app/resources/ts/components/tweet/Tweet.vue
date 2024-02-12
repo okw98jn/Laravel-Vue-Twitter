@@ -29,7 +29,6 @@ const tweetStore = useTweetStore();
 
 const storeAuthUser: ComputedRef<AuthStore> = computed(() => authStore.user);
 const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(userId));
-const canTweetDelete = computed(() => storeAuthUser.value.data.id === Number(tweet.user_id));
 
 //いいねボタンをクリックした時の処理
 const handleLike = async () => {
@@ -59,7 +58,7 @@ const handleLike = async () => {
                         <div class="mb-1">
                             <UserDetail :name="user.name" :user-id="user.user_id" :created="tweet.created" />
                         </div>
-                        <TweetDelete v-if="canTweetDelete" :tweet-id="tweet.id" />
+                        <TweetDelete v-if="tweet.can_delete" :tweet-id="tweet.id" />
                     </div>
                     <Content :text="tweet.text" />
                     <div class="flex items-center space-x-6 text-gray-500 mt-2">

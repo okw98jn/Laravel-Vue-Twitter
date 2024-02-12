@@ -21,6 +21,7 @@ class TweetResource extends JsonResource
             'like_count'    => $this->resource->likes->count(),
             'is_liked_user' => $this->resource->isLikedByUser(auth()->user()),
             'created'       => $this->resource->created_at->diffForHumans(),
+            'can_delete'    => $this->resource->user_id === auth()->id(),
         ];
     }
 }

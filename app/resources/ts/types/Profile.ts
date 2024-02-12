@@ -9,6 +9,7 @@ export type Profile = {
         icon_image: string | null;
         header_image: string | null;
         tweet_count: number;
+        is_auth_user: boolean;
     },
 };
 

@@ -8,8 +8,6 @@ import TextAreaCount from './TextAreaCount.vue';
 import { useProfileStore } from '@/stores/profile';
 import { Profile, UpdateProfile } from '@/types/Profile';
 import { CameraIcon } from "@heroicons/vue/24/outline";
-import { useAuthStore } from '@/stores/auth';
-import { AuthStore } from '@/types/Auth';
 import { useRoute } from 'vue-router';
 import DateInput from './DateInput.vue';
 import { useTweetStore } from '@/stores/tweet';
@@ -17,16 +15,12 @@ import { useTweetStore } from '@/stores/tweet';
 const route = useRoute();
 const userId = route.params.userId as string;
 
-const authStore = useAuthStore();
 const profileStore = useProfileStore();
 const tweetStore = useTweetStore();
 
-const storeAuthUser: ComputedRef<AuthStore> = computed(() => authStore.user);
-const isAuthUser = computed(() => storeAuthUser.value.data.id === Number(userId));
-
 const profile: ComputedRef<Profile> = computed(() => profileStore.profile);
-
 const isLoading: ComputedRef<boolean> = computed(() => profileStore.isLoading);
+
 const isUpdateLoading = ref(false);
 
 const user = ref<UpdateProfile>({
@@ -135,7 +129,7 @@ const toggleModal = (): void => {
             </h2>
         </template>
         <div class="mt-12">
-            <template v-if="isAuthUser">
+            <template v-if="profile.data.is_auth_user">
                 <Button text="編集" @click="toggleModal"
                     class-name="inline-flex items-center justify-center text-sm font-medium border bg-white h-10 px-4 py-2 mt-6 hover:bg-gray-200 " />
             </template>

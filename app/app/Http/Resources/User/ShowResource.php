@@ -24,6 +24,7 @@ class ShowResource extends JsonResource
             'icon_image'   => $this->resource->icon_image ? env('IMAGE_URL').$this->resource->icon_image : null,
             'header_image' => $this->resource->header_image ? env('IMAGE_URL').$this->resource->header_image : null,
             'tweet_count'  => $this->resource->tweets->count(),
+            'is_auth_user' => $this->resource->id === auth()->id(),
         ];
     }
 }

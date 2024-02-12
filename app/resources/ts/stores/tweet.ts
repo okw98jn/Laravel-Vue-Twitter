@@ -17,6 +17,7 @@ export const useTweetStore = defineStore('tweet', () => {
             like_count: 0,
             is_liked_user: false,
             created: '',
+            can_delete: false,
         },
     }]);
 
