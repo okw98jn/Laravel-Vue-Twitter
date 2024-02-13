@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Tweet\TweetListResource;
 use App\Models\Tweet;
 use App\Models\User;
+use App\Services\Tweet\FollowingTweetsService;
 use App\Services\Tweet\IndexService;
 use App\Services\Tweet\UserLikedTweetsService;
 use App\Services\Tweet\UserTweetsService;
@@ -29,6 +30,23 @@ class TweetController extends Controller
         }
 
         return TweetListResource::collection($tweets);
+    }
+
+    /**
+     * フォローしているユーザーのツイート一覧API
+     *
+     * @param  FollowingTweetsService  $followingTweetsService
+     * @return AnonymousResourceCollection|JsonResponse
+     */
+    public function followingTweets(FollowingTweetsService $followingTweetsService): AnonymousResourceCollection|JsonResponse
+    {
+        $followingTweets = $followingTweetsService->getFollowingTweets();
+
+        if ($followingTweets->isEmpty()) {
+            return response()->json([], Response::HTTP_NO_CONTENT);
+        }
+
+        return TweetListResource::collection($followingTweets);
     }
 
     /**

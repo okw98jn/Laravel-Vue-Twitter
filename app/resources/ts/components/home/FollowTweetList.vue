@@ -9,7 +9,7 @@ const tweetList: ComputedRef<TweetList> = computed(() => tweetStore.tweetList);
 const isLoading: ComputedRef<boolean> = computed(() => tweetStore.isLoading);
 
 onMounted(async () => {
-    await tweetStore.fetchTweetList();
+    await tweetStore.fetchFollowingsTweetList();
 });
 </script>
 

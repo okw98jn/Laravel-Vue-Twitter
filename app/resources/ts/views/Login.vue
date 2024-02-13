@@ -29,7 +29,7 @@ const login = (e: Event): void => {
 	authStore.login(user)
 		.then(() => {
 			router.push({
-				name: 'Home'
+				name: 'AllTweet'
 			});
 		})
 		.catch((err) => {
