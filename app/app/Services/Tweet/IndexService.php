@@ -14,7 +14,7 @@ class IndexService
      */
     public function getTweets(): \Illuminate\Pagination\LengthAwarePaginator
     {
-        $tweets = Tweet::with('user', 'likes')
+        $tweets = Tweet::with('user', 'likes', 'tweetImages')
             ->orderBy('created_at', 'desc')
             ->paginate(CommonConst::PAGE_MAX_COUNT);
 

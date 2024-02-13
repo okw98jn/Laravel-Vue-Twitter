@@ -18,10 +18,12 @@ class TweetResource extends JsonResource
             'id'            => $this->resource->id,
             'user_id'       => $this->resource->user_id,
             'text'          => $this->resource->text,
+            'video_path'    => $this->resource->video_path ? env('IMAGE_URL').$this->resource->video_path : null,
             'like_count'    => $this->resource->likes->count(),
             'is_liked_user' => $this->resource->isLikedByUser(auth()->user()),
             'created'       => $this->resource->created_at->diffForHumans(),
             'can_delete'    => $this->resource->user_id === auth()->id(),
+            'images'        => TweetImageResource::collection($this->resource->tweetImages),
         ];
     }
 }

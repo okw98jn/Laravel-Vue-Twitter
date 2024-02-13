@@ -14,10 +14,12 @@ export const useTweetStore = defineStore('tweet', () => {
             id: 0,
             user_id: 0,
             text: '',
+            video_path: '',
             like_count: 0,
             is_liked_user: false,
             created: '',
             can_delete: false,
+            images: [],
         },
     }]);
 

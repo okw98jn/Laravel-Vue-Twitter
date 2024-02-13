@@ -17,7 +17,7 @@ class UserTweetsService
     public function getUserTweets(User $user): \Illuminate\Pagination\LengthAwarePaginator
     {
         $tweets = Tweet::where('user_id', $user->id)
-            ->with('user', 'likes')
+            ->with('user', 'likes', 'tweetImages')
             ->orderBy('created_at', 'desc')
             ->paginate(CommonConst::PAGE_MAX_COUNT);
 

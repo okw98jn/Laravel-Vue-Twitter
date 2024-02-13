@@ -17,11 +17,11 @@ class FollowingTweetsService
     {
         $user = User::find(auth()->id());
 
-        if (!$user) {
+        if (! $user) {
             return new \Illuminate\Pagination\LengthAwarePaginator([], 0, CommonConst::PAGE_MAX_COUNT);
         }
 
-        $followingTweets = Tweet::with('user', 'likes')
+        $followingTweets = Tweet::with('user', 'likes', 'tweetImages')
             ->whereIn('user_id', $user->follows()->pluck('id'))
             ->orderBy('created_at', 'desc')
             ->paginate(CommonConst::PAGE_MAX_COUNT);

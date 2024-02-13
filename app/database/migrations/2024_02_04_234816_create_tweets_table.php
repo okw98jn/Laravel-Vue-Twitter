@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('ユーザーID');
             $table->string('text', 140)->comment('テキスト');
+            $table->string('video_path')->nullable()->comment('動画パス');
             $table->timestamps();
             $table->comment('ツイート');
         });

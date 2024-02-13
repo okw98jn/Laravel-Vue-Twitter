@@ -13,6 +13,7 @@ class Tweet extends Model
 
     protected $fillable = [
         'text',
+        'video_path',
     ];
 
     public function user(): BelongsTo
@@ -23,6 +24,11 @@ class Tweet extends Model
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function tweetImages(): HasMany
+    {
+        return $this->hasMany(TweetImage::class);
     }
 
     public function isLikedByUser(User $user): bool

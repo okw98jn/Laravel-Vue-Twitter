@@ -13,6 +13,8 @@ import RetweetButton from "./RetweetButton.vue";
 import axiosClient from "@/axios";
 import TweetDelete from "./TweetDelete.vue";
 import { useRoute } from 'vue-router';
+import Image from './Image.vue';
+import Video from './Video.vue';
 
 type Props = {
     user: TweetUser;
@@ -65,6 +67,12 @@ const handleLike = async () => {
                             <TweetDelete v-if="tweet.can_delete" :tweet-id="tweet.id" />
                         </div>
                         <Content :text="tweet.text" />
+                        <div v-if="tweet.video_path" class="mt-2" @click.prevent>
+                            <Video :path="tweet.video_path" />
+                        </div>
+                        <div v-if="tweet.images.length > 0" class="mt-2 grid grid-cols-2 gap-0.5">
+                            <Image v-for="(image, index) in tweet.images" :key="index" :image-path="image.path" />
+                        </div>
                         <div class="flex items-center space-x-6 text-gray-500 mt-2" @click.prevent>
                             <ReplyButton :count="tweet.like_count" />
                             <RetweetButton :count="tweet.like_count" />

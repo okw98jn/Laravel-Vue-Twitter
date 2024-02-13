@@ -19,7 +19,7 @@ class UserLikedTweetsService
         $tweets = Tweet::whereHas('likes', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })
-            ->with('user', 'likes')
+            ->with('user', 'likes', 'tweetImages')
             ->orderBy('created_at', 'desc')
             ->paginate(CommonConst::PAGE_MAX_COUNT);
 
