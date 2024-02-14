@@ -26,9 +26,19 @@ class Tweet extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function bookmarks(): HasMany
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
     public function tweetImages(): HasMany
     {
         return $this->hasMany(TweetImage::class);
+    }
+
+    public function isBookmarkedByUser(User $user): bool
+    {
+        return $this->bookmarks->where('user_id', $user->id)->isNotEmpty();
     }
 
     public function isLikedByUser(User $user): bool

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Tweet\TweetListResource;
 use App\Models\Tweet;
 use App\Models\User;
+use App\Services\Tweet\BookmarkTweetsService;
 use App\Services\Tweet\FollowingTweetsService;
 use App\Services\Tweet\IndexService;
 use App\Services\Tweet\UserLikedTweetsService;
@@ -83,6 +84,23 @@ class TweetController extends Controller
         }
 
         return TweetListResource::collection($likedTweets);
+    }
+
+    /**
+     * ブックマークしたツイート一覧API
+     *
+     * @param  BookmarkTweetsService  $bookmarkTweetsService
+     * @return AnonymousResourceCollection|JsonResponse
+     */
+    public function bookmarkTweets(BookmarkTweetsService $bookmarkTweetsService): AnonymousResourceCollection|JsonResponse
+    {
+        $bookMarkTweets = $bookmarkTweetsService->getBookmarkTweets();
+
+        if ($bookMarkTweets->isEmpty()) {
+            return response()->json([], Response::HTTP_NO_CONTENT);
+        }
+
+        return TweetListResource::collection($bookMarkTweets);
     }
 
     /**

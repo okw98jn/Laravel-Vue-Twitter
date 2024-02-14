@@ -21,6 +21,7 @@ class TweetResource extends JsonResource
             'video_path'    => $this->resource->video_path ? env('IMAGE_URL').$this->resource->video_path : null,
             'like_count'    => $this->resource->likes->count(),
             'is_liked_user' => $this->resource->isLikedByUser(auth()->user()),
+            'is_bookmarked' => $this->resource->isBookmarkedByUser(auth()->user()),
             'created'       => $this->resource->created_at->diffForHumans(),
             'can_delete'    => $this->resource->user_id === auth()->id(),
             'images'        => TweetImageResource::collection($this->resource->tweetImages),

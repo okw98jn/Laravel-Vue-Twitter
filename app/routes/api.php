@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BookMarkController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\UserController;
@@ -43,9 +44,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('tweet')->group(function () {
         Route::get('/', [TweetController::class, 'index']);
         Route::get('/following', [TweetController::class, 'followingTweets']);
+        Route::get('/bookmark', [TweetController::class, 'bookmarkTweets']);
         Route::get('/{user}', [TweetController::class, 'userTweets']);
         Route::get('/liked/{user}', [TweetController::class, 'userLikedTweets']);
         Route::delete('/{tweet}', [TweetController::class, 'delete']);
+    });
+
+    Route::prefix('bookmark')->group(function () {
+        Route::post('/{tweet}', [BookMarkController::class, 'bookmark']);
+        Route::delete('/{tweet}', [BookMarkController::class, 'unBookmark']);
     });
 
     Route::prefix('like')->group(function () {
