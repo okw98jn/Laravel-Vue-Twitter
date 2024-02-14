@@ -1,6 +1,7 @@
 export type AuthStore = {
     data: {
         id: number | null;
+        user_id: string;
         name: string;
         email: string;
     }

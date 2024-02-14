@@ -17,6 +17,7 @@ export const useTweetStore = defineStore('tweet', () => {
             video_path: '',
             like_count: 0,
             is_liked_user: false,
+            is_bookmarked: false,
             created: '',
             can_delete: false,
             images: [],
@@ -44,6 +45,7 @@ export const useTweetStore = defineStore('tweet', () => {
         return tweetList.value;
     }
     const fetchTweetList = () => fetchTweets('/tweet');
+    const fetchBookmarkList = () => fetchTweets('/tweet/bookmark');
     const fetchFollowingsTweetList = () => fetchTweets('/tweet/following');
     const fetchUserTweetList = (userId: string) => fetchTweets(`/tweet/${userId}`);
     const fetchUserLikedTweetList = (userId: string) => fetchTweets(`/tweet/liked/${userId}`);
@@ -66,6 +68,7 @@ export const useTweetStore = defineStore('tweet', () => {
         isLoading,
         tweetList,
         fetchTweetList,
+        fetchBookmarkList,
         fetchFollowingsTweetList,
         fetchUserTweetList,
         fetchUserLikedTweetList,

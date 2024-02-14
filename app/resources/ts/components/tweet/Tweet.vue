@@ -15,6 +15,7 @@ import TweetDelete from '@/components/tweet/TweetDelete.vue';
 import { useRoute } from 'vue-router';
 import Image from '@/components/tweet/Image.vue';
 import Video from '@/components/tweet/Video.vue';
+import BookmarkButton from '@/components/tweet/BookmarkButton.vue';
 
 type Props = {
     user: TweetUser;
@@ -48,6 +49,16 @@ const handleLike = async () => {
     }
 }
 
+//ブックマークボタンをクリックした時の処理
+const handleBookmark = async () => {
+    try {
+        const method = tweet.is_bookmarked ? 'delete' : 'post';
+        await axiosClient[method](`/bookmark/${tweet.id}`);
+        tweet.is_bookmarked = !tweet.is_bookmarked;
+    } catch (err) {
+        console.log(err);
+    }
+}
 </script>
 
 <template>
@@ -73,11 +84,16 @@ const handleLike = async () => {
                         <div v-if="tweet.images.length > 0" class="mt-2 grid grid-cols-2 gap-0.5">
                             <Image v-for="(image, index) in tweet.images" :key="index" :image-path="image.path" />
                         </div>
-                        <div class="flex items-center space-x-6 text-gray-500 mt-2" @click.prevent>
-                            <ReplyButton :count="tweet.like_count" />
-                            <RetweetButton :count="tweet.like_count" />
-                            <LikeButton :count="tweet.like_count" :is-liked-user="tweet.is_liked_user"
-                                @click="handleLike" />
+                        <div class="flex items-center justify-between text-gray-500 mt-2">
+                            <div class="flex items-center space-x-6 text-gray-500" @click.prevent>
+                                <ReplyButton :count="tweet.like_count" />
+                                <RetweetButton :count="tweet.like_count" />
+                                <LikeButton :count="tweet.like_count" :is-liked-user="tweet.is_liked_user"
+                                    @click="handleLike" />
+                            </div>
+                            <div @click.prevent>
+                                <BookmarkButton :is-bookmarked="tweet.is_bookmarked" @click="handleBookmark" />
+                            </div>
                         </div>
                     </div>
                 </div>

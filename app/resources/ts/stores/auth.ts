@@ -8,6 +8,7 @@ export const useAuthStore = defineStore('auth', () => {
     const user = ref<AuthStore>({
         data: {
             id: null,
+            user_id: '',
             name: '',
             email: '',
         },
@@ -43,6 +44,7 @@ export const useAuthStore = defineStore('auth', () => {
             await axiosClient.post('/logout');
             user.value.data = {
                 id: null,
+                user_id: '',
                 name: '',
                 email: '',
             };

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { HomeIcon } from "@heroicons/vue/24/outline"
-import { UserIcon } from "@heroicons/vue/24/outline";
+import { BookmarkIcon, HomeIcon, UserIcon } from "@heroicons/vue/24/outline"
 import Button from '@/components/ui/Button.vue';
 import { useAuthStore } from "@/stores/auth";
 import { computed } from "vue";
@@ -15,6 +14,12 @@ const navigation = computed(() => [
         to: { name: 'TimeLine' },
         icon: HomeIcon,
         isActive: route.name === 'TimeLine' || route.name === 'FollowTweet',
+    },
+    {
+        name: 'ブックマーク',
+        to: { name: 'Bookmark' },
+        icon: BookmarkIcon,
+        isActive: route.name === 'Bookmark',
     },
     {
         name: 'プロフィール',

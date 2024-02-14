@@ -16,6 +16,7 @@ export type Tweet = {
     video_path?: string;
     like_count: number;
     is_liked_user: boolean;
+    is_bookmarked: boolean;
     created: string;
     can_delete: boolean;
     images: {

@@ -14,6 +14,7 @@ import FollowList from '@/views/FollowList.vue';
 import FollowerList from '@/views/FollowerList.vue';
 import FollowTweetList from '@/views/FollowTweetList.vue';
 import TimeLine from '@/views/TimeLine.vue';
+import Bookmark from '@/views/Bookmark.vue';
 
 const routes = [
 	{
@@ -28,6 +29,7 @@ const routes = [
 					{ path: 'follow', name: 'FollowTweet', component: FollowTweetList },
 				]
 			},
+			{ path: 'bookmark', name: 'Bookmark', component: Bookmark },
 			{
 				path: '/profile/:userId', name: 'Profile', component: Profile, children: [
 					{ path: '', name: 'UserTweetList', component: UserTweetList },
