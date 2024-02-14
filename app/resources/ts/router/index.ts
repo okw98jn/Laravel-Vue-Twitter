@@ -6,14 +6,14 @@ import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Register from '@/views/Register.vue';
 import Profile from '@/views/Profile.vue';
-import LikeList from '@/components/profile/LikeList.vue';
-import TweetList from '@/components/profile/TweetList.vue';
+import LikeList from '@/views/LikeList.vue';
+import UserTweetList from '@/views/UserTweetList.vue';
 import Users from '@/views/Users.vue';
-import UserList from '@/components/users/UserList.vue';
-import FollowList from '@/components/users/FollowList.vue';
-import FollowerList from '@/components/users/FollowerList.vue';
-import FollowTweetList from '@/components/home/FollowTweetList.vue';
-import AllTweetList from '@/components/home/AllTweetList.vue';
+import UserList from '@/views/UserList.vue';
+import FollowList from '@/views/FollowList.vue';
+import FollowerList from '@/views/FollowerList.vue';
+import FollowTweetList from '@/views/FollowTweetList.vue';
+import TimeLine from '@/views/TimeLine.vue';
 
 const routes = [
 	{
@@ -24,13 +24,13 @@ const routes = [
 		children: [
 			{
 				path: '/home', name: 'Home', component: Home, children: [
-					{ path: '', name: 'AllTweet', component: AllTweetList },
+					{ path: '', name: 'TimeLine', component: TimeLine },
 					{ path: 'follow', name: 'FollowTweet', component: FollowTweetList },
 				]
 			},
 			{
 				path: '/profile/:userId', name: 'Profile', component: Profile, children: [
-					{ path: '', name: 'TweetList', component: TweetList },
+					{ path: '', name: 'UserTweetList', component: UserTweetList },
 					{ path: 'like', name: 'LikeList', component: LikeList },
 				]
 			},

@@ -12,7 +12,7 @@ const { user } = defineProps<Props>();
 </script>
 
 <template>
-    <RouterLink :to="{ name: 'TweetList', params: { userId: user.id } }">
+    <RouterLink :to="{ name: 'UserTweetList', params: { userId: user.id } }">
         <div class="cursor-pointer hover:bg-gray-50 transition duration-300 ease-in-out">
             <div class="px-4 py-2">
                 <div class="flex items-start space-x-4">

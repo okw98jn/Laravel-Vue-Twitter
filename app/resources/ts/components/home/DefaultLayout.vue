@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth';
-import SidebarLeft from './SidebarLeft.vue';
+import SidebarLeft from '@/components/home/SidebarLeft.vue';
 import { onMounted, ref } from 'vue';
 
 const isLoading = ref(true);

@@ -31,7 +31,7 @@ const register = (e: Event): void => {
 	authStore.register(user)
 		.then(() => {
 			router.push({
-				name: 'AllTweet'
+				name: 'TimeLine'
 			});
 		})
 		.catch((err) => {

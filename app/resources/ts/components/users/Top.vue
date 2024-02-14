@@ -11,7 +11,7 @@ const profile: ComputedRef<Profile> = computed(() => profileStore.profile);
 
 <template>
     <div class="flex items-center space-x-8 px-4 py-1">
-        <RouterLink :to="{ name: 'TweetList' }">
+        <RouterLink :to="{ name: 'UserTweetList' }">
             <ArrowLeftIcon class="h-6 w-6 cursor-pointer" />
         </RouterLink>
         <div>

@@ -12,18 +12,18 @@ const route = useRoute()
 const navigation = computed(() => [
     {
         name: 'タイムライン',
-        to: { name: 'AllTweet' },
+        to: { name: 'TimeLine' },
         icon: HomeIcon,
-        isActive: route.name === 'AllTweet' || route.name === 'FollowTweet',
+        isActive: route.name === 'TimeLine' || route.name === 'FollowTweet',
     },
     {
         name: 'プロフィール',
         to: {
-            name: 'TweetList',
+            name: 'UserTweetList',
             params: { userId: (authUser.value.data.id) ?? 0 }
         },
         icon: UserIcon,
-        isActive: route.name === 'TweetList' || route.name === 'LikeList' || route.name === 'UserList' || route.name === 'FollowList' || route.name === 'FollowerList',
+        isActive: route.name === 'UserTweetList' || route.name === 'LikeList' || route.name === 'UserList' || route.name === 'FollowList' || route.name === 'FollowerList',
     },
 ]);
 
@@ -41,7 +41,7 @@ const logout = (): void => {
         <div class="w-1/2"></div>
         <div class="w-1/2">
             <div class="mb-10">
-                <RouterLink :to="{ name: 'AllTweet' }">
+                <RouterLink :to="{ name: 'TimeLine' }">
                     <div class="mb-4 px-1 cursor-pointer">
                         <span class="transition hover:bg-gray-200 rounded-full px-4 py-3">✘</span>
                     </div>

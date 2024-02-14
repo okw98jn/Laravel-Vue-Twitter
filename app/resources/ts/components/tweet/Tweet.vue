@@ -8,13 +8,13 @@ import { useAuthStore } from "@/stores/auth";
 import { useTweetStore } from "@/stores/tweet";
 import { ComputedRef, computed } from "vue";
 import { AuthStore } from "@/types/Auth";
-import ReplyButton from "./ReplyButton.vue";
-import RetweetButton from "./RetweetButton.vue";
 import axiosClient from "@/axios";
-import TweetDelete from "./TweetDelete.vue";
+import RetweetButton from '@/components/tweet/RetweetButton.vue';
+import ReplyButton from '@/components/tweet/ReplyButton.vue';
+import TweetDelete from '@/components/tweet/TweetDelete.vue';
 import { useRoute } from 'vue-router';
-import Image from './Image.vue';
-import Video from './Video.vue';
+import Image from '@/components/tweet/Image.vue';
+import Video from '@/components/tweet/Video.vue';
 
 type Props = {
     user: TweetUser;

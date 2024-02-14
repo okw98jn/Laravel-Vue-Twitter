@@ -4,20 +4,24 @@ import { ComputedRef, ref } from 'vue';
 import { computed, onMounted } from 'vue';
 import { useUserStore } from '@/stores/user';
 import { User as UserType } from '@/types/User';
-import SearchInput from './SearchInput.vue';
+import SearchInput from '@/components/users/SearchInput.vue';
+import { useRoute } from 'vue-router';
 
 const userStore = useUserStore();
 const userList: ComputedRef<UserType[]> = computed(() => userStore.userList);
 const isLoading: ComputedRef<boolean> = computed(() => userStore.isLoading);
 
+const route = useRoute();
+const userId = ref(route.params.userId as string);
+
 onMounted(async () => {
-    await userStore.fetchUsers();
+    await userStore.fetchFollowUsers(userId.value);
 });
 
 const searchWord = ref('');
 
 const handleSearch = async () => {
-    await userStore.fetchUsers(searchWord.value);
+    await userStore.fetchFollowUsers(userId.value, searchWord.value);
 };
 
 </script>

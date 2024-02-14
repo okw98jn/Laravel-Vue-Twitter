@@ -9,7 +9,7 @@ const { id, name, userId, created } = defineProps<Props>();
 </script>
 
 <template>
-    <RouterLink :to="{ name: 'TweetList', params: { userId: id } }">
+    <RouterLink :to="{ name: 'UserTweetList', params: { userId: id } }">
         <div class="flex justify-between hover:underline">
             <div>
                 <p class="text-sm text-gray-500">

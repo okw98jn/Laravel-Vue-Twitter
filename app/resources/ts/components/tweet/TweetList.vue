@@ -2,18 +2,12 @@
 import Tweet from '@/components/tweet/Tweet.vue';
 import { useTweetStore } from '@/stores/tweet';
 import { TweetList } from '@/types/Tweet';
-import { ComputedRef, computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { ComputedRef, computed } from 'vue';
 
 const tweetStore = useTweetStore();
 const tweetList: ComputedRef<TweetList> = computed(() => tweetStore.tweetList);
 const isLoading: ComputedRef<boolean> = computed(() => tweetStore.isLoading);
 
-onMounted(async () => {
-    const route = useRoute();
-    const userId = route.params.userId as string;
-    await tweetStore.fetchUserTweetList(userId);
-});
 </script>
 
 <template>

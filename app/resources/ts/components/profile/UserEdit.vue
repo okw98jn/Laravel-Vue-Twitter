@@ -64,7 +64,7 @@ const updateUser = () => {
     profileStore.updateProfile(userId, formData)
         .then(() => {
             toggleModal();
-            if (route.name === 'TweetList') {
+            if (route.name === 'UserTweetList') {
                 tweetStore.fetchUserTweetList(userId);
             } else {
                 tweetStore.fetchUserLikedTweetList(userId);

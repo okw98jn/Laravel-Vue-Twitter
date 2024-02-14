@@ -4,7 +4,7 @@ import { ComputedRef, ref } from 'vue';
 import { computed, onMounted } from 'vue';
 import { useUserStore } from '@/stores/user';
 import { User as UserType } from '@/types/User';
-import SearchInput from './SearchInput.vue';
+import SearchInput from '@/components/users/SearchInput.vue';
 import { useRoute } from 'vue-router';
 
 const userStore = useUserStore();
@@ -15,13 +15,13 @@ const route = useRoute();
 const userId = ref(route.params.userId as string);
 
 onMounted(async () => {
-    await userStore.fetchFollowUsers(userId.value);
+    await userStore.fetchFollowerUsers(userId.value);
 });
 
 const searchWord = ref('');
 
 const handleSearch = async () => {
-    await userStore.fetchFollowUsers(userId.value, searchWord.value);
+    await userStore.fetchFollowerUsers(userId.value, searchWord.value);
 };
 
 </script>

@@ -4,7 +4,7 @@ import TabItem from '@/components/ui/TabItem.vue';
 
 <template>
     <div class="flex justify-around border-b">
-        <TabItem routeName="AllTweet" title="おすすめ" />
+        <TabItem routeName="TimeLine" title="おすすめ" />
         <TabItem routeName="FollowTweet" title="フォロー中" />
     </div>
     <RouterView />

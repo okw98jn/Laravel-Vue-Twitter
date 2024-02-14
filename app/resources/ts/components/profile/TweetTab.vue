@@ -5,7 +5,7 @@ import TabItem from '@/components/ui/TabItem.vue';
 
 <template>
     <div class="flex justify-around mt-4 border-b">
-        <TabItem routeName="TweetList" title="ツイート" />
+        <TabItem routeName="UserTweetList" title="ツイート" />
         <TabItem routeName="LikeList" title="いいね" />
     </div>
     <RouterView />

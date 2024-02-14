@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { TrashIcon } from "@heroicons/vue/24/outline";
 import { ref } from "vue";
-import ModalAlert from "../ui/ModalAlert.vue";
-import Button from "../ui/Button.vue";
+import ModalAlert from "@/components/ui/ModalAlert.vue";
+import Button from "@/components/ui/Button.vue";
 import { useTweetStore } from "@/stores/tweet";
 import { useProfileStore } from "@/stores/profile";
 
