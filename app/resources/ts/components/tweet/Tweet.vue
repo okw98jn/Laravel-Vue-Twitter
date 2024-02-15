@@ -22,7 +22,7 @@ const { tweet, user } = defineProps<Props>();
 
 <template>
     <RouterLink :to="{ name: 'Home' }">
-        <div class="border-b cursor-pointer hover:bg-gray-50 transition duration-300 ease-in-out">
+        <div class="border-t cursor-pointer hover:bg-gray-50 transition duration-300 ease-in-out">
             <div class="px-4 py-2">
                 <div class="flex items-start space-x-4">
                     <div @click.prevent>

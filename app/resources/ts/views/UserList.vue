@@ -26,7 +26,7 @@ const handleSearch = async () => {
     <div v-if="isLoading" class="flex justify-center items-center h-64">
         <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" style="z-index: 1;" />
     </div>
-    <div v-else>
+    <div v-else class="pb-72">
         <SearchInput v-model="searchWord" @blur="handleSearch" />
         <User v-for="user in userList" :key="user.id" :user="user" />
     </div>

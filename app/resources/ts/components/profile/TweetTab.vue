@@ -4,7 +4,7 @@ import TabItem from '@/components/ui/TabItem.vue';
 </script>
 
 <template>
-    <div class="flex justify-around mt-4 border-b">
+    <div class="flex justify-around mt-4">
         <TabItem routeName="UserTweetList" title="ツイート" />
         <TabItem routeName="LikeList" title="いいね" />
     </div>

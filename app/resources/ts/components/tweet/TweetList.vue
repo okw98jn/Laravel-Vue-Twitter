@@ -14,7 +14,7 @@ const isLoading: ComputedRef<boolean> = computed(() => tweetStore.isLoading);
     <div v-if="isLoading" class="flex justify-center items-center h-64">
         <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" style="z-index: 1;" />
     </div>
-    <div v-else>
+    <div v-else class="pb-72">
         <Tweet v-for="tweet in tweetList" :key="tweet.tweet.id" :user="tweet.user" :tweet="tweet.tweet" />
     </div>
 </template>
