@@ -26,6 +26,11 @@ class Tweet extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function retweets(): HasMany
+    {
+        return $this->hasMany(Retweet::class);
+    }
+
     public function bookmarks(): HasMany
     {
         return $this->hasMany(Bookmark::class);
@@ -34,6 +39,11 @@ class Tweet extends Model
     public function tweetImages(): HasMany
     {
         return $this->hasMany(TweetImage::class);
+    }
+
+    public function isRetweetedByUser(User $user): bool
+    {
+        return $this->retweets->where('user_id', $user->id)->isNotEmpty();
     }
 
     public function isBookmarkedByUser(User $user): bool

@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(20)->has(Tweet::factory(10))->create();
+        User::factory(10)->has(Tweet::factory(10))->create();
 
-        User::factory()->has(Tweet::factory(50))->create([
+        User::factory()->has(Tweet::factory(10))->create([
             'user_id'      => '@user12345678',
             'name'         => '名前',
             'introduction' => '自己紹介',

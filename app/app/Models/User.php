@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
+    public function retweets(): HasMany
+    {
+        return $this->hasMany(Retweet::class);
+    }
+
     public function bookmarks(): HasMany
     {
         return $this->hasMany(Bookmark::class);
