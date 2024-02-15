@@ -1,19 +1,31 @@
 <script setup lang="ts">
 import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/vue/24/outline';
 import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/vue/24/solid';
+import axiosClient from "@/axios";
+import { ref } from 'vue';
 
 type Props = {
-    isBookmarked: boolean;
+    tweetId: number;
+    isBookmarkedProp: boolean;
 }
-const { isBookmarked } = defineProps<Props>();
+const { tweetId, isBookmarkedProp } = defineProps<Props>();
 
-const emit = defineEmits<{
-    (event: 'click'): void;
-}>();
+const isBookmarked = ref(isBookmarkedProp);
+
+const handleBookmark = async () => {
+    try {
+        const method = isBookmarked.value ? 'delete' : 'post';
+        await axiosClient[method](`/bookmark/${tweetId}`);
+        isBookmarked.value = !isBookmarked.value;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 </script>
 
 <template>
-    <div :class="`flex items-center hover:text-indigo-500`" @click="emit('click')">
+    <div :class="`flex items-center hover:text-indigo-500`" @click="handleBookmark">
         <div class="p-1.5 rounded-full cursor-pointer transition duration-300 ease-in-out" :class="`hover:bg-indigo-100`">
             <BookmarkIconSolid v-if="isBookmarked" class="h-5 w-5 text-indigo-500" />
             <BookmarkIconOutline v-else class="h-5 w-5" />
