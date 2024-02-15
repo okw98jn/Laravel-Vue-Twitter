@@ -16,6 +16,8 @@ export type Tweet = {
     video_path?: string;
     like_count: number;
     is_liked_user: boolean;
+    retweet_count: number;
+    is_retweeted: boolean;
     is_bookmarked: boolean;
     created: string;
     can_delete: boolean;

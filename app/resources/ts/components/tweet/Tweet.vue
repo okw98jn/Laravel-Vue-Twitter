@@ -59,6 +59,18 @@ const handleBookmark = async () => {
         console.log(err);
     }
 }
+
+//リツイートボタンをクリックした時の処理
+const handleRetweet = async () => {
+    try {
+        const method = tweet.is_retweeted ? 'delete' : 'post';
+        await axiosClient[method](`/retweet/${tweet.id}`);
+        tweet.is_retweeted = !tweet.is_retweeted;
+        tweet.retweet_count += tweet.is_retweeted ? 1 : -1;
+    } catch (err) {
+        console.log(err);
+    }
+}
 </script>
 
 <template>
@@ -87,7 +99,8 @@ const handleBookmark = async () => {
                         <div class="flex items-center justify-between text-gray-500 mt-2">
                             <div class="flex items-center space-x-6 text-gray-500" @click.prevent>
                                 <ReplyButton :count="tweet.like_count" />
-                                <RetweetButton :count="tweet.like_count" />
+                                <RetweetButton :count="tweet.retweet_count" :is-retweeted="tweet.is_retweeted"
+                                    @click="handleRetweet" />
                                 <LikeButton :count="tweet.like_count" :is-liked-user="tweet.is_liked_user"
                                     @click="handleLike" />
                             </div>

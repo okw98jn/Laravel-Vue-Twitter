@@ -17,6 +17,8 @@ export const useTweetStore = defineStore('tweet', () => {
             video_path: '',
             like_count: 0,
             is_liked_user: false,
+            retweet_count: 0,
+            is_retweeted: false,
             is_bookmarked: false,
             created: '',
             can_delete: false,
