@@ -3,15 +3,16 @@
 namespace App\Services\Tweet;
 
 use App\Models\Tweet;
+use Closure;
 
 class TweetService
 {
     /**
      * ログインユーザーのIDを使用して、ツイートに対するアクションをフィルタリングするクロージャを取得
      *
-     * @return \Closure
+     * @return Closure
      */
-    protected function getUserIdFilterClosure()
+    protected function getUserIdFilterClosure(): Closure
     {
         return function ($query) {
             $query->where('user_id', auth()->id());
@@ -25,7 +26,7 @@ class TweetService
      * @param  Tweet  $tweet
      * @return Tweet  $tweet
      */
-    protected function setTweetStatusBooleans(Tweet $tweet)
+    protected function setTweetStatusBooleans(Tweet $tweet): Tweet
     {
         $tweet->is_liked = $tweet->is_liked > 0;
         $tweet->is_bookmarked = $tweet->is_bookmarked > 0;

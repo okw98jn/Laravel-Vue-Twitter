@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('retweets', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('ユーザーID');
             $table->foreignId('tweet_id')->constrained('tweets')->onDelete('cascade')->comment('ツイートID');
-
+            $table->timestamp('created_at');
             $table->unique(['user_id', 'tweet_id']);
             $table->comment('リツイート');
         });
