@@ -26,10 +26,10 @@ onMounted(() => {
         <div class="w-1/3 sticky top-0 border-r border-gray-200">
             <SidebarLeft />
         </div>
-        <div class="w-1/3 border-r border-gray-200 ">
+        <div class="w-1/3">
             <RouterView />
         </div>
-        <div class="w-1/3 sticky top-0">
+        <div class="w-1/3 border-l border-gray-200 sticky top-0">
             サイドバー(右)
         </div>
     </div>
