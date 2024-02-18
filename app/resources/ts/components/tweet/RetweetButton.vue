@@ -47,7 +47,7 @@ const toggleDropdown = () => {
             </div>
             <span class="text-xs -ml-1">{{ count }}</span>
         </div>
-        <DropdownMenu :is-open="isOpen" @mouseleave="toggleDropdown">
+        <DropdownMenu :is-open="isOpen" top="top-0" left="-left-4" width="40" @mouseleave="toggleDropdown">
             <div class="hover:bg-gray-100 px-4 py-3 rounded-t-lg">
                 <p class="flex items-center" @click="handleRetweet">
                     <OutlineIcon class="h-5 w-5 mr-2" />

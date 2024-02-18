@@ -11,6 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
             user_id: '',
             name: '',
             email: '',
+            icon_image: '',
         },
         isLogin: sessionStorage.getItem('AUTH'),
     });
@@ -47,6 +48,7 @@ export const useAuthStore = defineStore('auth', () => {
                 user_id: '',
                 name: '',
                 email: '',
+                icon_image: '',
             };
             user.value.isLogin = null;
             sessionStorage.removeItem('AUTH');

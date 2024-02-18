@@ -4,6 +4,7 @@ export type AuthStore = {
         user_id: string;
         name: string;
         email: string;
+        icon_image: string | undefined;
     }
     isLogin: string | null;
 };

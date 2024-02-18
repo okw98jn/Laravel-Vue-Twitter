@@ -2,9 +2,12 @@
 
 type Props = {
     isOpen: boolean;
+    top: string;
+    left: string;
+    width: string;
 }
 
-const { isOpen } = defineProps<Props>();
+const { isOpen, top, left, width } = defineProps<Props>();
 
 const emit = defineEmits<{
     (event: 'mouseleave'): void;
@@ -14,7 +17,7 @@ const emit = defineEmits<{
 
 <template>
     <transition name="fade">
-        <div v-if="isOpen" class="absolute top-0 -left-4 w-40" @mouseleave="emit('mouseleave')">
+        <div v-if="isOpen" :class="`absolute ${top} ${left} w-${width}`" @mouseleave="emit('mouseleave')">
             <div class="bg-white rounded-lg shadow border text-black font-medium">
                 <slot></slot>
             </div>

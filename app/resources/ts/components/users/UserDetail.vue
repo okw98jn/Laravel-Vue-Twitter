@@ -2,8 +2,8 @@
 type Props = {
     name: string;
     userId: string;
-    introduction: string | null;
-    isFollower: boolean;
+    introduction?: string | null;
+    isFollower?: boolean;
 }
 const { name, userId, introduction, isFollower } = defineProps<Props>();
 </script>
@@ -11,7 +11,7 @@ const { name, userId, introduction, isFollower } = defineProps<Props>();
 <template>
     <div>
         <div class="flex justify-between items-center">
-            <div class="">
+            <div>
                 <p class="font-semibold text-black">{{ name }}
                 </p>
                 <p class="text-gray-500 -mt-1 mb-1">
