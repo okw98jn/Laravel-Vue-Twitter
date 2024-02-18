@@ -6,7 +6,7 @@ use App\Const\CommonConst;
 use App\Models\Tweet;
 use App\Models\User;
 
-class UserTweetsService
+class UserTweetsService extends TweetService
 {
     /**
      * ユーザーのツイート一覧を取得
@@ -16,10 +16,17 @@ class UserTweetsService
      */
     public function getUserTweets(User $user): \Illuminate\Pagination\LengthAwarePaginator
     {
+        $userIdFilterClosure = $this->getUserIdFilterClosure();
+
         $tweets = Tweet::where('user_id', $user->id)
-            ->with('user', 'likes', 'tweetImages')
+            ->withUserAndImages()
+            ->withStatusCounts($userIdFilterClosure)
             ->orderBy('created_at', 'desc')
             ->paginate(CommonConst::PAGE_MAX_COUNT);
+
+        $tweets->getCollection()->transform(function ($tweet) {
+            return $this->setTweetStatusBooleans($tweet);
+        });
 
         return $tweets;
     }

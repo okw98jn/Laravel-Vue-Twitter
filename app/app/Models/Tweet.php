@@ -2,11 +2,18 @@
 
 namespace App\Models;
 
+use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property bool $is_liked
+ * @property bool $is_bookmarked
+ * @property bool $is_retweeted
+ */
 class Tweet extends Model
 {
     use HasFactory;
@@ -15,6 +22,20 @@ class Tweet extends Model
         'text',
         'video_path',
     ];
+
+    public function scopeWithUserAndImages(Builder $query): Builder
+    {
+        return $query->with(['user', 'tweetImages']);
+    }
+
+    public function scopeWithStatusCounts(Builder $query, Closure $userIdFilterClosure): Builder
+    {
+        return $query->withCount([
+            'likes as is_liked' => $userIdFilterClosure,
+            'bookmarks as is_bookmarked' => $userIdFilterClosure,
+            'retweets as is_retweeted' => $userIdFilterClosure,
+        ]);
+    }
 
     public function user(): BelongsTo
     {
@@ -39,20 +60,5 @@ class Tweet extends Model
     public function tweetImages(): HasMany
     {
         return $this->hasMany(TweetImage::class);
-    }
-
-    public function isRetweetedByUser(User $user): bool
-    {
-        return $this->retweets->where('user_id', $user->id)->isNotEmpty();
-    }
-
-    public function isBookmarkedByUser(User $user): bool
-    {
-        return $this->bookmarks->where('user_id', $user->id)->isNotEmpty();
-    }
-
-    public function isLikedByUser(User $user): bool
-    {
-        return $this->likes->where('user_id', $user->id)->isNotEmpty();
     }
 }

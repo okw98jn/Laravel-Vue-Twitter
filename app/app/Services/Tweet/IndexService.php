@@ -5,7 +5,7 @@ namespace App\Services\Tweet;
 use App\Const\CommonConst;
 use App\Models\Tweet;
 
-class IndexService
+class IndexService extends TweetService
 {
     /**
      * ツイート一覧を取得
@@ -14,9 +14,16 @@ class IndexService
      */
     public function getTweets(): \Illuminate\Pagination\LengthAwarePaginator
     {
-        $tweets = Tweet::with('user', 'likes', 'tweetImages')
+        $userIdFilterClosure = $this->getUserIdFilterClosure();
+
+        $tweets = Tweet::withUserAndImages()
+            ->withStatusCounts($userIdFilterClosure)
             ->orderBy('created_at', 'desc')
             ->paginate(CommonConst::PAGE_MAX_COUNT);
+
+        $tweets->getCollection()->transform(function ($tweet) {
+            return $this->setTweetStatusBooleans($tweet);
+        });
 
         return $tweets;
     }
