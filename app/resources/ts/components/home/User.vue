@@ -3,23 +3,16 @@ import UserIconImage from '@/components/users/UserIconImage.vue';
 import UserDetail from '@/components/users/UserDetail.vue';
 import { EllipsisHorizontalIcon, UserMinusIcon } from "@heroicons/vue/24/outline";
 import { AuthStore } from '@/types/Auth';
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import DropdownMenu from '@/components/ui/DropdownMenu.vue';
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
-
 
 type Props = {
     user: AuthStore;
 }
 
 const { user } = defineProps<Props>();
-
-const isOpen = ref(false);
-
-const toggleDropdown = () => {
-    isOpen.value = !isOpen.value;
-}
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -30,6 +23,29 @@ const logout = (): void => {
             router.push({ name: 'Login' });
         })
 };
+
+const isOpen = ref(false);
+
+const toggleDropdown = (event: MouseEvent) => {
+    event.stopPropagation();
+    isOpen.value = !isOpen.value;
+}
+
+const closeDropdown = (event: MouseEvent) => {
+    const dropdownElement = document.querySelector('.dropdown');
+
+    if (dropdownElement && !dropdownElement.contains(event.target as HTMLElement)) {
+        isOpen.value = false;
+    }
+};
+
+onMounted(() => {
+    document.addEventListener('click', closeDropdown);
+});
+
+onUnmounted(() => {
+    document.removeEventListener('click', closeDropdown);
+});
 
 </script>
 
@@ -48,7 +64,7 @@ const logout = (): void => {
                 </div>
             </div>
         </div>
-        <DropdownMenu :is-open="isOpen" top="-top-16" left="left-0" width="full">
+        <DropdownMenu :is-open="isOpen" top="-top-16" left="left-0" width="w-full" class="dropdown">
             <div @click="logout" class="hover:bg-gray-100 px-4 py-3 rounded-t-lg cursor-pointer">
                 <div class="flex items-center">
                     <UserMinusIcon class="h-5 w-5 mr-2" />
