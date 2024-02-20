@@ -19,13 +19,13 @@ class Tweet extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'text',
-        'video_path',
     ];
 
     public function scopeWithUserAndImages(Builder $query): Builder
     {
-        return $query->with(['user', 'tweetImages']);
+        return $query->with(['user', 'tweetImages', 'tweetVideos']);
     }
 
     public function scopeWithStatusCounts(Builder $query, Closure $userIdFilterClosure): Builder
@@ -60,5 +60,10 @@ class Tweet extends Model
     public function tweetImages(): HasMany
     {
         return $this->hasMany(TweetImage::class);
+    }
+
+    public function tweetVideos(): HasMany
+    {
+        return $this->hasMany(TweetVideo::class);
     }
 }

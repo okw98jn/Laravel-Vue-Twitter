@@ -18,7 +18,6 @@ class TweetResource extends JsonResource
             'id'             => $this->resource->id,
             'user_id'        => $this->resource->user_id,
             'text'           => $this->resource->text,
-            'video_path'     => $this->resource->video_path ? env('IMAGE_URL').$this->resource->video_path : null,
             'like_count'     => $this->resource->likes->count(),
             'is_liked'       => $this->resource->is_liked,
             'retweet_count'  => $this->resource->retweets->count(),
@@ -28,6 +27,7 @@ class TweetResource extends JsonResource
             'created'        => $this->resource->created_at->diffForHumans(),
             'can_delete'     => $this->resource->user_id === auth()->id(),
             'images'         => TweetImageResource::collection($this->resource->tweetImages),
+            'videos'         => TweetVideoResource::collection($this->resource->tweetVideos),
         ];
     }
 }

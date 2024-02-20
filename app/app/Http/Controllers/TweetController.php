@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Tweet\StoreRequest;
 use App\Http\Resources\Tweet\TweetListResource;
 use App\Models\Tweet;
 use App\Models\User;
+use App\Services\CommonService;
 use App\Services\Tweet\BookmarkTweetsService;
 use App\Services\Tweet\FollowingTweetsService;
 use App\Services\Tweet\IndexService;
+use App\Services\Tweet\StoreService;
 use App\Services\Tweet\UserLikedTweetsService;
 use App\Services\Tweet\UserTweetsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class TweetController extends Controller
 {
@@ -104,6 +109,33 @@ class TweetController extends Controller
     }
 
     /**
+     * ツイート投稿API
+     *
+     * @param  CommonService  $commonService
+     * @param  StoreRequest  $request
+     * @param  StoreService  $storeService
+     * @return JsonResponse
+     */
+    public function store(CommonService $commonService, StoreRequest $request, StoreService $storeService): JsonResponse
+    {
+        $data = $request->validated();
+
+        DB::transaction(function () use ($storeService, $commonService, $data) {
+            $tweetId = $storeService->store($data);
+
+            if (isset($data['images'])) {
+                $storeService->storeImages($commonService, $tweetId, $data['images']);
+            }
+
+            if (isset($data['videos'])) {
+                $storeService->storeVideos($commonService, $tweetId, $data['videos']);
+            }
+        });
+
+        return response()->json([], Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * ツイート削除API
      *
      * @param  Tweet  $tweet
@@ -113,7 +145,17 @@ class TweetController extends Controller
     {
         $this->authorize('delete', $tweet);
 
-        $tweet->delete();
+        DB::transaction(function () use ($tweet) {
+            foreach ($tweet->tweetImages ?? [] as $image) {
+                Storage::delete($image->path);
+            }
+
+            foreach ($tweet->tweetVideos ?? [] as $video) {
+                Storage::delete($video->path);
+            }
+
+            $tweet->delete();
+        });
 
         return response()->json([], Response::HTTP_NO_CONTENT);
     }

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tweets', function (Blueprint $table) {
+        Schema::create('tweet_videos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('ユーザーID');
-            $table->string('text', 140)->nullable()->comment('テキスト');
-            $table->timestamps();
-            $table->comment('ツイート');
+            $table->foreignId('tweet_id')->constrained()->onDelete('cascade')->comment('ツイートID');
+            $table->string('path')->comment('動画パス');
+            $table->comment('ツイート動画');
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tweets');
+        Schema::dropIfExists('tweet_videos');
     }
 };
