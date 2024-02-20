@@ -25,7 +25,7 @@ class Tweet extends Model
 
     public function scopeWithUserAndImages(Builder $query): Builder
     {
-        return $query->with(['user', 'tweetImages', 'tweetVideos']);
+        return $query->with(['user', 'tweetImages', 'tweetVideos', 'likes', 'retweets', 'bookmarks']);
     }
 
     public function scopeWithStatusCounts(Builder $query, Closure $userIdFilterClosure): Builder
