@@ -14,7 +14,6 @@ export const useTweetStore = defineStore('tweet', () => {
             id: 0,
             user_id: 0,
             text: '',
-            video_path: '',
             like_count: 0,
             is_liked: false,
             retweet_count: 0,
@@ -24,6 +23,7 @@ export const useTweetStore = defineStore('tweet', () => {
             created: '',
             can_delete: false,
             images: [],
+            videos: [],
         },
     }]);
 
@@ -57,6 +57,15 @@ export const useTweetStore = defineStore('tweet', () => {
         tweetList.value = tweetList.value.filter((tweet) => tweet.tweet.id !== tweetId);
     }
 
+    const storeTweet = async (formData: FormData) => {
+        await axiosClient.post(`/tweet`, formData)
+            .catch((err) => {
+                throw err.response.data;
+            })
+
+        return;
+    }
+
     const deleteTweet = async (tweetId: number) => {
         await axiosClient.delete(`/tweet/${tweetId}`)
             .then(() => {
@@ -75,6 +84,7 @@ export const useTweetStore = defineStore('tweet', () => {
         fetchFollowingsTweetList,
         fetchUserTweetList,
         fetchUserLikedTweetList,
+        storeTweet,
         deleteTweet,
         removeTweetById,
     }

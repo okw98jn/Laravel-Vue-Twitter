@@ -2,9 +2,9 @@
 import { ref, onMounted } from 'vue';
 
 type Props = {
-    path: string;
+    videoPath: string;
 }
-const { path } = defineProps<Props>();
+const { videoPath } = defineProps<Props>();
 
 let videoRef = ref<HTMLVideoElement | null>(null);
 
@@ -22,6 +22,6 @@ const toggleVideoPlayback = () => {
 </script>
 
 <template>
-    <video id="videoElement" class="w-full h-96 object-cover rounded-lg" controls :src="path"
+    <video id="videoElement" class="w-full h-96 object-cover rounded-lg" controls :src="videoPath"
         @click="toggleVideoPlayback"></video>
 </template>

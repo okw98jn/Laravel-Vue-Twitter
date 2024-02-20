@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { useTweetModalStore } from '@/stores/tweetModal';
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { XCircleIcon } from '@heroicons/vue/24/solid';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const model = defineModel<string>();
 const isFocus = ref(false);
@@ -14,12 +15,17 @@ const handleClick = () => {
     model.value = '';
     emit('blur');
 }
+
+//左サイドバーツイート作成モーダルが開いているかどうかを確認するためのストア
+const tweetModalStore = useTweetModalStore();
+const isTweetModalOpen = computed(() => tweetModalStore.isTweetModalOpen);
+
 </script>
 
 <template>
     <div class="flex justify-center">
         <div class="p-4 w-4/5">
-            <div class="relative">
+            <div class="relative" :class="{ '-z-10': isTweetModalOpen }">
                 <MagnifyingGlassIcon class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
                     :class="isFocus ? 'text-indigo-500' : ''" />
                 <input type="text" placeholder="検索" v-model="model" @blur="emit('blur')" @focus="isFocus = true"

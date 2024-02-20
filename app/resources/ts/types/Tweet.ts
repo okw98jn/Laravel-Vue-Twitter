@@ -13,7 +13,6 @@ export type Tweet = {
     id: number;
     user_id: number;
     text: string;
-    video_path?: string;
     like_count: number;
     is_liked: boolean;
     retweet_count: number;
@@ -23,6 +22,10 @@ export type Tweet = {
     created: string;
     can_delete: boolean;
     images: {
+        id: number;
+        path: string;
+    }[];
+    videos: {
         id: number;
         path: string;
     }[];

@@ -71,7 +71,7 @@ const toggleModal = (): void => {
                 </div>
                 <Button text="ツイート" className="text-white bg-indigo-500 hover:bg-indigo-600" @click="toggleModal" />
                 <Modal :isOpen="isOpen" title="" @click="toggleModal">
-                    <TweetCreate :user="authUser" />
+                    <TweetCreate :user="authUser" :toggle-modal="toggleModal" />
                 </Modal>
             </div>
             <User :user="authUser" />

@@ -44,11 +44,10 @@ const { tweet, user } = defineProps<Props>();
                             <TweetDelete v-if="tweet.can_delete" :tweet-id="tweet.id" />
                         </div>
                         <Content :text="tweet.text" />
-                        <div v-if="tweet.video_path" class="mt-2" @click.prevent>
-                            <Video :path="tweet.video_path" />
-                        </div>
-                        <div v-if="tweet.images.length > 0" class="mt-2 grid grid-cols-2 gap-0.5" @click.prevent>
-                            <Image v-for="(image, index) in tweet.images" :key="index" :image-path="image.path" />
+                        <div v-if="tweet.images.length || tweet.videos.length" class="mt-2 grid grid-cols-2 gap-0.5"
+                            @click.prevent>
+                            <Image v-for="image in tweet.images" :key="image.id" :image-path="image.path" />
+                            <Video v-for="video in tweet.videos" :key="video.id" :video-path="video.path" />
                         </div>
                         <div class="flex items-center justify-between text-gray-500 mt-2">
                             <div class="flex items-center space-x-6 text-gray-500" @click.prevent>
