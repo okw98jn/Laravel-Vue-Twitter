@@ -44,7 +44,7 @@ const handleLike = async () => {
 </script>
 
 <template>
-    <div :class="`flex items-center hover:text-red-500`" @click="handleLike">
+    <div class="flex items-center hover:text-red-500" @click="handleLike">
         <div class="p-1.5 rounded-full cursor-pointer transition duration-300 ease-in-out" :class="`hover:bg-red-100`">
             <HeartIconSolid v-if="isLikedUser" class="h-5 w-5 text-rose-500" />
             <HeartIconOutline v-else class="h-5 w-5" />

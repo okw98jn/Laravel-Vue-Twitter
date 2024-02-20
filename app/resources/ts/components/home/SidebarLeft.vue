@@ -5,9 +5,11 @@ import { useAuthStore } from "@/stores/auth";
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import Modal from '@/components/ui/Modal.vue';
-import userImage from '@/assets/user.png';
 import User from '@/components/home/User.vue';
+import { useTweetModalStore } from "@/stores/tweetModal";
+import TweetCreate from "../tweet_create/TweetCreate.vue";
 
+const tweetModalStore = useTweetModalStore();
 const authStore = useAuthStore();
 const authUser = computed(() => authStore.user);
 const route = useRoute()
@@ -38,7 +40,7 @@ const navigation = computed(() => [
 const isOpen = ref(false);
 const toggleModal = (): void => {
     isOpen.value = !isOpen.value;
-
+    tweetModalStore.isTweetModalOpen = !tweetModalStore.isTweetModalOpen;
 };
 
 </script>
@@ -69,12 +71,7 @@ const toggleModal = (): void => {
                 </div>
                 <Button text="ツイート" className="text-white bg-indigo-500 hover:bg-indigo-600" @click="toggleModal" />
                 <Modal :isOpen="isOpen" title="" @click="toggleModal">
-                    <p>
-                        <img v-if="authUser.data.icon_image" :src="authUser.data.icon_image" alt="user"
-                            class="w-11 h-11 object-cover rounded-full">
-                        <img v-else :src="userImage" alt="user" class="w-11 h-11 object-cover rounded-full">
-                    </p>
-                    <textarea name="text" rows="4"></textarea>
+                    <TweetCreate :user="authUser" />
                 </Modal>
             </div>
             <User :user="authUser" />

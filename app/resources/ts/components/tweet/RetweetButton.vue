@@ -3,8 +3,9 @@ import { ArrowPathRoundedSquareIcon as OutlineIcon } from '@heroicons/vue/24/out
 import { PencilSquareIcon } from '@heroicons/vue/24/outline';
 import { ArrowPathRoundedSquareIcon as SolidIcon } from '@heroicons/vue/24/solid';
 import axiosClient from "@/axios";
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import DropdownMenu from '@/components/ui/DropdownMenu.vue';
+import { useTweetModalStore } from '@/stores/tweetModal';
 
 type Props = {
     tweetId: number;
@@ -13,6 +14,10 @@ type Props = {
 }
 
 const { tweetId, countProp, isRetweetedProp } = defineProps<Props>();
+
+//左サイドバーツイート作成モーダルが開いているかどうかを確認するためのストア
+const tweetModalStore = useTweetModalStore();
+const isTweetModalOpen = computed(() => tweetModalStore.isTweetModalOpen);
 
 const isBookmarked = ref(isRetweetedProp);
 const count = ref(countProp);
@@ -38,8 +43,8 @@ const toggleDropdown = () => {
 </script>
 
 <template>
-    <div class="relative">
-        <div :class="`flex items-center hover:text-green-500`" @click="toggleDropdown">
+    <div class="relative" :class="{ '-z-10': isTweetModalOpen }">
+        <div class="flex items-center hover:text-green-500" @click="toggleDropdown">
             <div class="p-1.5 rounded-full cursor-pointer transition duration-300 ease-in-out"
                 :class="`hover:bg-green-100`">
                 <SolidIcon v-if="isBookmarked" class="h-5 w-5 text-green-500" />

@@ -12,7 +12,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <div :class="`flex items-center hover:text-indigo-500`" @click="emit('click')">
+    <div class="flex items-center hover:text-indigo-500" @click="emit('click')">
         <div class="p-1.5 rounded-full cursor-pointer transition duration-300 ease-in-out" :class="`hover:bg-indigo-100`">
             <ChatBubbleOvalLeftIcon class="h-5 w-5" />
         </div>
