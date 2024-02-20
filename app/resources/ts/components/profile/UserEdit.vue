@@ -12,12 +12,14 @@ import { useRoute } from 'vue-router';
 import DateInput from './DateInput.vue';
 import { useTweetStore } from '@/stores/tweet';
 import FollowButton from '@/components/ui/FollowButton.vue';
+import { useAuthStore } from '@/stores/auth';
 
 const route = useRoute();
 const userId = route.params.userId as string;
 
 const profileStore = useProfileStore();
 const tweetStore = useTweetStore();
+const authStore = useAuthStore();
 
 const profile: ComputedRef<Profile> = computed(() => profileStore.profile);
 const isLoading: ComputedRef<boolean> = computed(() => profileStore.isLoading);
@@ -69,6 +71,7 @@ const updateUser = () => {
             } else {
                 tweetStore.fetchUserLikedTweetList(userId);
             }
+            authStore.fetchUser();
         })
         .catch((err) => {
             errorMessages.value = err
