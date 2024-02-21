@@ -8,7 +8,7 @@ import MediaItems from '@/components/tweet_create/MediaItems.vue';
 import MediaButton from '@/components/tweet_create/MediaButton.vue';
 import TweetButton from '@/components/tweet_create/TweetButton.vue';
 import FooterLayout from '@/components/tweet_create/FooterLayout.vue';
-import { TweetForm } from '@/types/Tweet';
+import { useFileHandler } from '@/hooks/useFileHandler';
 
 type Props = {
     user: AuthStore;
@@ -17,18 +17,12 @@ type Props = {
 
 const { user, toggleModal } = defineProps<Props>();
 
-const tweet = ref<TweetForm>({
-    text: '',
-    images: [] as string[],
-    videos: [] as string[],
-});
-
 const tweetStore = useTweetStore();
 const profileStore = useProfileStore();
 
-const isLoading = ref(false);
+const { tweet, formData, handleFileSelect, removeTweetFile } = useFileHandler();
 
-const formData = new FormData();
+const isLoading = ref(false);
 
 const storeTweet = () => {
     isLoading.value = true;
@@ -47,33 +41,12 @@ const storeTweet = () => {
             isLoading.value = false;
         });
 };
-
-const handleFileSelect = (event: Event) => {
-    const file = (event.target as HTMLInputElement).files?.[0];
-
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            if (file.type.startsWith('image/')) {
-                const lastIndex = tweet.value.images.length;
-                formData.append(`images[${lastIndex}]`, file);
-                tweet.value.images.push((e.target as FileReader).result as string);
-            } else if (file.type.startsWith('video/')) {
-                const lastIndex = tweet.value.videos.length;
-                formData.append(`videos[${lastIndex}]`, file);
-                const videoUrl = URL.createObjectURL(file);
-                tweet.value.videos.push(videoUrl);
-            }
-        };
-        reader.readAsDataURL(file);
-    }
+const setEmoji = (emoji: string) => {
+    tweet.value.text += emoji;
 };
-
-const removeTweetFile = (index: number, type: 'images' | 'videos') => {
-    tweet.value[type].splice(index, 1);
-    formData.delete(`${type}[${index}]`);
+const setGif = (gif: string) => {
+    tweet.value.text += gif;
 };
-
 </script>
 
 <template>
