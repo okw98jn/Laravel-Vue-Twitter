@@ -9,6 +9,7 @@ import MediaButton from '@/components/tweet_create/MediaButton.vue';
 import TweetButton from '@/components/tweet_create/TweetButton.vue';
 import FooterLayout from '@/components/tweet_create/FooterLayout.vue';
 import { useFileHandler } from '@/hooks/useFileHandler';
+import { useRoute } from 'vue-router';
 
 type Props = {
     user: AuthStore;
@@ -19,6 +20,7 @@ const { user, toggleModal } = defineProps<Props>();
 
 const tweetStore = useTweetStore();
 const profileStore = useProfileStore();
+const route = useRoute();
 
 const { tweet, formData, handleFileSelect, removeTweetFile } = useFileHandler();
 
@@ -30,7 +32,11 @@ const storeTweet = () => {
     formData.append('text', tweet.value.text);
 
     tweetStore.storeTweet(formData)
-        .then(() => {
+        .then((data) => {
+            const isMyProfile = typeof route.params.userId === 'string' && parseInt(route.params.userId) === user.data.id;
+            if ((route.name === 'UserTweetList' && isMyProfile) || route.name === 'TimeLine') {
+                tweetStore.tweetList.unshift(data);
+            }
             profileStore.profile.data.tweet_count++;
             toggleModal();
         })
@@ -41,12 +47,7 @@ const storeTweet = () => {
             isLoading.value = false;
         });
 };
-const setEmoji = (emoji: string) => {
-    tweet.value.text += emoji;
-};
-const setGif = (gif: string) => {
-    tweet.value.text += gif;
-};
+
 </script>
 
 <template>

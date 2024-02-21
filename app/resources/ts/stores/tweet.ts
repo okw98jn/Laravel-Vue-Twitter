@@ -58,12 +58,12 @@ export const useTweetStore = defineStore('tweet', () => {
     }
 
     const storeTweet = async (formData: FormData) => {
-        await axiosClient.post(`/tweet`, formData)
+        const { data } = await axiosClient.post(`/tweet`, formData)
             .catch((err) => {
                 throw err.response.data;
             })
 
-        return;
+        return data;
     }
 
     const deleteTweet = async (tweetId: number) => {
