@@ -47,7 +47,7 @@ const { tweet, user } = defineProps<Props>();
                         <div v-if="tweet.images.length || tweet.videos.length" class="mt-2 grid grid-cols-2 gap-0.5"
                             @click.prevent>
                             <Image v-for="image in tweet.images" :key="image.id" :image-path="image.path" />
-                            <Video v-for="video in tweet.videos" :key="video.id" :video-path="video.path" />
+                            <Video v-for="video in tweet.videos" :key="video.id" :id="video.id" :video-path="video.path" />
                         </div>
                         <div class="flex items-center justify-between text-gray-500 mt-2">
                             <div class="flex items-center space-x-6 text-gray-500" @click.prevent>

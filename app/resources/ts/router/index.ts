@@ -15,6 +15,7 @@ import FollowerList from '@/views/FollowerList.vue';
 import FollowTweetList from '@/views/FollowTweetList.vue';
 import TimeLine from '@/views/TimeLine.vue';
 import Bookmark from '@/views/Bookmark.vue';
+import NotFound from '@/views/NotFound.vue';
 
 const routes = [
 	{
@@ -31,13 +32,13 @@ const routes = [
 			},
 			{ path: 'bookmark', name: 'Bookmark', component: Bookmark },
 			{
-				path: '/profile/:userId', name: 'Profile', component: Profile, children: [
+				path: '/profile/:userId(\\d+)', name: 'Profile', component: Profile, children: [
 					{ path: '', name: 'UserTweetList', component: UserTweetList },
 					{ path: 'like', name: 'LikeList', component: LikeList },
 				]
 			},
 			{
-				path: '/:userId', name: 'Users', component: Users, children: [
+				path: '/:userId(\\d+)', name: 'Users', component: Users, children: [
 					{ path: 'users', name: 'UserList', component: UserList },
 					{ path: 'following', name: 'FollowList', component: FollowList },
 					{ path: 'followers', name: 'FollowerList', component: FollowerList },
@@ -56,6 +57,11 @@ const routes = [
 			{ path: '/register', name: 'Register', component: Register },
 		]
 	},
+	{
+		path: '/:catchAll(.*)',
+		name: 'NotFound',
+		component: NotFound
+	}
 ]
 
 const router = createRouter({
@@ -65,7 +71,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 	const authStore = useAuthStore();
-
 	if (to.meta.requiresAuth && authStore.user.isLogin === null) {
 		next({ name: 'Login' })
 	} else if (authStore.user.isLogin && (to.meta.isGuest)) {

@@ -2,14 +2,15 @@
 import { ref, onMounted } from 'vue';
 
 type Props = {
+    id: number;
     videoPath: string;
 }
-const { videoPath } = defineProps<Props>();
+const { id, videoPath } = defineProps<Props>();
 
 let videoRef = ref<HTMLVideoElement | null>(null);
 
 onMounted(() => {
-    videoRef.value = document.getElementById('videoElement') as HTMLVideoElement;
+    videoRef.value = document.getElementById('videoElement_' + id) as HTMLVideoElement;
 });
 
 const toggleVideoPlayback = () => {
@@ -22,6 +23,6 @@ const toggleVideoPlayback = () => {
 </script>
 
 <template>
-    <video id="videoElement" class="w-full h-96 object-cover rounded-lg" controls :src="videoPath"
+    <video :id="`videoElement_${id}`" class="w-full h-96 object-cover rounded-lg -z-1" controls :src="videoPath"
         @click="toggleVideoPlayback"></video>
 </template>

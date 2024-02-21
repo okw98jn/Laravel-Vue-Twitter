@@ -12,7 +12,7 @@ export type TweetUser = {
 export type Tweet = {
     id: number;
     user_id: number;
-    text: string;
+    text: string | null;
     like_count: number;
     is_liked: boolean;
     retweet_count: number;
