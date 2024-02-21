@@ -14,11 +14,15 @@ destroy:
 build:
 	docker compose build --no-cache --force-rm
 
-# コンテナシェルログイン(laravel)
+# コンテナログイン(laravel)
 sh:
 	docker compose exec app bash
 
-# コンテナシェルログイン(mysql)
+# コンテナログイン(nginx)
+sh-nginx:
+	docker compose exec nginx sh
+
+# コンテナログイン(mysql)
 sh-mysql:
 	docker compose exec mysql bash
 
