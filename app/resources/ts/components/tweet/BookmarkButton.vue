@@ -3,6 +3,7 @@ import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/vue/24/outline';
 import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/vue/24/solid';
 import axiosClient from "@/axios";
 import { ref } from 'vue';
+import notify from "@/hooks/useToast";
 
 type Props = {
     tweetId: number;
@@ -17,6 +18,8 @@ const handleBookmark = async () => {
         const method = isBookmarked.value ? 'delete' : 'post';
         await axiosClient[method](`/bookmark/${tweetId}`);
         isBookmarked.value = !isBookmarked.value;
+        const message = isBookmarked.value ? 'ブックマークしました' : 'ブックマークを解除しました';
+        notify(message, 'info');
     } catch (err) {
         console.log(err);
     }

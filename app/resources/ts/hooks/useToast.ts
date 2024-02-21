@@ -4,7 +4,7 @@ type ToastType = 'success' | 'error' | 'info' | 'warning';
 
 const toastOption = {
     autoClose: 2000,
-    position: toast.POSITION.TOP_RIGHT,
+    position: toast.POSITION.BOTTOM_CENTER,
     toastStyle: {
         fontSize: '12px',
         minHeight: '45px',
