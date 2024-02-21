@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Tweet\StoreRequest;
 use App\Http\Resources\Tweet\TweetListResource;
+use App\Http\Resources\Tweet\TweetResource;
+use App\Http\Resources\Tweet\TweetUserResource;
 use App\Models\Tweet;
 use App\Models\User;
 use App\Services\CommonService;
@@ -119,20 +121,24 @@ class TweetController extends Controller
     public function store(CommonService $commonService, StoreRequest $request, StoreService $storeService): JsonResponse
     {
         $data = $request->validated();
+        $tweet = null;
 
-        DB::transaction(function () use ($storeService, $commonService, $data) {
-            $tweetId = $storeService->store($data);
+        DB::transaction(function () use ($storeService, $commonService, $data, &$tweet) {
+            $tweet = $storeService->store($data);
 
             if (isset($data['images'])) {
-                $storeService->storeImages($commonService, $tweetId, $data['images']);
+                $storeService->storeImages($commonService, $tweet->id, $data['images']);
             }
 
             if (isset($data['videos'])) {
-                $storeService->storeVideos($commonService, $tweetId, $data['videos']);
+                $storeService->storeVideos($commonService, $tweet->id, $data['videos']);
             }
         });
 
-        return response()->json([], Response::HTTP_NO_CONTENT);
+        return response()->json([
+            'user'   => new TweetUserResource($tweet),
+            'tweet'  => new TweetResource($tweet),
+        ], Response::HTTP_CREATED);
     }
 
     /**

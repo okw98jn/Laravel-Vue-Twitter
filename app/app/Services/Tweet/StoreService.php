@@ -13,16 +13,16 @@ class StoreService extends TweetService
      * ツイートを保存
      *
      * @param  array<mixed>  $data
-     * @return int
+     * @return Tweet
      */
-    public function store(array $data): int
+    public function store(array $data): Tweet
     {
         $data = [
             'user_id' => auth()->id(),
             'text'    => $data['text'] ?? null,
         ];
 
-        return Tweet::create($data)->id;
+        return Tweet::create($data);
     }
 
     /**
