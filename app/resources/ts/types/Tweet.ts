@@ -30,3 +30,9 @@ export type Tweet = {
         path: string;
     }[];
 };
+
+export type TweetForm = {
+    text: string;
+    images: string[];
+    videos: string[];
+};

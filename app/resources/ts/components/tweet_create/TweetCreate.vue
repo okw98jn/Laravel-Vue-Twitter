@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { AuthStore } from '@/types/Auth';
-import { CameraIcon, XMarkIcon } from "@heroicons/vue/24/outline"
-import Button from '@/components/ui/Button.vue';
-import UserIcon from "@/components/tweet_create/UserIcon.vue";
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useTweetStore } from '@/stores/tweet';
 import { useProfileStore } from '@/stores/profile';
+import TweetText from '@/components/tweet_create/TweetText.vue';
+import MediaItems from '@/components/tweet_create/MediaItems.vue';
+import MediaButton from '@/components/tweet_create/MediaButton.vue';
+import TweetButton from '@/components/tweet_create/TweetButton.vue';
+import FooterLayout from '@/components/tweet_create/FooterLayout.vue';
+import { TweetForm } from '@/types/Tweet';
 
 type Props = {
     user: AuthStore;
@@ -14,7 +17,7 @@ type Props = {
 
 const { user, toggleModal } = defineProps<Props>();
 
-const tweet = ref({
+const tweet = ref<TweetForm>({
     text: '',
     images: [] as string[],
     videos: [] as string[],
@@ -24,10 +27,6 @@ const tweetStore = useTweetStore();
 const profileStore = useProfileStore();
 
 const isLoading = ref(false);
-
-const canTweetButton = computed(() => {
-    return tweet.value.text.length || tweet.value.images.length || tweet.value.videos.length;
-});
 
 const formData = new FormData();
 
@@ -47,13 +46,6 @@ const storeTweet = () => {
         .finally(() => {
             isLoading.value = false;
         });
-};
-
-const fileInputTweetFile = ref();
-
-const selectTweetFiles = () => {
-    if ((tweet.value.images.length + tweet.value.videos.length) >= 4) return;
-    fileInputTweetFile.value.click();
 };
 
 const handleFileSelect = (event: Event) => {
@@ -77,49 +69,18 @@ const handleFileSelect = (event: Event) => {
     }
 };
 
-const removeTweetImage = (index: number) => {
-    tweet.value.images.splice(index, 1);
-    formData.delete(`images[${index}]`);
-};
-
-const removeTweetVideo = (index: number) => {
-    tweet.value.videos.splice(index, 1);
-    formData.delete(`videos[${index}]`);
+const removeTweetFile = (index: number, type: 'images' | 'videos') => {
+    tweet.value[type].splice(index, 1);
+    formData.delete(`${type}[${index}]`);
 };
 
 </script>
 
 <template>
-    <div class="flex items-start justify-between mb-4">
-        <UserIcon :userIcon="user.data.icon_image" />
-        <textarea v-model="tweet.text" maxlength="140" class="resize-none focus:outline-none w-11/12" rows="5"
-            placeholder="ツイート内容"></textarea>
-    </div>
-    <div v-if="tweet.images.length || tweet.videos" class="grid grid-cols-2 gap-2 mb-4">
-        <div v-for="(image, index) in tweet.images" class="relative">
-            <img :src="image" class="h-auto object-cover rounded-lg" />
-            <XMarkIcon @click="removeTweetImage(index)"
-                class="absolute top-1 right-1 w-8 h-8 p-1 text-white bg-black cursor-pointer transition duration-300 ease-in-out opacity-60 hover:opacity-50 rounded-full" />
-        </div>
-        <div v-for="(video, index) in tweet.videos" class="relative">
-            <video :src="video" controls class="h-auto object-cover rounded-lg" />
-            <XMarkIcon @click="removeTweetVideo(index)"
-                class="absolute top-1 right-1 w-8 h-8 p-1 text-white bg-black cursor-pointer transition duration-300 ease-in-out opacity-60 hover:opacity-50 rounded-full" />
-        </div>
-    </div>
-    <div class="border-t">
-        <div class="flex items-center justify-between">
-            <div>
-                <CameraIcon @click="selectTweetFiles"
-                    class="p-1.5 w-9 h-9 text-indigo-500 rounded-full hover:bg-indigo-100 transition duration-300 ease-in-out cursor-pointer"
-                    :class="tweet.images.length >= 4 ? 'hover:bg-white opacity-50 !cursor-default' : ''" />
-                <input type="file" ref="fileInputTweetFile" accept="image/*,video/*"
-                    @change="event => handleFileSelect(event)" class="hidden" />
-            </div>
-            <div class="w-20">
-                <Button text="ツイート" :disabled="!canTweetButton" @click="storeTweet" :is-loading="isLoading"
-                    :className="`h-10 my-3 text-white bg-indigo-500 hover:bg-indigo-600 ${!canTweetButton ? 'opacity-50 !cursor-default' : ''}`" />
-            </div>
-        </div>
-    </div>
+    <TweetText :user-icon="user.data.icon_image" v-model="tweet.text" />
+    <MediaItems :images="tweet.images" :videos="tweet.videos" :remove-tweet-file="removeTweetFile" />
+    <FooterLayout>
+        <MediaButton :images="tweet.images" :videos="tweet.videos" :handle-file-select="handleFileSelect" />
+        <TweetButton :storeTweet="storeTweet" :is-loading="isLoading" :tweet="tweet" />
+    </FooterLayout>
 </template>
