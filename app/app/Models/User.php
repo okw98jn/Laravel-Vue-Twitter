@@ -11,6 +11,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property bool $is_follow
+ * @property bool $is_follower
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -83,31 +87,5 @@ class User extends Authenticatable
     public function followers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
-    }
-
-    /**
-     * ログインユーザーがフォローしているかどうか
-     *
-     * @param  int  $userId
-     * @return bool
-     */
-    public function isFollowing(int $userId): bool
-    {
-        $authUser = $this->find(auth()->id());
-
-        return $authUser ? $authUser->follows()->where('followed_id', $userId)->exists() : false;
-    }
-
-    /**
-     * ログインユーザーがフォローされているかどうか
-     *
-     * @param  int  $userId
-     * @return bool
-     */
-    public function isFollowedBy(int $userId): bool
-    {
-        $authUser = $this->find(auth()->id());
-
-        return $authUser ? $authUser->followers()->where('follower_id', $userId)->exists() : false;
     }
 }

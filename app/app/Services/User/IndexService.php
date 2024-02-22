@@ -19,7 +19,14 @@ class IndexService
             $query->where('name', 'like', "%$searchWord%")
                 ->orWhere('user_id', 'like', "%$searchWord%")
                 ->orWhere('introduction', 'like', "%$searchWord%");
-        })->paginate(CommonConst::PAGE_MAX_COUNT);
+        })
+            ->with(['follows', 'followers'])
+            ->paginate(CommonConst::PAGE_MAX_COUNT);
+
+        foreach ($users as $user) {
+            $user->is_follow = $user->followers->contains(auth()->id() ?? 0);
+            $user->is_follower = $user->follows->contains(auth()->id() ?? 0);
+        }
 
         return $users;
     }

@@ -27,7 +27,8 @@ class ShowResource extends JsonResource
             'follow_count'   => $this->resource->follows->count(),
             'follower_count' => $this->resource->followers->count(),
             'is_auth_user'   => $this->resource->id === auth()->id(),
-            'is_follow'      => $this->resource->isFollowing($this->resource->id),
+            'is_follow'      => $this->resource->followers->contains(auth()->id()),
+            'is_follower'    => $this->resource->follows->contains(auth()->id()),
         ];
     }
 }
