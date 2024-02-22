@@ -5,14 +5,20 @@ import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const tweetStore = useTweetStore();
+const route = useRoute();
 
 onMounted(async () => {
-    const route = useRoute();
     const userId = route.params.userId as string;
     await tweetStore.fetchUserLikedTweetList(userId);
 });
+
+const load = async function () {
+    const userId = route.params.userId as string;
+    await tweetStore.fetchUserLikedTweetList(userId);
+};
+
 </script>
 
 <template>
-    <TweetList />
+    <TweetList :load="load" />
 </template>

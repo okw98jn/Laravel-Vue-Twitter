@@ -8,8 +8,13 @@ const tweetStore = useTweetStore();
 onMounted(async () => {
     await tweetStore.fetchFollowingsTweetList();
 });
+
+const load = async function () {
+    await tweetStore.fetchFollowingsTweetList();
+};
+
 </script>
 
 <template>
-    <TweetList />
+    <TweetList :load="load" />
 </template>

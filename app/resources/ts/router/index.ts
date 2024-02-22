@@ -16,6 +16,7 @@ import FollowTweetList from '@/views/FollowTweetList.vue';
 import TimeLine from '@/views/TimeLine.vue';
 import Bookmark from '@/views/Bookmark.vue';
 import NotFound from '@/views/NotFound.vue';
+import { useTweetStore } from '@/stores/tweet';
 
 const routes = [
 	{
@@ -71,6 +72,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 	const authStore = useAuthStore();
+
+	//重くなるのでツイートステートを初期化
+	const tweetStore = useTweetStore();
+	tweetStore.tweetList = [];
+	tweetStore.pagination = { current_page: 0, last_page: 0 };
+
 	if (to.meta.requiresAuth && authStore.user.isLogin === null) {
 		next({ name: 'Login' })
 	} else if (authStore.user.isLogin && (to.meta.isGuest)) {

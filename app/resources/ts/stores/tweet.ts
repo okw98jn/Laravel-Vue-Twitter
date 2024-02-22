@@ -1,7 +1,8 @@
 import axiosClient from "@/axios";
+import { Pagination } from "@/types/Pagination";
 import { TweetList } from "@/types/Tweet";
 import { defineStore } from "pinia"
-import { ref } from "vue"
+import { computed, ref } from "vue"
 
 export const useTweetStore = defineStore('tweet', () => {
     const tweetList = ref<TweetList>([{
@@ -27,6 +28,11 @@ export const useTweetStore = defineStore('tweet', () => {
         },
     }]);
 
+    const pagination = ref<Pagination>({
+        current_page: 0,
+        last_page: 0,
+    });
+
     const isLoading = ref(false);
 
     const fetchTweets = async (url: string) => {
@@ -35,7 +41,9 @@ export const useTweetStore = defineStore('tweet', () => {
         try {
             const { data } = await axiosClient.get(url);
             if (data) {
-                tweetList.value = data.data;
+                tweetList.value.push(...data.data);
+                pagination.value.current_page = data.meta.current_page;
+                pagination.value.last_page = data.meta.last_page;
             } else {
                 tweetList.value = [];
             }
@@ -47,11 +55,14 @@ export const useTweetStore = defineStore('tweet', () => {
 
         return tweetList.value;
     }
-    const fetchTweetList = () => fetchTweets('/tweet');
-    const fetchBookmarkList = () => fetchTweets('/tweet/bookmark');
-    const fetchFollowingsTweetList = () => fetchTweets('/tweet/following');
-    const fetchUserTweetList = (userId: string) => fetchTweets(`/tweet/${userId}`);
-    const fetchUserLikedTweetList = (userId: string) => fetchTweets(`/tweet/liked/${userId}`);
+
+    const nextPage = computed(() => pagination.value.current_page + 1);
+
+    const fetchTweetList = () => fetchTweets(`/tweet?page=${nextPage.value}`);
+    const fetchBookmarkList = () => fetchTweets(`/tweet/bookmark?page=${nextPage.value}`);
+    const fetchFollowingsTweetList = () => fetchTweets(`/tweet/following?page=${nextPage.value}`);
+    const fetchUserTweetList = (userId: string) => fetchTweets(`/tweet/${userId}?page=${nextPage.value}`);
+    const fetchUserLikedTweetList = (userId: string) => fetchTweets(`/tweet/liked/${userId}?page=${nextPage.value}`);
 
     const removeTweetById = (tweetId: number) => {
         tweetList.value = tweetList.value.filter((tweet) => tweet.tweet.id !== tweetId);
@@ -79,6 +90,7 @@ export const useTweetStore = defineStore('tweet', () => {
     return {
         isLoading,
         tweetList,
+        pagination,
         fetchTweetList,
         fetchBookmarkList,
         fetchFollowingsTweetList,

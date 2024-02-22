@@ -10,9 +10,13 @@ onMounted(async () => {
     await tweetStore.fetchBookmarkList();
 });
 
+const load = async function () {
+    await tweetStore.fetchBookmarkList();
+};
+
 </script>
 
 <template>
     <Top />
-    <TweetList />
+    <TweetList :load="load" />
 </template>
