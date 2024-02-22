@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import TweetList from '@/components/tweet/TweetList.vue';
 import { useTweetStore } from '@/stores/tweet';
 import { useRoute } from 'vue-router';
 
 const tweetStore = useTweetStore();
 const route = useRoute();
+const isLoading = ref(false);
 
 onMounted(async () => {
+    isLoading.value = true;
     const userId = route.params.userId as string;
     await tweetStore.fetchUserTweetList(userId);
+    isLoading.value = false;
 });
 
-const load = async function () {
+const load = async () => {
     const userId = route.params.userId as string;
     await tweetStore.fetchUserTweetList(userId);
 };
@@ -20,5 +23,5 @@ const load = async function () {
 </script>
 
 <template>
-    <TweetList :load="load" />
+    <TweetList :load="load" :is-loading="isLoading" />
 </template>
