@@ -13,6 +13,7 @@ export type Profile = {
         follower_count: number;
         is_auth_user: boolean;
         is_follow: boolean;
+        is_follower: boolean;
     },
 };
 

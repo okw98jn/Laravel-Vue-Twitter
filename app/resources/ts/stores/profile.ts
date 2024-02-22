@@ -19,6 +19,7 @@ export const useProfileStore = defineStore('profile', () => {
             follower_count: 0,
             is_auth_user: false,
             is_follow: false,
+            is_follower: false,
         },
     });
 

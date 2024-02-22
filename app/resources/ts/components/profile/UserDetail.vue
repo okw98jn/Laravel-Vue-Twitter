@@ -16,7 +16,12 @@ const isLoading: ComputedRef<boolean> = computed(() => profileStore.isLoading);
     </div>
     <div v-else class="text-left px-4">
         <div class="text-lg font-semibold">{{ profile.data.name }}</div>
-        <div class="text-gray-500 mb-4">{{ profile.data.user_id }}</div>
+        <div class="text-gray-500 mb-4">
+            {{ profile.data.user_id }}
+            <span v-if="profile.data.is_follower"
+                class="bg-gray-200 inline-block text-gray-700 px-2 py-0.5 rounded-lg text-sm">フォローされています
+            </span>
+        </div>
         <div class="mb-2 overflow-auto break-words">{{ profile.data.introduction }}</div>
         <div class="text-gray-500 text-sm my-3 flex items-center">
             <p class="mr-4 flex items-center">
