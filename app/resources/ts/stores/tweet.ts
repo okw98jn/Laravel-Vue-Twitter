@@ -30,7 +30,7 @@ export const useTweetStore = defineStore('tweet', () => {
 
     const pagination = ref<Pagination>({
         current_page: 0,
-        last_page: 0,
+        last_page: 1,
     });
 
     const isLoading = ref(false);

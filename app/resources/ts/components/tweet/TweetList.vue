@@ -7,13 +7,13 @@ import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 
 type Props = {
     load: () => void;
-    isLoading: boolean;
 }
 
-const { load, isLoading } = defineProps<Props>();
+const { load } = defineProps<Props>();
 
 const tweetStore = useTweetStore();
 const tweetList: ComputedRef<TweetList> = computed(() => tweetStore.tweetList);
+const isLoading: ComputedRef<boolean> = computed(() => tweetStore.isLoading);
 
 //無限スクロール処理
 const sentinel = ref(null);
@@ -23,11 +23,11 @@ useInfiniteScroll(sentinel, isLastPage, load);
 </script>
 
 <template>
-    <div v-if="isLoading" class="flex justify-center items-center h-64">
-        <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" style="z-index: 1;" />
-    </div>
-    <div v-else class="pb-36">
+    <div class="pb-16">
         <Tweet v-for="tweet in tweetList" :key="tweet.tweet.id" :user="tweet.user" :tweet="tweet.tweet" />
+    </div>
+    <div v-if="isLoading" class="flex justify-center items-center">
+        <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" style="z-index: 1;" />
     </div>
     <div ref="sentinel"></div>
 </template>
