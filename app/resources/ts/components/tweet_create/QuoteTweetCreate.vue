@@ -36,6 +36,7 @@ const storeTweet = () => {
     isLoading.value = true;
 
     formData.append('text', tweet.value.text);
+    formData.append('quoted_tweet_id', quoteTweet.id.toString());
 
     tweetStore.storeTweet(formData)
         .then((data) => {

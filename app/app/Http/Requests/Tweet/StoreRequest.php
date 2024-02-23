@@ -29,9 +29,10 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'text'     => ['nullable', 'string', 'max:140'],
-            'images.*' => ['nullable', 'image', 'file'],
-            'videos.*' => ['nullable', 'file'],
+            'text'            => ['nullable', 'string', 'max:140'],
+            'quoted_tweet_id' => ['nullable', 'exists:tweets,id'],
+            'images.*'        => ['nullable', 'image', 'file'],
+            'videos.*'        => ['nullable', 'file'],
         ];
     }
 
@@ -43,9 +44,10 @@ class StoreRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'text'   => 'ツイート内容',
-            'images' => '画像',
-            'videos' => '動画',
+            'text'            => 'ツイート内容',
+            'quoted_tweet_id' => '引用ツイートID',
+            'images'          => '画像',
+            'videos'          => '動画',
         ];
     }
 }
