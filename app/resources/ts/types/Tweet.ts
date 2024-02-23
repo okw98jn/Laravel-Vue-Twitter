@@ -29,7 +29,25 @@ export type Tweet = {
         id: number;
         path: string;
     }[];
+    quote_tweet: QuoteTweet | null;
 };
+
+export type QuoteTweet = {
+    user: TweetUser;
+    tweet: {
+        id: number;
+        text: string | null;
+        created: string;
+        images: {
+            id: number;
+            path: string;
+        }[];
+        videos: {
+            id: number;
+            path: string;
+        }[];
+    };
+}
 
 export type TweetForm = {
     text: string;

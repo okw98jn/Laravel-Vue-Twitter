@@ -15,7 +15,7 @@ const { quoteTweetUser, quoteTweet } = defineProps<Props>();
     <div class="flex items-start justify-between mb-4 cursor-default">
         <h2 class="mr-4">
         </h2>
-        <div class="w-11/12 p-4 border rounded-3xl">
+        <div class="w-11/12 p-4 border rounded-2xl">
             <div class="flex items-center mb-2">
                 <span class="mr-1">
                     <img v-if="quoteTweetUser.icon_image" :src="quoteTweetUser.icon_image" alt="user"
