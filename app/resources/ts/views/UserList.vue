@@ -14,6 +14,7 @@ const isLoading: ComputedRef<boolean> = computed(() => userStore.isLoading);
 const searchWord = ref('');
 
 const handleSearch = async () => {
+    userStore.resetPagination();
     await load()
 };
 
@@ -29,7 +30,7 @@ useInfiniteScroll(sentinel, isLastPage, load);
 </script>
 
 <template>
-    <SearchInput v-model="searchWord" @input="handleSearch" />
+    <SearchInput v-model="searchWord" @blur="handleSearch" />
     <div class="pb-16">
         <User v-for="user in userList" :key="user.id" :user="user" />
     </div>

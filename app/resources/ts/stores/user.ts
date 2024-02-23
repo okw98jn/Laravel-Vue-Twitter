@@ -14,18 +14,9 @@ export const useUserStore = defineStore('user', () => {
     });
 
     const isLoading = ref(false);
-    let lastSearchWord: string | undefined;
 
     const fetchUsersFromEndpoint = async (endpoint: string, searchWord?: string) => {
         isLoading.value = true;
-
-        //検索ワードが変わったらページとユーザーをリセット
-        if (searchWord !== lastSearchWord) {
-            pagination.value.current_page = 1;
-            pagination.value.next_page = 1;
-            lastSearchWord = searchWord;
-            userList.value = [];
-        }
 
         try {
             const { data } = await axiosClient.get(endpoint, {
@@ -38,7 +29,12 @@ export const useUserStore = defineStore('user', () => {
                 return;
             }
 
-            userList.value.push(...data.data);
+            data.data.forEach((newUser: any) => {
+                if (!userList.value.some((existingUser: any) => existingUser.id === newUser.id)) {
+                    userList.value.push(newUser);
+                }
+            });
+
 
             pagination.value.current_page = data.meta.current_page;
             pagination.value.last_page = data.meta.last_page;
@@ -67,6 +63,13 @@ export const useUserStore = defineStore('user', () => {
         return fetchUsersFromEndpoint(`/user/${userId}/follower?page=${pagination.value.next_page}`, searchWord);
     }
 
+    const resetPagination = () => {
+        pagination.value.current_page = 0;
+        pagination.value.next_page = 1;
+        pagination.value.last_page = 1;
+        userList.value = [];
+    }
+
     return {
         isLoading,
         userList,
@@ -74,5 +77,6 @@ export const useUserStore = defineStore('user', () => {
         fetchUsers,
         fetchFollowUsers,
         fetchFollowerUsers,
+        resetPagination,
     }
 })
