@@ -28,6 +28,10 @@ class TweetResource extends JsonResource
             'can_delete'     => $this->resource->user_id === auth()->id(),
             'images'         => TweetImageResource::collection($this->resource->tweetImages),
             'videos'         => TweetVideoResource::collection($this->resource->tweetVideos),
+            'quote_tweet'    => $this->resource->quotedTweet ? [
+                'user'  => new TweetUserResource($this->resource->quotedTweet),
+                'tweet' => new QuotedTweetResource($this->resource->quotedTweet),
+            ] : null,
         ];
     }
 }

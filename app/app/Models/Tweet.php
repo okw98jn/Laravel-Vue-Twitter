@@ -21,6 +21,7 @@ class Tweet extends Model
     protected $fillable = [
         'user_id',
         'text',
+        'quoted_tweet_id',
     ];
 
     public function scopeWithUserAndImages(Builder $query): Builder
@@ -45,6 +46,11 @@ class Tweet extends Model
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function quotedTweet(): BelongsTo
+    {
+        return $this->belongsTo(Tweet::class, 'quoted_tweet_id');
     }
 
     public function retweets(): HasMany
