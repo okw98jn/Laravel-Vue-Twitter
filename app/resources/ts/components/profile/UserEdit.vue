@@ -71,6 +71,7 @@ const updateUser = () => {
             } else {
                 tweetStore.fetchUserLikedTweetList(userId);
             }
+            tweetStore.tweetList = [];
             authStore.fetchUser();
         })
         .catch((err) => {
