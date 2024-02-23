@@ -6,14 +6,18 @@ import axiosClient from "@/axios";
 import { computed, ref } from 'vue';
 import DropdownMenu from '@/components/ui/DropdownMenu.vue';
 import { useTweetModalStore } from '@/stores/tweetModal';
+import Modal from '@/components/ui/Modal.vue';
+import QuoteTweetCreate from '@/components/tweet_create/QuoteTweetCreate.vue';
+import { Tweet, TweetUser } from '@/types/Tweet';
 
 type Props = {
-    tweetId: number;
+    user: TweetUser;
+    tweet: Tweet;
     countProp: number;
     isRetweetedProp: boolean;
 }
 
-const { tweetId, countProp, isRetweetedProp } = defineProps<Props>();
+const { user, tweet, countProp, isRetweetedProp } = defineProps<Props>();
 
 //左サイドバーツイート作成モーダルが開いているかどうかを確認するためのストア
 const tweetModalStore = useTweetModalStore();
@@ -25,7 +29,7 @@ const count = ref(countProp);
 const handleRetweet = async () => {
     try {
         const method = isBookmarked.value ? 'delete' : 'post';
-        await axiosClient[method](`/retweet/${tweetId}`);
+        await axiosClient[method](`/retweet/${tweet.id}`);
         isBookmarked.value = !isBookmarked.value;
         count.value += isBookmarked.value ? 1 : -1;
         toggleDropdown();
@@ -34,11 +38,16 @@ const handleRetweet = async () => {
     }
 }
 
-const isOpen = ref(false);
+const isDropdownOpen = ref(false);
+const isModalOpen = ref(false);
 
 const toggleDropdown = () => {
-    isOpen.value = !isOpen.value;
+    isDropdownOpen.value = !isDropdownOpen.value;
 }
+
+const toggleModal = (): void => {
+    isModalOpen.value = !isModalOpen.value;
+};
 
 </script>
 
@@ -52,7 +61,7 @@ const toggleDropdown = () => {
             </div>
             <span class="text-xs -ml-1">{{ count }}</span>
         </div>
-        <DropdownMenu :is-open="isOpen" top="top-0" left="-left-4" width="w-40" @mouseleave="toggleDropdown">
+        <DropdownMenu :is-open="isDropdownOpen" top="top-0" left="-left-4" width="w-40" @mouseleave="toggleDropdown">
             <div class="hover:bg-gray-100 px-4 py-3 rounded-t-lg">
                 <p class="flex items-center" @click="handleRetweet">
                     <OutlineIcon class="h-5 w-5 mr-2" />
@@ -60,11 +69,14 @@ const toggleDropdown = () => {
                 </p>
             </div>
             <div class="hover:bg-gray-100 px-4 py-3 rounded-b-lg">
-                <p class="flex items-center">
+                <p class="flex items-center" @click="toggleModal">
                     <PencilSquareIcon class="h-5 w-5 mr-2" />
                     引用リツイート
                 </p>
             </div>
         </DropdownMenu>
+        <Modal :isOpen="isModalOpen" title="" @click="toggleModal">
+            <QuoteTweetCreate :quote-tweet-user="user" :quote-tweet="tweet" :toggle-modal="toggleModal" />
+        </Modal>
     </div>
 </template>

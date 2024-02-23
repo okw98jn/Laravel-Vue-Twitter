@@ -6,5 +6,5 @@ const { text } = defineProps<Props>();
 </script>
 
 <template>
-    <p>{{ text }}</p>
+    <p class="overflow-auto break-all">{{ text }}</p>
 </template>
