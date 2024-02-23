@@ -26,7 +26,7 @@ class Tweet extends Model
 
     public function scopeWithUserAndImages(Builder $query): Builder
     {
-        return $query->with(['user', 'tweetImages', 'tweetVideos', 'likes', 'retweets', 'bookmarks']);
+        return $query->with(['user', 'tweetImages', 'tweetVideos', 'likes', 'retweets', 'bookmarks', 'quotes', 'quotedTweet']);
     }
 
     public function scopeWithStatusCounts(Builder $query, Closure $userIdFilterClosure): Builder
@@ -51,6 +51,11 @@ class Tweet extends Model
     public function quotedTweet(): BelongsTo
     {
         return $this->belongsTo(Tweet::class, 'quoted_tweet_id');
+    }
+
+    public function quotes(): HasMany
+    {
+        return $this->hasMany(Tweet::class, 'quoted_tweet_id');
     }
 
     public function retweets(): HasMany
