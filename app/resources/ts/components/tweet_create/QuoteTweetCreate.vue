@@ -15,11 +15,12 @@ import { Tweet, TweetUser } from '@/types/Tweet';
 
 type Props = {
     toggleModal: () => void;
+    quoteTweetIncrement: () => void;
     quoteTweetUser: TweetUser;
     quoteTweet: Tweet;
 }
 
-const { toggleModal, quoteTweetUser, quoteTweet } = defineProps<Props>();
+const { toggleModal, quoteTweetIncrement, quoteTweetUser, quoteTweet } = defineProps<Props>();
 
 const authStore = useAuthStore();
 const user = computed(() => authStore.user);
@@ -46,6 +47,7 @@ const storeTweet = () => {
             }
             profileStore.profile.data.tweet_count++;
             toggleModal();
+            quoteTweetIncrement();
         })
         .catch((err) => {
             console.log(err);

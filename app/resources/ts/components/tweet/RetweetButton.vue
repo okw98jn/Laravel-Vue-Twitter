@@ -49,6 +49,10 @@ const toggleModal = (): void => {
     isModalOpen.value = !isModalOpen.value;
 };
 
+const quoteTweetIncrement = () => {
+    count.value++;
+}
+
 </script>
 
 <template>
@@ -76,7 +80,8 @@ const toggleModal = (): void => {
             </div>
         </DropdownMenu>
         <Modal :isOpen="isModalOpen" title="" @click="toggleModal">
-            <QuoteTweetCreate :quote-tweet-user="user" :quote-tweet="tweet" :toggle-modal="toggleModal" />
+            <QuoteTweetCreate :quote-tweet-user="user" :quote-tweet="tweet" :toggle-modal="toggleModal"
+                :quoteTweetIncrement="quoteTweetIncrement" />
         </Modal>
     </div>
 </template>
