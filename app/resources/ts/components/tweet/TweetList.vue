@@ -3,7 +3,8 @@ import Tweet from '@/components/tweet/Tweet.vue';
 import { useTweetStore } from '@/stores/tweet';
 import { TweetList } from '@/types/Tweet';
 import { ComputedRef, computed, ref } from 'vue';
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
+import InfiniteLoading from "v3-infinite-loading";
+import "v3-infinite-loading/lib/style.css";
 
 type Props = {
     load: () => void;
@@ -15,11 +16,16 @@ const tweetStore = useTweetStore();
 const tweetList: ComputedRef<TweetList> = computed(() => tweetStore.tweetList);
 const isLoading: ComputedRef<boolean> = computed(() => tweetStore.isLoading);
 
-//無限スクロール処理
-const sentinel = ref(null);
-const isLastPage = computed(() => tweetStore.pagination.current_page === tweetStore.pagination.last_page);
-useInfiniteScroll(sentinel, isLastPage, load);
 
+
+const infiniteLoad = ($state: any) => {
+    const isLastPage = computed(() => tweetStore.pagination.current_page === tweetStore.pagination.last_page);
+    if (isLastPage.value) {
+        $state.complete();
+        return;
+    }
+    load();
+};
 </script>
 
 <template>
@@ -29,5 +35,12 @@ useInfiniteScroll(sentinel, isLastPage, load);
     <div v-if="isLoading" class="flex justify-center items-center">
         <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" style="z-index: 1;" />
     </div>
-    <div ref="sentinel"></div>
+    <infinite-loading @infinite="infiniteLoad">
+        <template #spinner>
+            <span></span>
+        </template>
+        <template #complete>
+            <span></span>
+        </template>
+    </infinite-loading>
 </template>

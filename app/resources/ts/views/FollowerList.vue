@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import User from '@/components/users/User.vue';
 import { ComputedRef, ref } from 'vue';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { useUserStore } from '@/stores/user';
 import { User as UserType } from '@/types/User';
 import SearchInput from '@/components/users/SearchInput.vue';
 import { useRoute } from 'vue-router';
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
+import InfiniteLoading from "v3-infinite-loading";
+import "v3-infinite-loading/lib/style.css";
 
 const userStore = useUserStore();
 const userList: ComputedRef<UserType[]> = computed(() => userStore.userList);
@@ -26,10 +27,14 @@ const load = async () => {
     await userStore.fetchFollowerUsers(userId.value, searchWord.value);
 };
 
-//無限スクロール処理
-const sentinel = ref(null);
-const isLastPage = computed(() => userStore.pagination.current_page === userStore.pagination.last_page);
-useInfiniteScroll(sentinel, isLastPage, load);
+const infiniteLoad = ($state: any) => {
+    const isLastPage = computed(() => userStore.pagination.current_page === userStore.pagination.last_page);
+    if (isLastPage.value) {
+        $state.complete();
+        return;
+    }
+    load();
+};
 
 </script>
 
@@ -41,5 +46,12 @@ useInfiniteScroll(sentinel, isLastPage, load);
     <div v-if="isLoading" class="flex justify-center items-center">
         <vue-element-loading :active="isLoading" spinner="ring" color="#6366F1" style="z-index: 1;" />
     </div>
-    <div ref="sentinel"></div>
+    <infinite-loading @infinite="infiniteLoad">
+        <template #spinner>
+            <span></span>
+        </template>
+        <template #complete>
+            <span></span>
+        </template>
+    </infinite-loading>
 </template>
