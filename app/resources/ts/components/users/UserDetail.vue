@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { formatText } from '@/utils/formatText';
+
 type Props = {
     name: string;
     userId: string;
@@ -22,8 +24,6 @@ const { name, userId, introduction, isFollower } = defineProps<Props>();
             </div>
             <slot></slot>
         </div>
-        <div>
-            {{ introduction }}
-        </div>
+        <div v-html="formatText(introduction as string | null)"></div>
     </div>
 </template>

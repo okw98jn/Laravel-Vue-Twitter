@@ -2,6 +2,7 @@
 import { QuoteTweet } from "@/types/Tweet";
 import Video from '@/components/tweet/Video.vue';
 import userImage from '@/assets/user.png';
+import { formatText } from "@/utils/formatText";
 
 type Props = {
     quoteTweet: QuoteTweet;
@@ -29,8 +30,7 @@ const { quoteTweet } = defineProps<Props>();
                 {{ quoteTweet.tweet.created }}
             </span>
         </div>
-        <div class="text-black mb-2 overflow-auto break-all">
-            {{ quoteTweet.tweet.text }}
+        <div class="text-black mb-2 overflow-auto break-all" v-html="formatText(quoteTweet.tweet.text)">
         </div>
         <div v-if="quoteTweet.tweet.images || quoteTweet.tweet.videos" class="grid grid-cols-2 gap-2">
             <div v-for="image in quoteTweet.tweet.images">

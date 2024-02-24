@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useProfileStore } from "@/stores/profile";
 import { Profile } from "@/types/Profile";
+import { formatText } from "@/utils/formatText";
 import { MapPinIcon } from "@heroicons/vue/24/outline";
 import { CalendarIcon } from "@heroicons/vue/24/outline";
 import { ComputedRef, computed } from "vue";
@@ -22,7 +23,7 @@ const isLoading: ComputedRef<boolean> = computed(() => profileStore.isLoading);
                 class="bg-gray-200 inline-block text-gray-700 px-2 py-0.5 rounded-lg text-sm">フォローされています
             </span>
         </div>
-        <div class="mb-2 overflow-auto break-words">{{ profile.data.introduction }}</div>
+        <div class="mb-2 overflow-auto break-words" v-html="formatText(profile.data.introduction)"></div>
         <div class="text-gray-500 text-sm my-3 flex items-center">
             <p class="mr-4 flex items-center">
                 <span>
