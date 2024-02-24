@@ -21,6 +21,7 @@ class StoreService extends TweetService
             'user_id'         => auth()->id(),
             'text'            => $data['text'] ?? null,
             'quoted_tweet_id' => $data['quoted_tweet_id'] ?? null,
+            'reply_tweet_id'  => $data['reply_tweet_id'] ?? null,
         ];
 
         return Tweet::create($data);

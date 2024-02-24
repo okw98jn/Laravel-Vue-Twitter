@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('ユーザーID');
             $table->string('text', 140)->nullable()->comment('テキスト');
             $table->foreignId('quoted_tweet_id')->nullable()->constrained('tweets')->onDelete('set null')->comment('引用ツイートID');
+            $table->foreignId('reply_tweet_id')->nullable()->constrained('tweets')->onDelete('set null')->comment('リプライツイートID');
             $table->timestamps();
             $table->comment('ツイート');
         });

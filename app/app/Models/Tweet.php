@@ -22,11 +22,22 @@ class Tweet extends Model
         'user_id',
         'text',
         'quoted_tweet_id',
+        'reply_tweet_id',
     ];
 
-    public function scopeWithUserAndImages(Builder $query): Builder
+    public function scopeWithAllRelations(Builder $query): Builder
     {
-        return $query->with(['user', 'tweetImages', 'tweetVideos', 'likes', 'retweets', 'bookmarks', 'quotes', 'quotedTweet']);
+        return $query->with([
+            'user',
+            'tweetImages',
+            'tweetVideos',
+            'likes',
+            'retweets',
+            'bookmarks',
+            'quotes',
+            'quotedTweet',
+            'replies',
+        ]);
     }
 
     public function scopeWithStatusCounts(Builder $query, Closure $userIdFilterClosure): Builder
@@ -56,6 +67,11 @@ class Tweet extends Model
     public function quotes(): HasMany
     {
         return $this->hasMany(Tweet::class, 'quoted_tweet_id');
+    }
+
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Tweet::class, 'reply_tweet_id');
     }
 
     public function retweets(): HasMany

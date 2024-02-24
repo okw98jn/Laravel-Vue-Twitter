@@ -41,7 +41,7 @@ class UserTweetsService extends TweetService
     {
         return Tweet::where('user_id', $userId)
             ->select('tweets.*', DB::raw('NULL as retweeted_user'), 'tweets.created_at as sort_date')
-            ->withUserAndImages()
+            ->withAllRelations()
             ->withStatusCounts($this->getUserIdFilterClosure());
     }
 
@@ -57,7 +57,7 @@ class UserTweetsService extends TweetService
             ->join('retweets', 'tweets.id', '=', 'retweets.tweet_id')
             ->join('users', 'retweets.user_id', '=', 'users.id')
             ->select('tweets.*', 'users.name as retweeted_user', 'retweets.created_at as sort_date')
-            ->withUserAndImages()
+            ->withAllRelations()
             ->withStatusCounts($this->getUserIdFilterClosure());
     }
 }

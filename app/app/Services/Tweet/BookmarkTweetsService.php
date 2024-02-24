@@ -17,7 +17,7 @@ class BookmarkTweetsService extends TweetService
         $tweets = Tweet::whereHas('bookmarks', function ($query) {
             $query->where('user_id', auth()->id());
         })
-            ->withUserAndImages()
+            ->withAllRelations()
             ->withStatusCounts($this->getUserIdFilterClosure())
             ->orderBy('created_at', 'desc')
             ->paginate(CommonConst::PAGE_MAX_COUNT);

@@ -37,7 +37,7 @@ class IndexService extends TweetService
     private function createTweetQuery(): \Illuminate\Database\Eloquent\Builder
     {
         return Tweet::select('tweets.*', DB::raw('NULL as retweeted_user'), 'tweets.created_at as sort_date')
-            ->withUserAndImages()
+            ->withAllRelations()
             ->withStatusCounts($this->getUserIdFilterClosure());
     }
 
@@ -51,7 +51,7 @@ class IndexService extends TweetService
         return Tweet::join('retweets', 'tweets.id', '=', 'retweets.tweet_id')
             ->join('users', 'retweets.user_id', '=', 'users.id')
             ->select('tweets.*', 'users.name as retweeted_user', 'retweets.created_at as sort_date')
-            ->withUserAndImages()
+            ->withAllRelations()
             ->withStatusCounts($this->getUserIdFilterClosure());
     }
 }

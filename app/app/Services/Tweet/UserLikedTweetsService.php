@@ -19,7 +19,7 @@ class UserLikedTweetsService extends TweetService
         $tweets = Tweet::whereHas('likes', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })
-            ->withUserAndImages()
+            ->withAllRelations()
             ->withStatusCounts($this->getUserIdFilterClosure())
             ->orderBy('created_at', 'desc')
             ->paginate(CommonConst::PAGE_MAX_COUNT);

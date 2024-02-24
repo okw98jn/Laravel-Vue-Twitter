@@ -21,6 +21,7 @@ class TweetResource extends JsonResource
             'like_count'     => $this->resource->likes->count(),
             'is_liked'       => $this->resource->is_liked ?? false,
             'retweet_count'  => $this->resource->retweets->count() + $this->resource->quotes->count(),
+            'reply_count'    => $this->resource->replies->count(),
             'is_retweeted'   => $this->resource->is_retweeted ?? false,
             'retweeted_user' => $this->resource->retweeted_user ?? null,
             'is_bookmarked'  => $this->resource->is_bookmarked ?? false,

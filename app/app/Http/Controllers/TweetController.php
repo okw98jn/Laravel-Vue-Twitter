@@ -112,6 +112,9 @@ class TweetController extends Controller
 
     /**
      * ツイート投稿API
+     * リクエストにquoted_tweet_idがある場合は引用ツイートとして保存
+     * リクエストにreply_tweet_idがある場合はリプライツイートとして保存
+     * どちらもない場合は通常のツイートとして保存
      *
      * @param  CommonService  $commonService
      * @param  StoreRequest  $request

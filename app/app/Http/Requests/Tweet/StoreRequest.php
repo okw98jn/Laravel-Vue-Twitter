@@ -31,6 +31,7 @@ class StoreRequest extends FormRequest
         return [
             'text'            => ['nullable', 'string', 'max:140'],
             'quoted_tweet_id' => ['nullable', 'exists:tweets,id'],
+            'reply_tweet_id'  => ['nullable', 'exists:tweets,id'],
             'images.*'        => ['nullable', 'image', 'file'],
             'videos.*'        => ['nullable', 'file'],
         ];
@@ -46,6 +47,7 @@ class StoreRequest extends FormRequest
         return [
             'text'            => 'ツイート内容',
             'quoted_tweet_id' => '引用ツイートID',
+            'reply_tweet_id'  => '返信ツイートID',
             'images'          => '画像',
             'videos'          => '動画',
         ];
