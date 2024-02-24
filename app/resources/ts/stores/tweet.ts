@@ -18,6 +18,7 @@ export const useTweetStore = defineStore('tweet', () => {
             like_count: 0,
             is_liked: false,
             retweet_count: 0,
+            reply_count: 0,
             is_retweeted: false,
             retweeted_user: null,
             is_bookmarked: false,

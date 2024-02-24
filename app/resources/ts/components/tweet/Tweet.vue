@@ -34,7 +34,7 @@ const { tweet, user } = defineProps<Props>();
                     <QuoteTweet v-if="tweet.quote_tweet" :quote-tweet="tweet.quote_tweet" />
                     <div class="flex items-center justify-between text-gray-500 mt-2">
                         <div class="flex items-center space-x-6 text-gray-500">
-                            <ReplyButton :count="tweet.like_count" />
+                            <ReplyButton :user="user" :tweet="tweet" :count-prop="tweet.reply_count" />
                             <RetweetButton :user="user" :tweet="tweet" :count-prop="tweet.retweet_count"
                                 :is-retweeted-prop="tweet.is_retweeted" />
                             <LikeButton :tweet-id="tweet.id" :count-prop="tweet.like_count"

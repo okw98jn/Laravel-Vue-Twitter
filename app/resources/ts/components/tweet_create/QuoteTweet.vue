@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Tweet, TweetUser } from '@/types/Tweet';
 import userImage from '@/assets/user.png';
+import { formatText } from '@/utils/formatText';
 
 type Props = {
     quoteTweetUser: TweetUser;
@@ -32,9 +33,7 @@ const { quoteTweetUser, quoteTweet } = defineProps<Props>();
                     {{ quoteTweet.created }}
                 </span>
             </div>
-            <div class="text-black mb-2 overflow-auto break-all">
-                {{ quoteTweet.text }}
-            </div>
+            <div class="text-black mb-2 overflow-auto break-all" v-html="formatText(quoteTweet.text)"></div>
             <div v-if="quoteTweet.images || quoteTweet.videos" class="grid grid-cols-2 gap-2">
                 <div v-for="image in quoteTweet.images">
                     <img :src="image.path" class="h-auto object-cover rounded-lg" />

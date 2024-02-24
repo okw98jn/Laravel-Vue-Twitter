@@ -16,6 +16,7 @@ export type Tweet = {
     like_count: number;
     is_liked: boolean;
     retweet_count: number;
+    reply_count: number;
     is_retweeted: boolean;
     retweeted_user: string | null;
     is_bookmarked: boolean;
@@ -51,6 +52,8 @@ export type QuoteTweet = {
 
 export type TweetForm = {
     text: string;
+    quoted_tweet_id?: string
+    reply_tweet_id?: string
     images: string[];
     videos: string[];
 };
