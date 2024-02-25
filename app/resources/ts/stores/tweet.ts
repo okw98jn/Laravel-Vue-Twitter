@@ -27,6 +27,7 @@ export const useTweetStore = defineStore('tweet', () => {
             images: [],
             videos: [],
             quote_tweet: null,
+            reply_user: null,
         },
     }]);
 
