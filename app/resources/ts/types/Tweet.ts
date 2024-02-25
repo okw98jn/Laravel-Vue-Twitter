@@ -22,15 +22,10 @@ export type Tweet = {
     is_bookmarked: boolean;
     created: string;
     can_delete: boolean;
-    images: {
-        id: number;
-        path: string;
-    }[];
-    videos: {
-        id: number;
-        path: string;
-    }[];
+    images: Media[];
+    videos: Media[];
     quote_tweet: QuoteTweet | null;
+    reply_user: ReplyUser | null;
 };
 
 export type QuoteTweet = {
@@ -39,16 +34,20 @@ export type QuoteTweet = {
         id: number;
         text: string | null;
         created: string;
-        images: {
-            id: number;
-            path: string;
-        }[];
-        videos: {
-            id: number;
-            path: string;
-        }[];
+        images: Media[];
+        videos: Media[];
     };
 }
+
+export type Media = {
+    id: number;
+    path: string;
+};
+
+export type ReplyUser = {
+    id: number;
+    user_id: string;
+};
 
 export type TweetForm = {
     text: string;
