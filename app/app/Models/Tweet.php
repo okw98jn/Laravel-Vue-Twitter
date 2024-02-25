@@ -36,6 +36,11 @@ class Tweet extends Model
             'bookmarks',
             'quotes',
             'quotedTweet',
+            'quotedTweet.user',
+            'quotedTweet.tweetImages',
+            'quotedTweet.tweetVideos',
+            'replyTweet',
+            'replyTweet.user',
             'replies',
         ]);
     }
@@ -43,9 +48,9 @@ class Tweet extends Model
     public function scopeWithStatusCounts(Builder $query, Closure $userIdFilterClosure): Builder
     {
         return $query->withCount([
-            'likes as is_liked' => $userIdFilterClosure,
+            'likes as is_liked'          => $userIdFilterClosure,
             'bookmarks as is_bookmarked' => $userIdFilterClosure,
-            'retweets as is_retweeted' => $userIdFilterClosure,
+            'retweets as is_retweeted'   => $userIdFilterClosure,
         ]);
     }
 
@@ -67,6 +72,11 @@ class Tweet extends Model
     public function quotes(): HasMany
     {
         return $this->hasMany(Tweet::class, 'quoted_tweet_id');
+    }
+
+    public function replyTweet(): BelongsTo
+    {
+        return $this->belongsTo(Tweet::class, 'reply_tweet_id');
     }
 
     public function replies(): HasMany

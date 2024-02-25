@@ -33,6 +33,10 @@ class TweetResource extends JsonResource
                 'user'  => new TweetUserResource($this->resource->quotedTweet),
                 'tweet' => new QuotedTweetResource($this->resource->quotedTweet),
             ] : null,
+            'reply_user'    => $this->resource->replyTweet ? [
+                'id'      => $this->resource->replyTweet->user->id,
+                'user_id' => $this->resource->replyTweet->user->user_id,
+            ] : null,
         ];
     }
 }
