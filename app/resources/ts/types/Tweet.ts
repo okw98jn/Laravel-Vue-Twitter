@@ -27,6 +27,7 @@ export type Tweet = {
     retweeted_user: string | null;
     is_bookmarked: boolean;
     created: string;
+    format_created?: string;
     can_delete: boolean;
     images: Media[];
     videos: Media[];

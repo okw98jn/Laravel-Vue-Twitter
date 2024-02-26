@@ -34,7 +34,7 @@ const { tweet, user } = defineProps<Props>();
                 <QuoteTweet v-if="tweet.quote_tweet" :quote-tweet="tweet.quote_tweet" />
             </div>
         </div>
-        <p class="text-gray-500">{{ tweet.created }}</p>
+        <p class="text-gray-500">{{ tweet.format_created }}</p>
         <div class="flex items-center justify-between text-gray-500 mt-4 border-y py-2">
             <div class="flex items-center space-x-6 text-gray-500">
                 <ReplyButton :user="user" :tweet="tweet" />
