@@ -11,6 +11,7 @@ export type AuthStore = {
 
 export type AuthRegister = {
     name: string;
+    user_id: string;
     email: string;
     password: string;
     password_confirmation: string;

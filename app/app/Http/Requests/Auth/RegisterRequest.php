@@ -26,6 +26,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name'     => ['required', 'string'],
+            'user_id'  => ['required', 'string', 'unique:users,user_id', 'regex:/^@.*/'],
+            'birthday' => ['required'],
             'email'    => ['required', 'string', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
         ];
@@ -40,8 +42,17 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name'     => '名前',
+            'user_id'  => 'ユーザーID',
+            'birthday' => '生年月日',
             'email'    => 'メールアドレス',
             'password' => 'パスワード',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'user_id.regex' => 'ユーザーIDは@から始まる必要があります',
         ];
     }
 }
