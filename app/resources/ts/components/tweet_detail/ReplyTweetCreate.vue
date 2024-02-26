@@ -2,11 +2,12 @@
 import { computed, ref } from 'vue';
 import { useTweetStore } from '@/stores/tweet';
 import TweetText from '@/components/tweet_create/TweetText.vue';
-import MediaItems from '@/components/tweet_create/MediaItems.vue';
+import MediaItems from '@/components/tweet_detail/MediaItems.vue';
 import MediaButton from '@/components/tweet_create/MediaButton.vue';
 import TweetButton from '@/components/tweet_create/TweetButton.vue';
 import { useFileHandler } from '@/hooks/useFileHandler';
 import { useAuthStore } from '@/stores/auth';
+import { useTweetModalStore } from '@/stores/tweetModal';
 
 type Props = {
     replyTweetId: number;
@@ -45,6 +46,10 @@ const storeTweet = () => {
         });
 };
 
+//左サイドバーツイート作成モーダルが開いているかどうかを確認するためのストア
+const tweetModalStore = useTweetModalStore();
+const isTweetModalOpen = computed(() => tweetModalStore.isTweetModalOpen);
+
 </script>
 
 <template>
@@ -53,7 +58,9 @@ const storeTweet = () => {
         <MediaItems :images="tweet.images" :videos="tweet.videos" :remove-tweet-file="removeTweetFile" />
         <div class="flex items-center justify-between">
             <MediaButton :images="tweet.images" :videos="tweet.videos" :handle-file-select="handleFileSelect" />
-            <TweetButton :storeTweet="storeTweet" :is-loading="isLoading" :tweet="tweet" />
+            <div :class="{ '-z-10': isTweetModalOpen }">
+                <TweetButton :storeTweet="storeTweet" :is-loading="isLoading" :tweet="tweet" />
+            </div>
         </div>
     </div>
 </template>
