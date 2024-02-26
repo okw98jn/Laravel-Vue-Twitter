@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/following', [TweetController::class, 'followingTweets']);
         Route::get('/bookmark', [TweetController::class, 'bookmarkTweets']);
         Route::get('/{user}', [TweetController::class, 'userTweets']);
+        Route::get('/detail/{tweet}', [TweetController::class, 'show']);
         Route::get('/liked/{user}', [TweetController::class, 'userLikedTweets']);
         Route::post('/', [TweetController::class, 'store']);
         Route::delete('/{tweet}', [TweetController::class, 'delete']);

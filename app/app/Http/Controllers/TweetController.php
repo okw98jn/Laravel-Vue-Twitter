@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Tweet\StoreRequest;
+use App\Http\Resources\Tweet\TweetDetailResource;
 use App\Http\Resources\Tweet\TweetListResource;
 use App\Http\Resources\Tweet\TweetResource;
 use App\Http\Resources\Tweet\TweetUserResource;
@@ -12,6 +13,7 @@ use App\Services\CommonService;
 use App\Services\Tweet\BookmarkTweetsService;
 use App\Services\Tweet\FollowingTweetsService;
 use App\Services\Tweet\IndexService;
+use App\Services\Tweet\ShowService;
 use App\Services\Tweet\StoreService;
 use App\Services\Tweet\UserLikedTweetsService;
 use App\Services\Tweet\UserTweetsService;
@@ -142,6 +144,17 @@ class TweetController extends Controller
             'user'   => new TweetUserResource($tweet),
             'tweet'  => new TweetResource($tweet),
         ], Response::HTTP_CREATED);
+    }
+
+    /**
+     * ツイート詳細API
+     *
+     * @param  Tweet  $tweet
+     * @return TweetDetailResource
+     */
+    public function show(Tweet $tweet, ShowService $showService): TweetDetailResource
+    {
+        return new TweetDetailResource($showService->getTweet($tweet->id));
     }
 
     /**
