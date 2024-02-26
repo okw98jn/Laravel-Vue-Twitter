@@ -66,13 +66,13 @@ const quoteTweetIncrement = () => {
             <span class="text-xs -ml-1">{{ count }}</span>
         </div>
         <DropdownMenu :is-open="isDropdownOpen" top="top-0" left="-left-4" width="w-40" @mouseleave="toggleDropdown">
-            <div class="hover:bg-gray-100 px-4 py-3 rounded-t-lg">
+            <div class="hover:bg-gray-100 px-4 py-3 rounded-t-lg cursor-pointer">
                 <p class="flex items-center" @click="handleRetweet">
                     <OutlineIcon class="h-5 w-5 mr-2" />
                     {{ isBookmarked ? 'リツイート解除' : 'リツイート' }}
                 </p>
             </div>
-            <div class="hover:bg-gray-100 px-4 py-3 rounded-b-lg">
+            <div class="hover:bg-gray-100 px-4 py-3 rounded-b-lg cursor-pointer">
                 <p class="flex items-center" @click="toggleModal">
                     <PencilSquareIcon class="h-5 w-5 mr-2" />
                     引用リツイート

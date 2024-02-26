@@ -2,6 +2,7 @@
 import UserDetail from '@/components/tweet/UserDetail.vue';
 import { Tweet, TweetUser } from "@/types/Tweet";
 import TweetDelete from '@/components/tweet/TweetDelete.vue';
+import { useRoute } from 'vue-router';
 
 type Props = {
     user: TweetUser;
@@ -10,18 +11,18 @@ type Props = {
 
 const { tweet, user } = defineProps<Props>();
 
+const route = useRoute()
+
 </script>
 
 <template>
     <div class="flex justify-between items-center">
         <div class="mb-1">
             <UserDetail :name="user.name" :user-id="user.user_id" :created="tweet.created" :id="tweet.user_id" />
-            <p v-if="tweet.reply_user">
-                <RouterLink :to="{ name: 'UserTweetList', params: { userId: tweet.reply_user.id } }">
-                    <span class="text-indigo-500 hover:underline">
-                        {{ tweet.reply_user.user_id }}
-                    </span>
-                </RouterLink>
+            <p v-if="tweet.reply_user && route.name !== 'TweetDetail'" class="cursor-default">
+                <span class="text-indigo-500">
+                    {{ tweet.reply_user.user_id }}
+                </span>
                 <span class="text-gray-500">
                     に返信
                 </span>

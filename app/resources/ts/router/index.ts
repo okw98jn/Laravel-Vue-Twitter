@@ -15,6 +15,7 @@ import FollowerList from '@/views/FollowerList.vue';
 import FollowTweetList from '@/views/FollowTweetList.vue';
 import TimeLine from '@/views/TimeLine.vue';
 import Bookmark from '@/views/Bookmark.vue';
+import TweetDetail from '@/views/TweetDetail.vue';
 import NotFound from '@/views/NotFound.vue';
 import { useTweetStore } from '@/stores/tweet';
 import { useUserStore } from '@/stores/user';
@@ -45,6 +46,11 @@ const routes = [
 					{ path: 'following', name: 'FollowList', component: FollowList },
 					{ path: 'followers', name: 'FollowerList', component: FollowerList },
 				]
+			},
+			{
+				path: 'tweet/:tweetId(\\d+)',
+				name: 'TweetDetail',
+				component: TweetDetail
 			}
 		]
 	},

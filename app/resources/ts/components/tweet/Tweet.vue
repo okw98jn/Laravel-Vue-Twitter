@@ -29,7 +29,9 @@ const { tweet, user } = defineProps<Props>();
                 <UserIconImage :id="tweet.user_id" :icon_image="user.icon_image" />
                 <div class="flex-1">
                     <TweetUser :user="user" :tweet="tweet" />
-                    <Content :text="tweet.text" />
+                    <RouterLink :to="{ name: 'TweetDetail', params: { tweetId: tweet.id } }">
+                        <Content :text="tweet.text" />
+                    </RouterLink>
                     <TweetMedia v-if="tweet.images.length || tweet.videos.length" :tweet="tweet" />
                     <QuoteTweet v-if="tweet.quote_tweet" :quote-tweet="tweet.quote_tweet" />
                     <div class="flex items-center justify-between text-gray-500 mt-2">

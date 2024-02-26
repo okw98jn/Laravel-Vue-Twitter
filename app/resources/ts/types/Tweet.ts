@@ -3,6 +3,12 @@ export type TweetList = {
     tweet: Tweet;
 }[];
 
+export type TweetDetail = {
+    user: TweetUser;
+    tweet: Tweet;
+    reply_tweets: TweetList;
+};
+
 export type TweetUser = {
     name: string;
     user_id: string;

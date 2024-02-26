@@ -38,10 +38,11 @@ const storeTweet = () => {
     formData.append('reply_tweet_id', replyTweet.id.toString());
 
     tweetStore.storeTweet(formData)
-        .then(() => {
+        .then((data) => {
             profileStore.profile.data.tweet_count++;
             toggleModal();
             replyTweetIncrement();
+            tweetStore.tweetDetail.reply_tweets.unshift(data);
         })
         .catch((err) => {
             console.log(err);
