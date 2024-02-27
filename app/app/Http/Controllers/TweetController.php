@@ -154,7 +154,7 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet, ShowService $showService): TweetDetailResource
     {
-        return new TweetDetailResource($showService->getTweet($tweet->id));
+        return new TweetDetailResource($showService->getTweetAndReplies($tweet));
     }
 
     /**

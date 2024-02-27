@@ -15,9 +15,9 @@ class TweetDetailResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'user'         => new TweetUserResource($this),
-            'tweet'        => new DetailResource($this),
-            'reply_tweets' => TweetListResource::collection($this->replies),
+            'user'         => new TweetUserResource($this['tweet']),
+            'tweet'        => new DetailResource($this['tweet']),
+            'reply_tweets' => TweetListResource::collection($this['replyTweets']),
         ];
     }
 }
