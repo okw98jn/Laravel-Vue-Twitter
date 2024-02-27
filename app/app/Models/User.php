@@ -57,8 +57,7 @@ class User extends Authenticatable
     protected function birthDay(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('Y年m月d日'),
-            set: fn ($value) => Carbon::createFromFormat('Y年m月d日', $value) ? Carbon::createFromFormat('Y年m月d日', $value)->format('Y-m-d') : '',
+            get: fn ($value) => $value ? Carbon::parse($value)->format('Y年m月d日') : null,
         );
     }
 

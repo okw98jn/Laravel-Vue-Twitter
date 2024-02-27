@@ -13,6 +13,7 @@ import DateInput from './DateInput.vue';
 import { useTweetStore } from '@/stores/tweet';
 import FollowButton from '@/components/ui/FollowButton.vue';
 import { useAuthStore } from '@/stores/auth';
+import dayjs from 'dayjs';
 
 const route = useRoute();
 const userId = route.params.userId as string;
@@ -57,11 +58,15 @@ const formData = new FormData();
 
 const updateUser = () => {
     isUpdateLoading.value = true;
+    if (user.value.birthday) {
+        formData.append('birthday', dayjs(user.value.birthday.replace(/年|月/g, '/').replace(/日/g, '')).format('YYYY-MM-DD'));
+    } else {
+        formData.append('birthday', '');
+    }
 
     formData.append('name', user.value.name);
     formData.append('location', user.value.location ?? '');
     formData.append('introduction', user.value.introduction ?? '');
-    formData.append('birthday', user.value.birthday ?? '');
 
     profileStore.updateProfile(userId, formData)
         .then(() => {

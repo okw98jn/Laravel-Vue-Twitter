@@ -15,8 +15,8 @@ const model = defineModel<string | null>();
             <label :for="name" class="text-sm font-medium leading-none flex justify-between mb-1">
                 {{ label }}
             </label>
-            <VueDatePicker class="" v-model="model" format="yyyy年MM月dd日" model-type="yyyy年MM月dd日" :enable-time-picker="false"
-                auto-apply locale="ja" />
+            <VueDatePicker class="" v-model="model" format="yyyy年MM月dd日" model-type="yyyy年MM月dd日"
+                :enable-time-picker="false" auto-apply locale="ja" />
             <p v-if="errorMessage" class="text-sm text-red-600 font-medium mt-1">{{ errorMessage }}</p>
         </div>
     </div>
