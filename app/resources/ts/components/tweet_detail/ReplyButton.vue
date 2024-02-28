@@ -32,6 +32,6 @@ const replyTweetIncrement = () => {
     </div>
     <Modal :isOpen="isModalOpen" title="" @click="toggleModal">
         <ReplyTweetCreate :reply-tweet-user="user" :reply-tweet="tweet" :toggle-modal="toggleModal"
-            :replyTweetIncrement="replyTweetIncrement" />
+            :replyTweetIncrement="replyTweetIncrement" :is-detail="true" />
     </Modal>
 </template>

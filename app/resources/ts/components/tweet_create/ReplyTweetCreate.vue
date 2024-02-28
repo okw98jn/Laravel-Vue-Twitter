@@ -17,9 +17,10 @@ type Props = {
     replyTweetIncrement: () => void;
     replyTweetUser: TweetUser;
     replyTweet: Tweet;
+    isDetail?: boolean;
 }
 
-const { toggleModal, replyTweetIncrement, replyTweetUser, replyTweet } = defineProps<Props>();
+const { toggleModal, replyTweetIncrement, replyTweetUser, replyTweet, isDetail } = defineProps<Props>();
 
 const authStore = useAuthStore();
 const user = computed(() => authStore.user);
@@ -42,7 +43,9 @@ const storeTweet = () => {
             profileStore.profile.data.tweet_count++;
             toggleModal();
             replyTweetIncrement();
-            tweetStore.tweetDetail.reply_tweets.unshift(data);
+            if (isDetail) {
+                tweetStore.tweetDetail.reply_tweets.unshift(data);
+            }
         })
         .catch((err) => {
             console.log(err);
