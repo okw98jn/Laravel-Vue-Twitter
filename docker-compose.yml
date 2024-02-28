@@ -68,7 +68,6 @@ services:
       /bin/sh -c "
       mc alias set my_minio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
       mc mb --ignore-existing my_minio/${MINIO_BUCKET_NAME};
-      mc policy set download my_minio/${MINIO_BUCKET_NAME};
       "
 
 volumes:
