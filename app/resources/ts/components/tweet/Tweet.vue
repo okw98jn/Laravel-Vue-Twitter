@@ -21,7 +21,6 @@ const { tweet, user } = defineProps<Props>();
 </script>
 
 <template>
-    <!-- <RouterLink :to="{ name: 'Home' }"> -->
     <div class="border-t cursor-pointer hover:bg-gray-50 transition duration-300 ease-in-out">
         <div class="px-4 py-2">
             <RetweetUser v-if="tweet.retweeted_user" :retweeted-user="tweet.retweeted_user" />
@@ -31,8 +30,8 @@ const { tweet, user } = defineProps<Props>();
                     <TweetUser :user="user" :tweet="tweet" />
                     <RouterLink :to="{ name: 'TweetDetail', params: { tweetId: tweet.id } }">
                         <Content :text="tweet.text" />
+                        <TweetMedia v-if="tweet.images.length || tweet.videos.length" :tweet="tweet" />
                     </RouterLink>
-                    <TweetMedia v-if="tweet.images.length || tweet.videos.length" :tweet="tweet" />
                     <QuoteTweet v-if="tweet.quote_tweet" :quote-tweet="tweet.quote_tweet" />
                     <div class="flex items-center justify-between text-gray-500 mt-2">
                         <div class="flex items-center space-x-6 text-gray-500">
@@ -50,5 +49,4 @@ const { tweet, user } = defineProps<Props>();
             </div>
         </div>
     </div>
-    <!-- </RouterLink> -->
 </template>
