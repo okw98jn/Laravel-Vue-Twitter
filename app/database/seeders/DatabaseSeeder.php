@@ -16,15 +16,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->has(Tweet::factory(10))->create();
+        User::factory(10)->has(Tweet::factory(100))->create();
 
-        User::factory()->has(Tweet::factory(10))->create([
-            'user_id'      => '@user12345678',
+        User::factory()->has(Tweet::factory(100))->create([
+            'user_id'      => '@user1',
             'name'         => '名前',
             'introduction' => '自己紹介',
             'location'     => '日本/大阪',
-            'birthday'     => '1997年09月08日',
+            'birthday'     => '1997-09-08',
             'email'        => 'test@example.com',
+            'password'     => Hash::make('1234'),
+        ]);
+
+        User::factory()->has(Tweet::factory(100))->create([
+            'user_id'      => '@user2',
+            'name'         => '名前2',
+            'introduction' => '自己紹介2',
+            'location'     => '日本/大阪',
+            'birthday'     => '1997-09-08',
+            'email'        => 'test2@example.com',
             'password'     => Hash::make('1234'),
         ]);
     }
