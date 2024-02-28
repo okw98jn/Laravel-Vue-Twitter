@@ -14,5 +14,5 @@ const load = async () => {
 </script>
 
 <template>
-    <TweetList :load="load" />
+    <TweetList :load="load" :key="(route.params.userId as string)" />
 </template>

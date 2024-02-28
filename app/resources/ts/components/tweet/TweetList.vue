@@ -16,8 +16,6 @@ const tweetStore = useTweetStore();
 const tweetList: ComputedRef<TweetList> = computed(() => tweetStore.tweetList);
 const isLoading: ComputedRef<boolean> = computed(() => tweetStore.isLoading);
 
-
-
 const infiniteLoad = ($state: any) => {
     const isLastPage = computed(() => tweetStore.pagination.current_page === tweetStore.pagination.last_page);
     if (isLastPage.value) {
