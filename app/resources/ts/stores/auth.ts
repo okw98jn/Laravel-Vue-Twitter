@@ -13,6 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
             email: '',
             icon_image: '',
         },
+        token: '',
         isLogin: localStorage.getItem('AUTH'),
     });
 
@@ -21,6 +22,7 @@ export const useAuthStore = defineStore('auth', () => {
             const { data } = await axiosClient.post('/login', userData);
             user.value.data = data.data;
             user.value.isLogin = 'true';
+            user.value.token = data.data.token;
             localStorage.setItem('AUTH', 'true');
             return data;
         } catch (error: any) {

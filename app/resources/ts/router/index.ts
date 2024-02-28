@@ -91,7 +91,7 @@ router.beforeEach((to, from, next) => {
 	if (to.meta.requiresAuth && authStore.user.isLogin === null) {
 		next({ name: 'Login' })
 	} else if (authStore.user.isLogin && (to.meta.isGuest)) {
-		next({ name: 'Home' })
+		next({ name: 'TimeLine' })
 	} else {
 		next()
 	}

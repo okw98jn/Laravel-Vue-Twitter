@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Auth\AuthResource;
 use App\Services\Auth\RegisterService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
@@ -25,18 +24,13 @@ class RegisterController extends Controller
     public function __invoke(RegisterRequest $request): AuthResource|JsonResponse
     {
         $data = $request->validated();
+
         $user = $this->registerService->store($data);
-        $credentials = [
-            'email'    => $user->email,
-            'password' => $data['password'],
-        ];
+        Auth::login($user);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        $token = $user->createToken('main')->plainTextToken;
+        $user->token = $token;
 
-            return new AuthResource(Auth::user());
-        }
-
-        return response()->json(['error' => 'Authentication failed'], Response::HTTP_UNAUTHORIZED);
+        return new AuthResource($user);
     }
 }

@@ -47,7 +47,10 @@ class RegisterRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    /**
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
         return [
             'user_id.regex' => 'ユーザーIDは@から始まる必要があります',

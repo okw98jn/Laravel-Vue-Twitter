@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
+ * @property string $token
  * @property bool $is_follow
  * @property bool $is_follower
  */

@@ -1,9 +1,16 @@
 import axios from "axios";
 import { globalRouter } from "@/router/globalRouter";
+import { useAuthStore } from "./stores/auth";
 
 const axiosClient = axios.create({
     baseURL: import.meta.env.VITE_APP_API_BASE_URL,
 });
+
+axiosClient.interceptors.request.use(config => {
+    const store = useAuthStore();
+    config.headers.Authorization = `Bearer ${store.user.token}`;
+    return config;
+})
 
 axiosClient.interceptors.response.use(
     (response) => {

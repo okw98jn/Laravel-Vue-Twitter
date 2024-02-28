@@ -7,6 +7,7 @@ export type AuthStore = {
         icon_image: string | undefined;
     }
     isLogin: string | null;
+    token: string;
 };
 
 export type AuthRegister = {

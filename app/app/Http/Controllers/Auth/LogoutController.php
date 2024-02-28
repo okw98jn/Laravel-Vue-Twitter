@@ -3,24 +3,23 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
 {
     /**
      * ログアウトAPI
      *
-     * @param  Request  $request
      * @return JsonResponse
      */
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(): JsonResponse
     {
-        auth('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
+        //これを書かないとエディターがエラーを出す
+        /** @var User $user */
+        $user = Auth::user();
+        $user->tokens()->delete();
 
         return response()->json(true, JsonResponse::HTTP_OK);
     }

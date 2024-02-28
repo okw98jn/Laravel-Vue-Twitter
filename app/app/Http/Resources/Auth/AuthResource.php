@@ -20,6 +20,7 @@ class AuthResource extends JsonResource
             'name'       => $this->resource->name,
             'email'      => $this->resource->email,
             'icon_image' => $this->resource->icon_image ? env('IMAGE_URL').$this->resource->icon_image : null,
+            'token'      => $this->resource->token,
         ];
     }
 }

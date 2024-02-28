@@ -23,7 +23,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'      => '@' . fake()->unique()->text(10),
+            'user_id'      => '@'.fake()->unique()->text(10),
             'name'         => fake()->name(),
             'email'        => fake()->unique()->safeEmail(),
             'introduction' => fake()->realText(160),
