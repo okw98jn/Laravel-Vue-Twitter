@@ -2,8 +2,7 @@ import axios from "axios";
 import { globalRouter } from "@/router/globalRouter";
 
 const axiosClient = axios.create({
-    //TODO envから取得するようにする
-    baseURL: "http://localhost:8000/api",
+    baseURL: import.meta.env.VITE_APP_API_BASE_URL,
 });
 
 axiosClient.interceptors.response.use(
