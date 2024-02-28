@@ -30,7 +30,6 @@ onMounted(() => {
             <RouterView />
         </div>
         <div class="w-1/3 border-l border-gray-200 sticky top-0 -z-10">
-            サイドバー(右)
         </div>
     </div>
 </template>
