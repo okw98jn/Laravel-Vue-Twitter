@@ -1,6 +1,7 @@
 # コンテナ起動
 up:
 	docker compose up -d
+	docker compose exec app npm run dev
 
 # コンテナ停止
 down:
@@ -27,12 +28,16 @@ sh-mysql:
 	docker compose exec mysql bash
 
 # git clone
-laravel-install:
+clone:
+	docker compose up -d
 	docker compose exec app composer install
 	docker compose exec app cp .env.example .env
 	docker compose exec app php artisan key:generate
 	docker compose exec app php artisan storage:link
 	docker compose exec app chmod -R 777 storage bootstrap/cache
+	docker compose exec app php artisan migrate --seed
+	docker compose exec app npm install
+	docker compose exec app npm run dev
 
 # laravel create-project
 laravel-create:
