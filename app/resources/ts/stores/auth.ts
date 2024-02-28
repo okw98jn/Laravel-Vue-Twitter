@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
             email: '',
             icon_image: '',
         },
-        isLogin: sessionStorage.getItem('AUTH'),
+        isLogin: localStorage.getItem('AUTH'),
     });
 
     const login = async (userData: AuthLogin) => {
@@ -21,7 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
             const { data } = await axiosClient.post('/login', userData);
             user.value.data = data.data;
             user.value.isLogin = 'true';
-            sessionStorage.setItem('AUTH', 'true');
+            localStorage.setItem('AUTH', 'true');
             return data;
         } catch (error: any) {
             throw error.response.data;
@@ -33,7 +33,7 @@ export const useAuthStore = defineStore('auth', () => {
             const { data } = await axiosClient.post('/register', userData);
             user.value.data = data.data;
             user.value.isLogin = 'true';
-            sessionStorage.setItem('AUTH', 'true');
+            localStorage.setItem('AUTH', 'true');
             return data;
         } catch (error: any) {
             throw error.response.data;
@@ -51,7 +51,7 @@ export const useAuthStore = defineStore('auth', () => {
                 icon_image: '',
             };
             user.value.isLogin = null;
-            sessionStorage.removeItem('AUTH');
+            localStorage.removeItem('AUTH');
         } catch (error) {
             console.error(error);
         }
@@ -63,7 +63,7 @@ export const useAuthStore = defineStore('auth', () => {
             user.value.data = data.data;
             return data;
         } catch (error) {
-            sessionStorage.removeItem('AUTH');
+            localStorage.removeItem('AUTH');
             console.error(error);
         }
     }
